@@ -17,6 +17,8 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 # Thread lock for safe updates
 lock = threading.Lock()
 
+times = []
+
 def load_cursor() -> dict:
     """Load or initialize cursor JSON."""
     if CURSOR_FILE.exists():
@@ -49,27 +51,40 @@ def save_cursor(cursor: dict):
     if DEBUG:
         print(f"[DEBUG] Saved cursor: {cursor}")
 
+
 def fetch_dune_query(query_id: int):
-    """Fetch Dune query metadata using the API."""
+    """
+    Fetch Dune query metadata using the API and measure request time.
+
+    Returns:
+        tuple: (data, request_time_in_seconds)
+    """
     url = f"https://api.dune.com/api/v1/query/{query_id}"
     headers = {"X-DUNE-API-KEY": DUNE_API_KEY}
 
+    start = time.perf_counter()
     try:
         response = requests.get(url, headers=headers)
+        end = time.perf_counter()
+        request_time = end - start
+
         if response.status_code == 200:
-            return response.json()
+            return response.json(), request_time
         elif response.status_code == 404:
             if DEBUG:
                 print(f"[DEBUG] Query {query_id} not found (404).")
-            return None
+            return None, request_time
         else:
             if DEBUG:
                 print(f"[ERROR] Query {query_id}: {response.status_code} - {response.text}")
-            return None
+            return None, request_time
+
     except requests.RequestException as e:
+        end = time.perf_counter()
+        request_time = end - start
         if DEBUG:
             print(f"[ERROR] Request exception for query {query_id}: {e}")
-        return None
+        return None, request_time
 
 def save_parquet(records: list, filename: str):
     """Save a list of records to a Parquet file."""
@@ -83,7 +98,7 @@ def save_parquet(records: list, filename: str):
 
 def fetch_and_process(qid: int, cursor: dict, records: list, delay: float):
     """Fetch a single query and update cursor & records safely."""
-    data = fetch_dune_query(qid)
+    data, request_time = fetch_dune_query(qid)
     with lock:
         cursor["total_processed"] += 1
         if data:
@@ -141,6 +156,13 @@ def collect_queries_in_batches(
 
     while current_start <= end_id:
         current_end = min(current_start + batch_size - 1, end_id)
+        estimate_collection_time_print(
+            start_id=current_start,
+            end_id=current_end,
+            batch_size=batch_size,
+            max_workers=max_workers,
+            delay=delay
+        )
         collect_queries(
             start_id=current_start,
             end_id=current_end,
@@ -148,13 +170,58 @@ def collect_queries_in_batches(
             delay=delay
         )
         current_start = current_end + 1
+def estimate_collection_time_print(
+    start_id: int,
+    end_id: int,
+    batch_size: int,
+    max_workers: int,
+    delay: float = 0.0,
+    avg_request_time: float = 1.0
+):
+    """
+    Estimate total time to fetch queries in batches with multi-threading,
+    printing the details for each batch.
+
+    Args:
+        start_id (int): Starting query ID.
+        end_id (int): Ending query ID.
+        batch_size (int): Number of queries per batch.
+        max_workers (int): Number of concurrent threads.
+        delay (float): Delay between requests per thread in seconds.
+        avg_request_time (float): Average time to complete a request (network/API) in seconds.
+    """
+    total_queries = end_id - start_id + 1
+    num_batches = (total_queries + batch_size - 1) // batch_size  # ceil division
+    total_rounds = 0
+
+    print(f"Estimating collection time for {total_queries} queries")
+    print(f"Batch size: {batch_size}, Max workers: {max_workers}, Delay per request: {delay}s")
+    print(f"Average request time per round: {avg_request_time}s\n")
+
+    for batch_num in range(num_batches):
+        batch_start = start_id + batch_num * batch_size
+        batch_end = min(batch_start + batch_size - 1, end_id)
+        current_batch_size = batch_end - batch_start + 1
+        rounds = (current_batch_size + max_workers - 1) // max_workers  # ceil division
+        total_rounds += rounds
+
+        print(f"Batch {batch_num + 1}/{num_batches}: queries {batch_start}-{batch_end}")
+        print(f"  Queries in batch: {current_batch_size}")
+        print(f"  Rounds needed (with {max_workers} workers): {rounds}\n")
+
+    total_time_sec = total_rounds * (avg_request_time + delay)
+    print("==== Summary ====")
+    print(f"Total queries: {total_queries}")
+    print(f"Total batches: {num_batches}")
+    print(f"Total rounds (20 workers per round): {total_rounds}")
+    print(f"Estimated total time: {total_time_sec:.1f} sec / {total_time_sec/60:.1f} min / {total_time_sec/3600:.2f} hr")
 
 if __name__ == "__main__":
     # Example usage
     collect_queries_in_batches(
-        start_id=3001,
+        start_id=50000,
         end_id=200000,
-        batch_size=2000,
-        max_workers=10,
+        batch_size=20000,
+        max_workers=20,
         delay=0
     )
