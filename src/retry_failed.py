@@ -17,16 +17,17 @@ request_times = []
 
 # ---------------- Utilities ---------------- #
 def get_saved_ids(data_dir: Path):
-    """Read all Parquet files and return a set of saved query IDs."""
+    """Read all Parquet files and return a set of saved query IDs (without pandas)."""
     saved_ids = set()
     for parquet_file in data_dir.glob("*.parquet"):
         table = pq.read_table(parquet_file)
-        df = table.to_pandas()
-        if "query_id" in df.columns:
-            saved_ids.update(df["query_id"].tolist())
+        if "query_id" in table.schema.names:
+            # Convert column directly to Python list
+            saved_ids.update(table.column("query_id").to_pylist())
         else:
             print(f"[WARN] 'query_id' column not found in {parquet_file}")
     return saved_ids
+
 
 def find_missing_ids(start_id: int, end_id: int, saved_ids: set):
     """Return a sorted list of missing query IDs in the given range."""

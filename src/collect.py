@@ -7,7 +7,8 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pyarrow as pa
 import pyarrow.parquet as pq
-from src.config import DUNE_API_KEY, DATA_PATH, PROGRAM_CURSOR, DEBUG
+import itertools
+from src.config import DUNE_API_KEYS, DATA_PATH, PROGRAM_CURSOR, DEBUG
 
 # Paths
 CURSOR_FILE = Path(PROGRAM_CURSOR) / "cursor.json"
@@ -59,8 +60,9 @@ def fetch_dune_query(query_id: int):
     Returns:
         tuple: (data, request_time_in_seconds)
     """
+    api_key_cycle = itertools.cycle(DUNE_API_KEYS)
     url = f"https://api.dune.com/api/v1/query/{query_id}"
-    headers = {"X-DUNE-API-KEY": DUNE_API_KEY}
+    headers = {"X-DUNE-API-KEY": api_key_cycle}
 
     start = time.perf_counter()
     try:
@@ -219,7 +221,7 @@ def estimate_collection_time_print(
 if __name__ == "__main__":
     # Example usage
     collect_queries_in_batches(
-        start_id=50000,
+        start_id=50999,
         end_id=200000,
         batch_size=20000,
         max_workers=20,
