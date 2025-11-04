@@ -1,0 +1,23 @@
+[project]
+name = "analist_insights"
+version = "0.1.0"
+description = "Analyst Insights — query analysis and intelligence tooling"
+authors = [
+  { name="Daniel Ifechukwu" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "python-dotenv",
+  "requests"
+]
+
+[tool.poetry]
+packages = [{ include = "src" }]
+
+[tool.poetry.scripts]
+show-config = "src.config:show_config"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
