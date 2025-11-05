@@ -1,7 +1,7 @@
 {
-  "total_processed": 201025,
-  "total_success": 54102,
-  "total_failed": 152815,
+  "total_processed": 202125,
+  "total_success": 54436,
+  "total_failed": 153581,
   "failed_ids": [],
-  "last_run": "2025-11-05T17:42:08.041780"
+  "last_run": "2025-11-05T23:14:58.121595"
 }
