@@ -11,7 +11,9 @@ dependencies = [
   "python-dotenv",
   "requests",
   "pyarrow",
-  "panda"
+  "panda",
+  "numpy",
+  "matplotlib"
 ]
 
 [tool.poetry]

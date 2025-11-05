@@ -38,7 +38,6 @@ def load_cursor() -> dict:
         "total_processed": 0,
         "total_success": 0,
         "total_failed": 0,
-        "failed_ids": [],
         "last_run": None
     }
     save_cursor(cursor)
@@ -120,7 +119,6 @@ def fetch_and_process(qid: int, cursor: dict, records: list, delay: float):
                 print(f"[DEBUG] Fetched query {qid}")
         else:
             cursor["total_failed"] += 1
-            cursor["failed_ids"].append(qid)
             if DEBUG:
                 print(f"[DEBUG] Failed query {qid}")
         save_cursor(cursor)
