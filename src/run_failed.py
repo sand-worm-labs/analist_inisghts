@@ -18,7 +18,7 @@ request_times = []
 
 
 if __name__ == "__main__":
-    start_id, end_id = 1, 70000
+    start_id, end_id = 1, 200000
     total_ids = end_id - start_id + 1
 
     saved_ids = get_saved_ids(DATA_DIR)
