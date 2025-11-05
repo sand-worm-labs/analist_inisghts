@@ -5,6 +5,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import pandas as pd
 import plotly.express as px
+from itertools import chain
 from src.collect import fetch_dune_query, save_parquet  # your custom imports
 
 DATA_DIR = Path("data")
@@ -17,7 +18,6 @@ def normalize_text(query):
     query = re.sub(r"\b0x[a-f0-9]+\b", "<address>", query)  # replace hex addresses
     return query.strip()
 
-
 def get_queries_objects(data_dir: Path, limit: int = None):
     queries = []
     for parquet_file in data_dir.glob("*.parquet"):
@@ -25,7 +25,7 @@ def get_queries_objects(data_dir: Path, limit: int = None):
         ids = table.get("query_id", [])
         names = table.get("name", [])
         descriptions = table.get("description", [])
-        tags_list = table.get("tags", [])  # assuming tags is a list per row
+        tags_list = table.get("tags", [])
 
         for qid, name, desc, tags in zip(ids, names, descriptions, tags_list):
             if limit and len(queries) >= limit:
@@ -38,23 +38,21 @@ def get_queries_objects(data_dir: Path, limit: int = None):
             })
     return queries
 
-
 def get_all_tags_with_count(query_objects):
+    """
+    Count all tags across queries using a single loop.
+    """
     tag_counter = Counter()
-    for query in query_objects:
-        tags = query.get("tags", [])
-        for tag in tags:
-            normalized_tag = tag.lower().strip()
-            if normalized_tag:
-                tag_counter[normalized_tag] += 1
+    for tags in (query.get("tags", []) for query in query_objects):
+        tag_counter.update(tag.strip().lower() for tag in tags if tag.strip())
     return tag_counter
 
 def save_tags_parquet(tag_counter, output_file: Path):
     df = pd.DataFrame(tag_counter.items(), columns=["tag", "count"])
+    output_file.parent.mkdir(parents=True, exist_ok=True)
     table = pa.Table.from_pandas(df)
     pq.write_table(table, output_file)
     print(f"Saved Parquet file to {output_file}")
-
 
 def interactive_plots(tag_counter, top_n=50):
     df = pd.DataFrame(tag_counter.items(), columns=["tag", "count"])
@@ -81,7 +79,6 @@ def interactive_plots(tag_counter, top_n=50):
         title=f"Top {top_n} Tags (Pie Chart)"
     )
     fig_pie.show()
-
 
 if __name__ == "__main__":
     print("Loading queries...")
