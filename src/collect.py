@@ -7,7 +7,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pyarrow as pa
 import pyarrow.parquet as pq
-import itertools
+import random
 from src.config import DUNE_API_KEYS, DATA_PATH, PROGRAM_CURSOR, DEBUG
 
 # Paths
@@ -17,6 +17,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Thread lock for safe updates
 lock = threading.Lock()
+key_lock = threading.Lock()
 
 times = []
 
@@ -53,6 +54,13 @@ def save_cursor(cursor: dict):
         print(f"[DEBUG] Saved cursor: {cursor}")
 
 
+def get_api_key():
+    """Thread-safe random key selection."""
+    import threading
+    with threading.Lock():
+        return random.choice(DUNE_API_KEYS)
+
+
 def fetch_dune_query(query_id: int):
     """
     Fetch Dune query metadata using the API and measure request time.
@@ -60,9 +68,11 @@ def fetch_dune_query(query_id: int):
     Returns:
         tuple: (data, request_time_in_seconds)
     """
-    api_key_cycle = itertools.cycle(DUNE_API_KEYS)
+    api_key = get_api_key() 
+    if DEBUG:
+        print(f"[INFO] Using API key: {api_key}")
     url = f"https://api.dune.com/api/v1/query/{query_id}"
-    headers = {"X-DUNE-API-KEY": api_key_cycle}
+    headers = {"X-DUNE-API-KEY": api_key}
 
     start = time.perf_counter()
     try:
@@ -223,7 +233,7 @@ if __name__ == "__main__":
     collect_queries_in_batches(
         start_id=50999,
         end_id=200000,
-        batch_size=20000,
+        batch_size=2000,
         max_workers=20,
         delay=0
     )
