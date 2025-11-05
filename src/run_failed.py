@@ -23,16 +23,16 @@ if __name__ == "__main__":
 
     saved_ids = get_saved_ids(DATA_DIR)
     missing_ids = find_missing_ids(start_id, end_id, saved_ids)
-    print(f"[INFO] Found {missing_ids}")
+    # print(f"[INFO] Found {missing_ids}")
 
-    # saved_count = len(saved_ids)
-    # missing_count = len(missing_ids)
-    # percentage_saved = (saved_count / total_ids) * 100
+    saved_count = len(saved_ids)
+    missing_count = len(missing_ids)
+    percentage_saved = (saved_count / total_ids) * 100
 
-    # print(f"[INFO] Total IDs: {total_ids}")
-    # print(f"[INFO] Saved IDs: {saved_count}")
-    # print(f"[INFO] Missing IDs: {missing_count}")
-    # print(f"[INFO] Percentage of queries stored: {percentage_saved:.2f}%")
+    print(f"[INFO] Total IDs: {total_ids}")
+    print(f"[INFO] Saved IDs: {saved_count}")
+    print(f"[INFO] Missing IDs: {missing_count}")
+    print(f"[INFO] Percentage of queries stored: {percentage_saved:.2f}%")
 
     # if not missing_ids:
     #     print("[INFO] No missing IDs. Exiting.")
