@@ -1,22 +1,22 @@
 TAG 1	TAG 2	COUNT
 ============================================================
-defi	dex	791
-dex	volume	526
-defi	volume	388
-nft	nfts	298
-erc721	nft	288
-nft	opensea	247
-erc721	nfts	228
-dex	uniswap	215
-defi	yearn	158
-defi	uniswap	149
-yearn	yfi	141
-defi	yfi	125
-liquity	lusd	105
-bayc	nft	86
-liquity	lqty	81
-dex	yearn	69
-dex	yfi	68
-uniswap	v3	66
-dex	v3	64
-"bored ape yacht club"	nft	64
+defi	dex	752
+dex	volume	497
+defi	volume	370
+nft	nfts	303
+erc721	nft	290
+nft	opensea	255
+erc721	nfts	230
+dex	uniswap	195
+defi	uniswap	150
+defi	yearn	142
+yearn	yfi	124
+defi	yfi	108
+liquity	lusd	102
+bayc	nft	90
+liquity	lqty	76
+"bored ape yacht club"	nft	66
+"bored ape yacht club"	opensea	66
+"bored ape yacht club"	bayc	63
+bayc	opensea	61
+looksrare	nft	59
