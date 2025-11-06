@@ -19,7 +19,7 @@ import logging
 from tqdm import tqdm
 
 from src.config import Config 
-from src.utils import ensure_dirs, save_parquet
+from src.utils import ensure_dirs
 
 
 class BufferHandler(logging.Handler):
@@ -217,6 +217,15 @@ class DuneCollector:
             time.sleep(self.delay)
 
         return data is not None
+    def save_parquet(self, records: List[dict], filename: str):
+        if not records:
+            return
+        table = pa.Table.from_pylist(records)
+        parquet_path = self.output_dir / filename
+        pq.write_table(table, parquet_path, compression='zstd')
+        if self.config.DEBUG:
+            self.logger.debug("Saved %d records to %s", len(records), parquet_path)
+
 
     def collect_queries(
         self,
@@ -271,4 +280,4 @@ if __name__ == "__main__":
         delay=0.1,
         retry_config={"max_retries": 100, "backoff_factor": 2.0, "retry_on_statuses": (429, 500, 502, 503, 504)}
     )
-    collector.collect_queries(start_id=236000, end_id=400000, batch_size=2_000)
+    collector.collect_queries(start_id=1, end_id=200000, batch_size=2_000)

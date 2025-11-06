@@ -102,15 +102,6 @@ def group_consecutive_ids(ids: List[int]) -> List[Tuple[int, int]]:
     ranges.append((start, end))
     return ranges
 
-def save_parquet(self, records: List[dict], filename: str):
-        if not records:
-            return
-        table = pa.Table.from_pylist(records)
-        parquet_path = self.output_dir / filename
-        pq.write_table(table, parquet_path, compression='zstd')
-        if self.config.DEBUG:
-            self.logger.debug("Saved %d records to %s", len(records), parquet_path)
-
 def get_query_objects(data_dir: Path, limit: int = None) :
     """
     Load query objects from parquet files with normalized text fields.
