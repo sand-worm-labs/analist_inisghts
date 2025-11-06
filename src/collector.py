@@ -1,377 +1,282 @@
 """
 Data collection module for Dune Analytics queries.
-Handles concurrent API requests with proper rate limiting and error handling.
+Handles concurrent API requests with proper rate limiting, retries,
+cursor tracking, and logging (buffered to file and console).
 """
+
 import json
 import time
 import requests
+import threading
+import atexit
 from pathlib import Path
 from datetime import datetime
-import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Optional, Tuple, List, Dict
 import pyarrow as pa
 import pyarrow.parquet as pq
-import random
-from typing import Optional, Tuple
+import logging
 from tqdm import tqdm
 
-from src.config import DUNE_API_KEYS, DATA_PATH, PROGRAM_CURSOR, DEBUG
-
-# Paths
-CURSOR_FILE = Path(PROGRAM_CURSOR) / "cursor.json"
-OUTPUT_DIR = Path(DATA_PATH)
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-# Thread-safe locks
-cursor_lock = threading.Lock()
-records_lock = threading.Lock()
-api_key_lock = threading.Lock()
-
-# API key rotation
-api_key_index = 0
+from src.config import Config 
+from src.utils import ensure_dirs
 
 
-def load_cursor() -> dict:
-    """Load or initialize cursor JSON for tracking progress."""
-    if CURSOR_FILE.exists():
-        try:
-            with open(CURSOR_FILE, "r", encoding="utf-8") as f:
-                cursor = json.load(f)
-                if DEBUG:
-                    print(f"[DEBUG] Loaded cursor: {cursor}")
-                return cursor
-        except Exception as e:
-            if DEBUG:
-                print(f"[DEBUG] Failed to load cursor: {e}")
+class BufferHandler(logging.Handler):
+    """Custom logging handler that buffers logs in memory for later writing to file."""
+    def __init__(self):
+        super().__init__()
+        self.buffer: List[str] = []
 
-    cursor = {
-        "total_processed": 0,
-        "total_success": 0,
-        "total_failed": 0,
-        "last_run": None
-    }
-    save_cursor(cursor)
-    return cursor
+    def emit(self, record: logging.LogRecord):
+        self.buffer.append(self.format(record))
 
 
-def save_cursor(cursor: dict):
-    """Save cursor JSON to file with timestamp."""
-    cursor["last_run"] = datetime.utcnow().isoformat()
-    CURSOR_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(CURSOR_FILE, "w", encoding="utf-8") as f:
-        json.dump(cursor, f, ensure_ascii=False, indent=2)
-    if DEBUG:
-        print(f"[DEBUG] Saved cursor: {cursor}")
+class DuneCollector:
+    """Collector class for fetching Dune Analytics queries concurrently."""
 
+    def __init__(
+        self,
+        config: Config,
+        max_workers: int = 10,
+        delay: float = 0.1,
+        retry_config: Optional[Dict] = None
+    ):
+        self.config = config
+        self.logger = config.logger
+        self.max_workers = max_workers
+        self.delay = delay
 
-def get_api_key() -> str:
-    """Thread-safe round-robin API key selection."""
-    global api_key_index
-    with api_key_lock:
-        key = DUNE_API_KEYS[api_key_index % len(DUNE_API_KEYS)]
-        api_key_index += 1
-        return key
+        # Retry parameters
+        self.max_retries = retry_config.get("max_retries", 3) if retry_config else 3
+        self.backoff_factor = retry_config.get("backoff_factor", 2.0) if retry_config else 2.0
+        self.retry_on_statuses = retry_config.get("retry_on_statuses", (429, 500, 502, 503, 504)) if retry_config else (429, 500, 502, 503, 504)
 
+        # Paths
+        self.cursor_file = Path(self.config.PROGRAM_CURSOR) / "cursor.json"
+        self.output_dir = Path(self.config.DATA_PATH)
+        ensure_dirs(self.output_dir, self.cursor_file.parent)
 
-def fetch_dune_query(
-    query_id: int, 
-    max_retries: int = 3, 
-    backoff_factor: float = 2.0,
-    retry_on_statuses: tuple = (429, 500, 502, 503, 504)
-) -> Tuple[Optional[dict], float, int]:
-    """
-    Fetch Dune query metadata from API with exponential backoff retry logic.
-    
-    Args:
-        query_id: Query ID to fetch
-        max_retries: Maximum number of retry attempts (default: 3)
-        backoff_factor: Exponential backoff multiplier (default: 2.0)
-        retry_on_statuses: HTTP status codes to retry on (default: rate limit and server errors)
-        
-    Returns:
-        Tuple of (response_data, total_request_time_seconds, attempts_made)
-    """
-    total_start = time.perf_counter()
-    attempts = 0
-    last_error = None
-    
-    for attempt in range(max_retries + 1):
-        attempts += 1
-        api_key = get_api_key()
-        url = f"https://api.dune.com/api/v1/query/{query_id}"
-        headers = {"X-DUNE-API-KEY": api_key}
+        # Thread-safe locks
+        self.cursor_lock = threading.Lock()
+        self.records_lock = threading.Lock()
+        self.api_key_lock = threading.Lock()
 
-        try:
-            response = requests.get(url, headers=headers, timeout=10)
-            
-            # Success - return immediately
-            if response.status_code == 200:
-                total_time = time.perf_counter() - total_start
-                return response.json(), total_time, attempts
-            
-            # Not found - don't retry
-            elif response.status_code == 404:
-                if DEBUG:
-                    print(f"[DEBUG] Query {query_id} not found (404)")
-                total_time = time.perf_counter() - total_start
-                return None, total_time, attempts
-            
-            # Retryable status codes
-            elif response.status_code in retry_on_statuses:
-                last_error = f"HTTP {response.status_code}"
-                
-                if attempt < max_retries:
-                    # Calculate exponential backoff delay
-                    delay = backoff_factor ** attempt
-                    if DEBUG:
-                        print(f"[DEBUG] Query {query_id}: {response.status_code} - "
-                              f"Retry {attempt + 1}/{max_retries} after {delay:.1f}s")
+        # State
+        self.api_key_index = 0
+        self.log_buffer_handler = BufferHandler()
+        self.logger.addHandler(self.log_buffer_handler)
+
+        # Ensure logs are saved on exit
+        atexit.register(self._save_logs)
+
+    def _save_logs(self):
+        log_file = Path(self.config.LOGS_PATH) / "dune_collector.log"
+        log_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write("\n".join(self.log_buffer_handler.buffer) + "\n")
+        print(f"[INFO] Logs saved to {log_file}")
+
+    def load_cursor(self) -> dict:
+        """
+        Load or initialize cursor, setting total_processed to the largest query_id
+        already saved in Parquet files.
+        """
+        cursor = {
+            "total_processed": 0,
+            "total_success": 0,
+            "total_failed": 0,
+            "last_run": None
+        }
+
+        if self.cursor_file.exists():
+            try:
+                with open(self.cursor_file, "r", encoding="utf-8") as f:
+                    cursor_json = json.load(f)
+                    cursor.update(cursor_json)
+                    if self.config.DEBUG:
+                        self.logger.debug("Loaded cursor JSON: %s", cursor_json)
+            except Exception as e:
+                self.logger.warning("Failed to load cursor JSON: %s", e)
+
+        max_query_id = 0
+        for parquet_file in self.output_dir.glob("*.parquet"):
+            try:
+                table = pq.read_table(parquet_file)
+                if "query_id" in table.schema.names:
+                    ids = table.column("query_id").to_pylist()
+                    if ids:
+                        max_query_id = max(max_query_id, max(ids))
+            except Exception as e:
+                self.logger.warning("Failed to read Parquet file %s: %s", parquet_file, e)
+
+        cursor["total_processed"] = max(cursor.get("total_processed", 0), max_query_id)
+        cursor["total_success"] = cursor["total_processed"] 
+
+        if self.config.DEBUG:
+            self.logger.debug("Cursor after scanning Parquet files: %s", cursor)
+
+        # Save updated cursor
+        self.save_cursor(cursor)
+        return cursor
+
+    def save_cursor(self, cursor: dict):
+        cursor["last_run"] = datetime.utcnow().isoformat()
+        self.cursor_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.cursor_file, "w", encoding="utf-8") as f:
+            json.dump(cursor, f, ensure_ascii=False, indent=2)
+        if self.config.DEBUG:
+            self.logger.debug("Saved cursor: %s", cursor)
+
+    def get_api_key(self) -> str:
+        with self.api_key_lock:
+            key = self.config.DUNE_API_KEYS[self.api_key_index % len(self.config.DUNE_API_KEYS)]
+            self.api_key_index += 1
+            return key
+
+    def fetch_query(self, query_id: int) -> Tuple[Optional[dict], float, int]:
+        """Fetch a single query with retry logic and exponential backoff."""
+        total_start = time.perf_counter()
+        attempts = 0
+
+        for attempt in range(self.max_retries + 1):
+            attempts += 1
+            api_key = self.get_api_key()
+            url = f"https://api.dune.com/api/v1/query/{query_id}"
+            headers = {"X-DUNE-API-KEY": api_key}
+
+            try:
+                response = requests.get(url, headers=headers, timeout=10)
+
+                if response.status_code == 200:
+                    return response.json(), time.perf_counter() - total_start, attempts
+                elif response.status_code == 404:
+                    if self.config.DEBUG:
+                        self.logger.debug("Query %d not found (404)", query_id)
+                    return None, time.perf_counter() - total_start, attempts
+                elif response.status_code in self.retry_on_statuses:
+                    if attempt < self.max_retries:
+                        delay = self.backoff_factor ** attempt
+                        if self.config.DEBUG:
+                            self.logger.debug(
+                                "Query %d: %d - Retry %d/%d after %.1fs",
+                                query_id, response.status_code, attempt+1, self.max_retries, delay
+                            )
+                        time.sleep(delay)
+                        continue
+                    else:
+                        self.logger.error("Query %d: %d - Max retries exceeded", query_id, response.status_code)
+                        return None, time.perf_counter() - total_start, attempts
+                else:
+                    self.logger.error("Query %d: %d - %s", query_id, response.status_code, response.text[:100])
+                    return None, time.perf_counter() - total_start, attempts
+
+            except requests.RequestException as e:
+                if attempt < self.max_retries:
+                    delay = self.backoff_factor ** attempt
+                    if self.config.DEBUG:
+                        self.logger.debug(
+                            "Query %d: %s - Retry %d/%d after %.1fs",
+                            query_id, e, attempt+1, self.max_retries, delay
+                        )
                     time.sleep(delay)
                     continue
                 else:
-                    if DEBUG:
-                        print(f"[ERROR] Query {query_id}: {response.status_code} - Max retries exceeded")
-                    total_time = time.perf_counter() - total_start
-                    return None, total_time, attempts
-            
-            # Other errors - don't retry
+                    self.logger.error("Query %d failed: %s - Max retries exceeded", query_id, e)
+                    return None, time.perf_counter() - total_start, attempts
+
+        return None, time.perf_counter() - total_start, attempts
+
+    def save_parquet(self, records: List[dict], filename: str):
+        if not records:
+            return
+        table = pa.Table.from_pylist(records)
+        parquet_path = self.output_dir / filename
+        pq.write_table(table, parquet_path, compression='zstd')
+        if self.config.DEBUG:
+            self.logger.debug("Saved %d records to %s", len(records), parquet_path)
+
+    def fetch_and_process(
+        self,
+        query_id: int,
+        cursor: dict,
+        records: List[dict],
+        stats: dict
+    ) -> bool:
+        """Fetch a query and update cursor/stats with proper locking."""
+        data, _, attempts = self.fetch_query(query_id)
+
+        with self.cursor_lock:
+            cursor["total_processed"] += 1
+            if data:
+                with self.records_lock:
+                    records.append(data)
+                cursor["total_success"] += 1
+                stats["total_retried"] += max(0, attempts-1)
             else:
-                if DEBUG:
-                    print(f"[ERROR] Query {query_id}: {response.status_code} - {response.text[:100]}")
-                total_time = time.perf_counter() - total_start
-                return None, total_time, attempts
+                cursor["total_failed"] += 1
+                stats["failed_after_retry"] += max(0, attempts-1)
+            stats["total_attempts"] += attempts
 
-        except requests.Timeout:
-            last_error = "Timeout"
-            if attempt < max_retries:
-                delay = backoff_factor ** attempt
-                if DEBUG:
-                    print(f"[DEBUG] Query {query_id}: Timeout - Retry {attempt + 1}/{max_retries} after {delay:.1f}s")
-                time.sleep(delay)
-                continue
-            else:
-                if DEBUG:
-                    print(f"[ERROR] Query {query_id}: Timeout - Max retries exceeded")
-                total_time = time.perf_counter() - total_start
-                return None, total_time, attempts
-        
-        except requests.RequestException as e:
-            last_error = str(e)
-            if attempt < max_retries:
-                delay = backoff_factor ** attempt
-                if DEBUG:
-                    print(f"[DEBUG] Query {query_id}: {e} - Retry {attempt + 1}/{max_retries} after {delay:.1f}s")
-                time.sleep(delay)
-                continue
-            else:
-                if DEBUG:
-                    print(f"[ERROR] Query {query_id}: {e} - Max retries exceeded")
-                total_time = time.perf_counter() - total_start
-                return None, total_time, attempts
-    
-    # Should never reach here, but just in case
-    total_time = time.perf_counter() - total_start
-    return None, total_time, attempts
+            if cursor["total_processed"] % 100 == 0:
+                self.save_cursor(cursor)
 
+        if self.delay > 0:
+            time.sleep(self.delay)
 
-def save_parquet(records: list, filename: str):
-    """Save records to Parquet file with compression."""
-    if not records:
-        return
-    
-    table = pa.Table.from_pylist(records)
-    parquet_path = OUTPUT_DIR / filename
-    pq.write_table(table, parquet_path, compression='zstd')
-    
-    if DEBUG:
-        print(f"[DEBUG] Saved {len(records)} records to {parquet_path}")
+        return data is not None
 
+    def collect_queries(
+        self,
+        start_id: int,
+        end_id: int,
+        batch_size: int = 500
+    ):
+        """Collect queries in batches to avoid excessive memory usage."""
+        cursor = self.load_cursor()
+        records: List[dict] = []
+        stats = {"total_retried": 0, "failed_after_retry": 0, "total_attempts": 0}
 
-def fetch_and_process(qid: int, cursor: dict, records: list, delay: float, stats: dict) -> bool:
-    """
-    Fetch a single query and update shared state safely.
-    
-    Args:
-        qid: Query ID to fetch
-        cursor: Shared cursor dictionary
-        records: Shared records list
-        delay: Delay between requests in seconds
-        stats: Shared statistics dictionary for tracking retries
-        
-    Returns:
-        True if successful, False otherwise
-    """
-    data, request_time, attempts = fetch_dune_query(qid)
-    
-    # Update shared state with proper locking
-    with cursor_lock:
-        cursor["total_processed"] += 1
-        
-        if data:
-            with records_lock:
-                records.append(data)
-            cursor["total_success"] += 1
-            success = True
-            
-            # Track retry statistics
-            if attempts > 1:
-                stats["total_retried"] = stats.get("total_retried", 0) + 1
-                stats["retry_attempts"] = stats.get("retry_attempts", 0) + (attempts - 1)
-        else:
-            cursor["total_failed"] += 1
-            success = False
-            
-            # Track if all retries were exhausted
-            if attempts > 1:
-                stats["failed_after_retry"] = stats.get("failed_after_retry", 0) + 1
-        
-        # Track total attempts across all queries
-        stats["total_attempts"] = stats.get("total_attempts", 0) + attempts
-        
-        # Batch cursor saves every 100 requests for performance
-        if cursor["total_processed"] % 100 == 0:
-            save_cursor(cursor)
-    
-    if delay > 0:
-        time.sleep(delay)
-    
-    return success
+        current_start = start_id
+        while current_start <= end_id:
+            current_end = min(current_start + batch_size - 1, end_id)
+            self.logger.info("Processing batch: %d to %d", current_start, current_end)
 
+            total_queries = current_end - current_start + 1
+            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                futures = {
+                    executor.submit(self.fetch_and_process, qid, cursor, records, stats): qid
+                    for qid in range(current_start, current_end + 1)
+                }
+                with tqdm(total=total_queries, desc=f"Batch {current_start}-{current_end}") as pbar:
+                    for future in as_completed(futures):
+                        pbar.update(1)
 
-def collect_queries(
-    start_id: int,
-    end_id: int,
-    max_workers: int = 10,
-    delay: float = 0.1,
-    retry_config: dict = None
-):
-    """
-    Collect Dune queries concurrently with progress tracking and retry support.
-    
-    Args:
-        start_id: Starting query ID
-        end_id: Ending query ID
-        max_workers: Number of concurrent threads
-        delay: Delay between requests per thread
-        retry_config: Optional dict with retry settings:
-            - max_retries: int (default: 3)
-            - backoff_factor: float (default: 2.0)
-            - retry_on_statuses: tuple (default: (429, 500, 502, 503, 504))
-    """
-    cursor = load_cursor()
-    records = []
-    stats = {
-        "total_retried": 0,
-        "retry_attempts": 0,
-        "failed_after_retry": 0,
-        "total_attempts": 0
-    }
-    parquet_file = f"{start_id}-{end_id}.parquet"
-    
-    total_queries = end_id - start_id + 1
-    
-    # Apply retry config if provided (will be used by fetch_dune_query)
-    if retry_config:
-        # Store in module-level for access by fetch_dune_query
-        globals()['RETRY_CONFIG'] = retry_config
-    
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {
-            executor.submit(fetch_and_process, qid, cursor, records, delay, stats): qid
-            for qid in range(start_id, end_id + 1)
-        }
-        
-        # Progress bar
-        with tqdm(total=total_queries, desc=f"Collecting {start_id}-{end_id}") as pbar:
-            for future in as_completed(futures):
-                pbar.update(1)
-    
-    # Final cursor save
-    with cursor_lock:
-        save_cursor(cursor)
-    
-    # Save collected data
-    save_parquet(records, parquet_file)
-    
-    # Print summary with retry statistics
-    print(f"\n✅ Collection complete!")
-    print(f"   File: {OUTPUT_DIR / parquet_file}")
-    print(f"   Processed: {cursor['total_processed']}")
-    print(f"   Success: {cursor['total_success']}")
-    print(f"   Failed: {cursor['total_failed']}")
-    
-    if stats["total_retried"] > 0:
-        print(f"\n📊 Retry Statistics:")
-        print(f"   Queries that needed retry: {stats['total_retried']}")
-        print(f"   Total retry attempts: {stats['retry_attempts']}")
-        print(f"   Failed after all retries: {stats['failed_after_retry']}")
-        print(f"   Average attempts per query: {stats['total_attempts'] / cursor['total_processed']:.2f}")
-        print(f"   Success rate with retries: {(cursor['total_success'] / cursor['total_processed'] * 100):.2f}%")
+            # Save intermediate results
+            self.save_cursor(cursor)
+            self.save_parquet(records, f"{current_start}-{current_end}.parquet")
+            records.clear()
+            current_start = current_end + 1
 
-
-def collect_queries_in_batches(
-    start_id: int,
-    end_id: int,
-    batch_size: int = 500,
-    max_workers: int = 10,
-    delay: float = 0.1,
-    retry_config: dict = None
-):
-    """
-    Collect queries in batches to manage memory and provide better progress tracking.
-    
-    Args:
-        start_id: Starting query ID
-        end_id: Ending query ID
-        batch_size: Number of queries per batch
-        max_workers: Number of concurrent threads
-        delay: Delay between requests
-        retry_config: Optional dict with retry settings:
-            - max_retries: int (default: 3)
-            - backoff_factor: float (default: 2.0)
-            - retry_on_statuses: tuple (default: (429, 500, 502, 503, 504))
-    
-    Example:
-        # Collect with custom retry configuration
-        collect_queries_in_batches(
-            start_id=1,
-            end_id=10000,
-            retry_config={
-                "max_retries": 5,           # Try up to 5 times
-                "backoff_factor": 1.5,      # 1.5x delay between retries
-                "retry_on_statuses": (429, 500, 502, 503, 504)
-            }
+        self.logger.info("✅ Collection complete")
+        self.logger.info(
+            "Processed: %d, Success: %d, Failed: %d",
+            cursor["total_processed"], cursor["total_success"], cursor["total_failed"]
         )
-    """
-    current_start = start_id
-
-    while current_start <= end_id:
-        current_end = min(current_start + batch_size - 1, end_id)
-        
-        print(f"\n[INFO] Batch: {current_start} to {current_end}")
-        
-        collect_queries(
-            start_id=current_start,
-            end_id=current_end,
-            max_workers=max_workers,
-            delay=delay,
-            retry_config=retry_config
+        self.logger.info(
+            "Retry stats - Total retried: %d, Failed after retry: %d, Avg attempts/query: %.2f",
+            stats["total_retried"], stats["failed_after_retry"],
+            stats["total_attempts"] / cursor["total_processed"]
         )
-        
-        current_start = current_end + 1
 
 
+# === Example usage ===
 if __name__ == "__main__":
-    # Example usage with retry configuration
-    collect_queries_in_batches(
-        start_id=200000,
-        end_id=400000,
-        batch_size=2000,
+    config = Config()
+    collector = DuneCollector(
+        config=config,
         max_workers=20,
         delay=0.1,
-        retry_config={
-            "max_retries": 3,
-            "backoff_factor": 2.0,
-            "retry_on_statuses": (429, 500, 502, 503, 504)
-        }
+        retry_config={"max_retries": 100, "backoff_factor": 2.0, "retry_on_statuses": (429, 500, 502, 503, 504)}
     )
+    collector.collect_queries(start_id=236000, end_id=400000, batch_size=2_000)
