@@ -101,3 +101,58 @@ def group_consecutive_ids(ids: List[int]) -> List[Tuple[int, int]]:
 
     ranges.append((start, end))
     return ranges
+
+def save_parquet(self, records: List[dict], filename: str):
+        if not records:
+            return
+        table = pa.Table.from_pylist(records)
+        parquet_path = self.output_dir / filename
+        pq.write_table(table, parquet_path, compression='zstd')
+        if self.config.DEBUG:
+            self.logger.debug("Saved %d records to %s", len(records), parquet_path)
+
+def get_query_objects(data_dir: Path, limit: int = None) :
+    """
+    Load query objects from parquet files with normalized text fields.
+    
+    Args:
+        data_dir: Directory containing parquet files
+        limit: Maximum number of queries to load (None for all)
+        
+    Returns:
+        List of query dictionaries with normalized text
+    """
+    queries = []
+    
+    print(f"[INFO] Loading queries from {data_dir}...")
+    
+    # Use sorted to ensure consistent ordering
+    for parquet_file in sorted(data_dir.glob("*.parquet")):
+        if limit and len(queries) >= limit:
+            break
+            
+        try:
+            table = pq.read_table(parquet_file).to_pydict()
+            
+            ids = table.get("query_id", [])
+            names = table.get("name", [])
+            descriptions = table.get("description", [])
+            tags_list = table.get("tags", [])
+
+            for qid, name, desc, tags in zip(ids, names, descriptions, tags_list):
+                if limit and len(queries) >= limit:
+                    break
+                
+                # Use normalize_text from utils for consistency
+                queries.append({
+                    "query_id": qid,
+                    "name": normalize_text(name) if name else "",
+                    "description": normalize_text(desc) if desc else "",
+                    "tags": [t.lower().strip() for t in tags] if tags else []
+                })
+                
+        except Exception as e:
+            print(f"[WARN] Failed to read {parquet_file}: {e}")
+    
+    print(f"[INFO] Loaded {len(queries)} queries")
+    return queries
