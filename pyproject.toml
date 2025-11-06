@@ -15,7 +15,11 @@ dependencies = [
   "plotly",
   "numpy",
   "matplotlib",
-  "tqdm"
+  "tqdm",
+  "scikit-learn",
+  "sentence-transformers",  
+  "hdbscan",                 
+  "umap-learn"
 ]
 
 [tool.poetry]
