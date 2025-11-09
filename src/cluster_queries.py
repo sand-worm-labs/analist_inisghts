@@ -1,84 +1,114 @@
 """
 Query clustering using HDBSCAN and sentence embeddings.
-Groups similar Dune Analytics queries together for analysis.
+Supports TWO modes: semantic (text) and sql (query patterns).
 """
 from pathlib import Path
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
-from typing import List, Dict
 import pickle
 import json
+from typing import List, Dict
 
 from sentence_transformers import SentenceTransformer
 import hdbscan
 from umap import UMAP
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics import (
+    silhouette_score, 
+    davies_bouldin_score, 
+    calinski_harabasz_score,
+    homogeneity_score,
+    completeness_score,
+    v_measure_score
+)
+from sklearn.metrics.pairwise import euclidean_distances
 
 # Import shared utilities
-from src.utils import get_query_objects, normalize_text
+from src.utils import get_query_objects
 
 DATA_DIR = Path("data")
-OUTPUT_DIR = Path("analysis") / "clusters"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR_SEMANTIC = Path("clusters") / "semantic"
+OUTPUT_DIR_SQL = Path("clusters") / "sql"
+OUTPUT_DIR_SEMANTIC.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR_SQL.mkdir(parents=True, exist_ok=True)
 
 
 class QueryClusterer:
-    """Cluster queries using embeddings and HDBSCAN."""
+    """
+    Cluster queries using embeddings and HDBSCAN.
+    
+    Supports two modes:
+    - 'semantic': Clusters by name + description + tags (WHAT it's about)
+    - 'sql': Clusters by query_sql (HOW it works)
+    """
     
     def __init__(
         self,
         model_name: str = 'all-MiniLM-L6-v2',
-        min_cluster_size: int = 5,
-        min_samples: int = 3
+        min_cluster_size: int = 1000,
+        min_samples: int = 90,
+        mode: str = 'semantic'  # 'semantic' or 'sql'
     ):
         """
         Initialize the clusterer.
         
         Args:
             model_name: Sentence transformer model to use
+                - 'all-MiniLM-L6-v2' for semantic (fast, general text)
+                - 's2593817/sft-sql-embedding' for SQL (specialized)
             min_cluster_size: Minimum size for HDBSCAN clusters
             min_samples: Minimum samples for HDBSCAN
+            mode: 'semantic' (text fields) or 'sql' (query_sql only)
         """
-        print(f"[INFO] Loading sentence transformer model: {model_name}")
+        self.mode = mode.lower()
+        
+        if self.mode not in ['semantic', 'sql']:
+            raise ValueError(f"mode must be 'semantic' or 'sql', got: {mode}")
+        
+        print(f"[INFO] Mode: {self.mode.upper()}")
+        print(f"[INFO] Loading model: {model_name}")
+        
         self.model = SentenceTransformer(model_name)
         self.min_cluster_size = min_cluster_size
         self.min_samples = min_samples
         self.embeddings = None
         self.cluster_labels = None
         self.umap_embeddings = None
+        self.clusterer = None
+        self.metrics = None
         
     def prepare_text(self, query_obj: Dict) -> str:
         """
-        Combine query fields into a single text for embedding.
+        Prepare text for embedding based on mode.
         
         Args:
             query_obj: Query object dictionary
             
         Returns:
-            Combined text string
+            Text string to embed
         """
-        # Combine name, description, and tags
-        parts = []
+        if self.mode == 'sql':
+            # SQL mode: Use query_sql only
+            sql = query_obj.get('query_sql', '')
+            # Truncate to avoid token limits (most models handle ~512 tokens = ~2000 chars)
+            return sql[:2000]
         
-        if query_obj.get('name'):
-            parts.append(query_obj['name'])
-        
-        if query_obj.get('description'):
-            parts.append(query_obj['description'])
-        
-        # Add tags (important for semantic similarity)
-        tags = query_obj.get('tags', [])
-        if tags:
-            parts.append(' '.join(tags))
-        
-        # Optionally include query SQL (first 500 chars to avoid token limits)
-        if query_obj.get('query_sql'):
-            sql_snippet = query_obj['query_sql'][:500]
-            parts.append(sql_snippet)
-        
-        return ' '.join(parts)
+        else:  # semantic mode
+            # Semantic mode: Use name + description + tags
+            parts = []
+            
+            if query_obj.get('name'):
+                parts.append(query_obj['name'])
+            
+            if query_obj.get('description'):
+                parts.append(query_obj['description'])
+            
+            # Tags are important for semantic similarity
+            tags = query_obj.get('tags', [])
+            if tags:
+                parts.append(' '.join(tags))
+            
+            return ' '.join(parts)
     
     def create_embeddings(self, query_objects: List[Dict], batch_size: int = 32) -> np.ndarray:
         """
@@ -91,10 +121,15 @@ class QueryClusterer:
         Returns:
             Numpy array of embeddings
         """
-        print(f"[INFO] Preparing text for {len(query_objects)} queries...")
+        print(f"[INFO] Preparing text for {len(query_objects)} queries (mode={self.mode})...")
         texts = [self.prepare_text(q) for q in query_objects]
         
-        print(f"[INFO] Generating embeddings (this may take a while)...")
+        # Check for empty texts
+        empty_count = sum(1 for t in texts if not t.strip())
+        if empty_count > 0:
+            print(f"[WARN] {empty_count} queries have empty text in {self.mode} mode")
+        
+        print(f"[INFO] Generating embeddings (batch_size={batch_size})...")
         embeddings = self.model.encode(
             texts,
             batch_size=batch_size,
@@ -139,14 +174,18 @@ class QueryClusterer:
         Returns:
             Cluster labels
         """
-        if embeddings is None:
-            # Use UMAP embeddings if available, otherwise raw embeddings
-            embeddings = self.umap_embeddings if self.umap_embeddings is not None else self.embeddings
+        # Determine which embeddings to use
+        if embeddings is not None:
+            embeddings_to_use = embeddings
+        elif self.umap_embeddings is not None:
+            embeddings_to_use = self.umap_embeddings
+        else:
+            embeddings_to_use = self.embeddings
         
         print(f"[INFO] Clustering with HDBSCAN...")
         print(f"[INFO] min_cluster_size={self.min_cluster_size}, min_samples={self.min_samples}")
         
-        clusterer = hdbscan.HDBSCAN(
+        self.clusterer = hdbscan.HDBSCAN(
             min_cluster_size=self.min_cluster_size,
             min_samples=self.min_samples,
             metric='euclidean',
@@ -154,7 +193,10 @@ class QueryClusterer:
             prediction_data=True
         )
         
-        self.cluster_labels = clusterer.fit_predict(embeddings)
+        self.cluster_labels = self.clusterer.fit_predict(embeddings_to_use)
+        
+        # Calculate metrics
+        self._calculate_metrics(embeddings_to_use)
         
         # Statistics
         n_clusters = len(set(self.cluster_labels)) - (1 if -1 in self.cluster_labels else 0)
@@ -167,37 +209,157 @@ class QueryClusterer:
         
         return self.cluster_labels
     
+    def _calculate_metrics(self, embeddings: np.ndarray):
+        """
+        Calculate clustering quality metrics including homogeneity.
+        
+        Args:
+            embeddings: The embeddings used for clustering
+        """
+        # Only calculate for non-noise points
+        mask = self.cluster_labels != -1
+        
+        if mask.sum() < 2:
+            print("[WARN] Not enough clustered points for quality metrics")
+            return
+        
+        labels_filtered = self.cluster_labels[mask]
+        embeddings_filtered = embeddings[mask]
+        
+        # Only calculate if we have more than 1 cluster
+        n_clusters = len(set(labels_filtered))
+        
+        if n_clusters < 2:
+            print("[WARN] Need at least 2 clusters for quality metrics")
+            return
+        
+        try:
+            # Basic metrics
+            silhouette = silhouette_score(
+                embeddings_filtered, 
+                labels_filtered, 
+                metric='euclidean', 
+                sample_size=min(10000, len(labels_filtered))
+            )
+            
+            davies_bouldin = davies_bouldin_score(embeddings_filtered, labels_filtered)
+            calinski = calinski_harabasz_score(embeddings_filtered, labels_filtered)
+            
+            # Homogeneity metrics (using k-means as pseudo ground truth)
+            from sklearn.cluster import KMeans
+            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+            pseudo_labels = kmeans.fit_predict(embeddings_filtered)
+            
+            homogeneity = homogeneity_score(pseudo_labels, labels_filtered)
+            completeness = completeness_score(pseudo_labels, labels_filtered)
+            v_measure = v_measure_score(pseudo_labels, labels_filtered)
+            
+            # Cluster tightness
+            cluster_tightness = {}
+            for cluster_id in set(labels_filtered):
+                cluster_mask = labels_filtered == cluster_id
+                cluster_points = embeddings_filtered[cluster_mask]
+                
+                if len(cluster_points) > 1:
+                    distances = euclidean_distances(cluster_points, cluster_points)
+                    avg_distance = distances.sum() / (len(cluster_points) * (len(cluster_points) - 1))
+                    cluster_tightness[int(cluster_id)] = float(avg_distance)
+                else:
+                    cluster_tightness[int(cluster_id)] = 0.0
+            
+            avg_tightness = np.mean(list(cluster_tightness.values()))
+            
+            # Print results
+            print(f"\n[INFO] === Clustering Quality Metrics ===")
+            print(f"[INFO] Silhouette Score:        {silhouette:.4f}  (higher is better)")
+            print(f"[INFO] Davies-Bouldin Index:    {davies_bouldin:.4f}  (lower is better)")
+            print(f"[INFO] Calinski-Harabasz Score: {calinski:.2f}  (higher is better)")
+            
+            print(f"\n[INFO] === Homogeneity Metrics ===")
+            print(f"[INFO] Homogeneity Score:       {homogeneity:.4f}  (higher = purer clusters)")
+            print(f"[INFO] Completeness Score:      {completeness:.4f}  (higher is better)")
+            print(f"[INFO] V-Measure Score:         {v_measure:.4f}  (harmonic mean)")
+            print(f"[INFO] Avg Cluster Tightness:   {avg_tightness:.4f}  (lower = tighter)")
+            
+            # Top tightest clusters
+            print(f"\n[INFO] === Top 5 Tightest Clusters ===")
+            sorted_clusters = sorted(cluster_tightness.items(), key=lambda x: x[1])
+            for cluster_id, tightness in sorted_clusters[:5]:
+                cluster_size = (labels_filtered == cluster_id).sum()
+                print(f"[INFO] Cluster {cluster_id:3d}: {tightness:.4f}  ({cluster_size:4d} queries)")
+            
+            # Overall assessment
+            print(f"\n[INFO] === Overall Assessment ===")
+            if silhouette > 0.5:
+                print(f"[INFO] ✅ EXCELLENT separation")
+            elif silhouette > 0.3:
+                print(f"[INFO] ✅ GOOD separation")
+            elif silhouette > 0.1:
+                print(f"[INFO] ⚠️  FAIR separation")
+            else:
+                print(f"[INFO] ❌ POOR separation")
+            
+            if homogeneity > 0.7:
+                print(f"[INFO] ✅ VERY HOMOGENEOUS (pure clusters)")
+            elif homogeneity > 0.5:
+                print(f"[INFO] ✅ HOMOGENEOUS (good purity)")
+            elif homogeneity > 0.3:
+                print(f"[INFO] ⚠️  MODERATELY HOMOGENEOUS")
+            else:
+                print(f"[INFO] ❌ LOW HOMOGENEITY (mixed clusters)")
+            
+            # Save metrics
+            self.metrics = {
+                'mode': self.mode,
+                'silhouette_score': float(silhouette),
+                'davies_bouldin_index': float(davies_bouldin),
+                'calinski_harabasz_score': float(calinski),
+                'homogeneity_score': float(homogeneity),
+                'completeness_score': float(completeness),
+                'v_measure_score': float(v_measure),
+                'avg_cluster_tightness': float(avg_tightness),
+                'cluster_tightness': cluster_tightness,
+                'n_clusters': int(n_clusters),
+                'n_noise': int(list(self.cluster_labels).count(-1)),
+                'n_clustered': int(mask.sum())
+            }
+            
+        except Exception as e:
+            print(f"[WARN] Could not calculate metrics: {e}")
+            import traceback
+            traceback.print_exc()
+            self.metrics = None
+    
     def save_model(self, filepath: Path):
-        """Save clusterer state."""
+        """Save clusterer state including metrics."""
         state = {
+            'mode': self.mode,
             'embeddings': self.embeddings,
             'cluster_labels': self.cluster_labels,
             'umap_embeddings': self.umap_embeddings,
             'min_cluster_size': self.min_cluster_size,
-            'min_samples': self.min_samples
+            'min_samples': self.min_samples,
+            'metrics': self.metrics
         }
         
         with open(filepath, 'wb') as f:
             pickle.dump(state, f)
         
         print(f"[INFO] Saved model state to {filepath}")
+        
+        # Also save metrics as JSON
+        if self.metrics:
+            metrics_file = filepath.parent / 'clustering_metrics.json'
+            with open(metrics_file, 'w') as f:
+                json.dump(self.metrics, f, indent=2)
+            print(f"[INFO] Saved metrics to {metrics_file}")
 
 
 def analyze_clusters(query_objects: List[Dict], cluster_labels: np.ndarray) -> pd.DataFrame:
-    """
-    Analyze cluster characteristics.
-    
-    Args:
-        query_objects: List of query dictionaries
-        cluster_labels: Cluster labels from HDBSCAN
-        
-    Returns:
-        DataFrame with cluster statistics
-    """
+    """Analyze cluster characteristics."""
     df = pd.DataFrame(query_objects)
     df['cluster'] = cluster_labels
     
-    # Get cluster sizes
     cluster_stats = []
     
     for cluster_id in sorted(set(cluster_labels)):
@@ -206,7 +368,8 @@ def analyze_clusters(query_objects: List[Dict], cluster_labels: np.ndarray) -> p
         # Get most common tags
         all_tags = []
         for tags in cluster_queries['tags']:
-            all_tags.extend(tags)
+            if tags:
+                all_tags.extend(tags)
         
         from collections import Counter
         tag_counts = Counter(all_tags)
@@ -228,18 +391,8 @@ def analyze_clusters(query_objects: List[Dict], cluster_labels: np.ndarray) -> p
     return pd.DataFrame(cluster_stats)
 
 
-def extract_cluster_keywords(query_objects: List[Dict], cluster_labels: np.ndarray, top_n: int = 10):
-    """
-    Extract representative keywords for each cluster using TF-IDF.
-    
-    Args:
-        query_objects: List of query dictionaries
-        cluster_labels: Cluster labels
-        top_n: Number of top keywords to extract
-        
-    Returns:
-        Dictionary mapping cluster_id to keywords
-    """
+def extract_cluster_keywords(query_objects: List[Dict], cluster_labels: np.ndarray, mode: str, top_n: int = 10):
+    """Extract representative keywords for each cluster using TF-IDF."""
     print(f"[INFO] Extracting keywords for each cluster...")
     
     df = pd.DataFrame(query_objects)
@@ -253,27 +406,33 @@ def extract_cluster_keywords(query_objects: List[Dict], cluster_labels: np.ndarr
         
         cluster_queries = df[df['cluster'] == cluster_id]
         
-        # Combine all text from this cluster
+        # Prepare text based on mode
         cluster_texts = []
         for _, row in cluster_queries.iterrows():
-            parts = []
-            if row.get('name'):
-                parts.append(row['name'])
-            if row.get('description'):
-                parts.append(row['description'])
-            if row.get('tags'):
-                parts.extend(row['tags'])
-            cluster_texts.append(' '.join(parts))
+            if mode == 'sql':
+                text = row.get('query_sql', '')
+            else:
+                parts = []
+                if row.get('name'):
+                    parts.append(row['name'])
+                if row.get('description'):
+                    parts.append(row['description'])
+                if row.get('tags'):
+                    parts.extend(row['tags'])
+                text = ' '.join(parts)
+            
+            if text.strip():
+                cluster_texts.append(text)
         
         # TF-IDF to find important terms
         if cluster_texts:
             vectorizer = TfidfVectorizer(max_features=top_n, stop_words='english')
             try:
-                tfidf_matrix = vectorizer.fit_transform(cluster_texts)
+                vectorizer.fit_transform(cluster_texts)
                 keywords = vectorizer.get_feature_names_out().tolist()
-                cluster_keywords[cluster_id] = keywords
+                cluster_keywords[str(cluster_id)] = keywords
             except:
-                cluster_keywords[cluster_id] = []
+                cluster_keywords[str(cluster_id)] = []
     
     return cluster_keywords
 
@@ -281,49 +440,48 @@ def extract_cluster_keywords(query_objects: List[Dict], cluster_labels: np.ndarr
 def save_clusters(
     query_objects: List[Dict],
     cluster_labels: np.ndarray,
-    output_dir: Path = OUTPUT_DIR
+    output_dir: Path,
+    mode: str
 ):
-    """
-    Save clustering results in multiple formats.
-    
-    Args:
-        query_objects: List of query dictionaries
-        cluster_labels: Cluster labels
-        output_dir: Directory to save results
-    """
+    """Save clustering results in multiple formats."""
     print(f"[INFO] Saving clustering results...")
     
-    # Create DataFrame
-    df = pd.DataFrame(query_objects)
-    df['cluster'] = cluster_labels
-    
-    # Save as parquet
-    df.to_parquet(output_dir / 'clustered_queries.parquet', compression='zstd')
-    print(f"[INFO] Saved clustered queries to {output_dir / 'clustered_queries.parquet'}")
-    
-    # Save cluster statistics
-    cluster_stats = analyze_clusters(query_objects, cluster_labels)
-    cluster_stats.to_csv(output_dir / 'cluster_statistics.csv', index=False)
-    print(f"[INFO] Saved cluster statistics to {output_dir / 'cluster_statistics.csv'}")
-    
-    # Save keywords
-    keywords = extract_cluster_keywords(query_objects, cluster_labels)
-    with open(output_dir / 'cluster_keywords.json', 'w') as f:
-        json.dump(keywords, f, indent=2)
-    print(f"[INFO] Saved cluster keywords to {output_dir / 'cluster_keywords.json'}")
-    
-    # Save individual cluster files
-    clusters_dir = output_dir / 'individual_clusters'
-    clusters_dir.mkdir(exist_ok=True)
-    
-    for cluster_id in sorted(set(cluster_labels)):
-        cluster_df = df[df['cluster'] == cluster_id]
-        cluster_df.to_parquet(
-            clusters_dir / f'cluster_{cluster_id}.parquet',
-            compression='zstd'
-        )
-    
-    print(f"[INFO] Saved individual cluster files to {clusters_dir}")
+    try:
+        # Create DataFrame
+        df = pd.DataFrame(query_objects)
+        df['cluster'] = cluster_labels
+        
+        # Save as parquet
+        parquet_path = output_dir / 'clustered_queries.parquet'
+        df.to_parquet(parquet_path, compression='zstd')
+        print(f"[INFO] ✅ Saved to {parquet_path}")
+        
+        # Save cluster statistics
+        cluster_stats = analyze_clusters(query_objects, cluster_labels)
+        stats_path = output_dir / 'cluster_statistics.csv'
+        cluster_stats.to_csv(stats_path, index=False)
+        print(f"[INFO] ✅ Saved statistics to {stats_path}")
+        
+        # Save keywords
+        keywords = extract_cluster_keywords(query_objects, cluster_labels, mode)
+        keywords_path = output_dir / 'cluster_keywords.json'
+        with open(keywords_path, 'w') as f:
+            json.dump(keywords, f, indent=2)
+        print(f"[INFO] ✅ Saved keywords to {keywords_path}")
+        
+        # Save individual cluster files
+        clusters_dir = output_dir / 'individual_clusters'
+        clusters_dir.mkdir(exist_ok=True)
+        for cluster_id in sorted(set(cluster_labels)):
+            cluster_df = df[df['cluster'] == cluster_id]
+            cluster_file = clusters_dir / f'cluster_{cluster_id}.parquet'
+            cluster_df.to_parquet(cluster_file, compression='zstd')
+        print(f"[INFO] ✅ Saved individual clusters to {clusters_dir}")
+        
+    except Exception as e:
+        print(f"[ERROR] ❌ Failed to save: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 def print_cluster_summary(query_objects: List[Dict], cluster_labels: np.ndarray):
@@ -339,11 +497,11 @@ def print_cluster_summary(query_objects: List[Dict], cluster_labels: np.ndarray)
         size = row['size']
         
         if cluster_id == -1:
-            print(f"\n🔸 NOISE (Unclustered): {size} queries")
+            print(f"\n🔸 NOISE: {size} queries")
         else:
             print(f"\n📊 CLUSTER {cluster_id}: {size} queries")
-            print(f"   Top Tags: {', '.join(row['top_tags'][:5]) if row['top_tags'] else 'None'}")
-            print(f"   Sample Queries:")
+            print(f"   Tags: {', '.join(row['top_tags'][:5]) if row['top_tags'] else 'None'}")
+            print(f"   Samples:")
             for i, name in enumerate(row['sample_names'][:3], 1):
                 print(f"     {i}. {name[:60]}...")
     
@@ -352,8 +510,26 @@ def print_cluster_summary(query_objects: List[Dict], cluster_labels: np.ndarray)
 
 def main():
     """Main execution: cluster queries."""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Cluster Dune queries')
+    parser.add_argument('--mode', choices=['semantic', 'sql'], default='semantic',
+                        help='Clustering mode: semantic (text) or sql (patterns)')
+    parser.add_argument('--model', type=str, default=None,
+                        help='Model name (auto-selected based on mode if not provided)')
+    args = parser.parse_args()
+    
+    # Auto-select model based on mode
+    if args.model is None:
+        if args.mode == 'sql':
+            model_name = 's2593817/sft-sql-embedding'
+        else:
+            model_name = 'all-MiniLM-L6-v2'
+    else:
+        model_name = args.model
+    
     print("\n" + "=" * 80)
-    print("DUNE QUERY CLUSTERING")
+    print(f"DUNE QUERY CLUSTERING - {args.mode.upper()} MODE")
     print("=" * 80 + "\n")
     
     # Load queries
@@ -364,19 +540,20 @@ def main():
         print("[ERROR] No queries found!")
         return
     
-    print(f"[INFO] Loaded {len(query_objects)} queries")
+    print(f"[INFO] Loaded {len(query_objects):,} queries")
     
     # Initialize clusterer
     clusterer = QueryClusterer(
-        model_name='all-MiniLM-L6-v2',  # Fast and efficient
-        min_cluster_size=5,  # Adjust based on your data
-        min_samples=3
+        model_name=model_name,
+        min_cluster_size=50,
+        min_samples=10,
+        mode=args.mode
     )
     
     # Create embeddings
-    clusterer.create_embeddings(query_objects, batch_size=32)
+    clusterer.create_embeddings(query_objects, batch_size=32 if args.mode == 'semantic' else 16)
     
-    # Reduce dimensions (optional but recommended for large datasets)
+    # Reduce dimensions
     clusterer.reduce_dimensions(n_components=5, n_neighbors=15)
     
     # Cluster
@@ -385,13 +562,15 @@ def main():
     # Print summary
     print_cluster_summary(query_objects, cluster_labels)
     
-    # Save results
-    save_clusters(query_objects, cluster_labels, OUTPUT_DIR)
+    if args.mode == 'sql':
+        output_subdir = OUTPUT_DIR_SQL 
+    else:
+        output_subdir = OUTPUT_DIR_SEMANTIC
     
-    # Save model
-    clusterer.save_model(OUTPUT_DIR / 'clusterer_model.pkl')
+    save_clusters(query_objects, cluster_labels, output_subdir, args.mode)
+    clusterer.save_model(output_subdir / 'clusterer_model.pkl')
     
-    print(f"\n✅ Clustering complete! Results saved to {OUTPUT_DIR}")
+    print(f"\n✅ Clustering complete! Results saved to {output_subdir}")
 
 
 if __name__ == "__main__":

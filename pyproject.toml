@@ -1,29 +1,41 @@
-[project]
+[tool.poetry]
 name = "analist_insights"
 version = "0.1.0"
 description = "Analyst Insights — query analysis and intelligence tooling"
-authors = [
-  { name="Daniel Ifechukwu" }
-]
+authors = ["Daniel Ifechukwu"]
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-  "python-dotenv",
-  "requests",
-  "pyarrow",
-  "pandas",
-  "plotly",
-  "numpy",
-  "matplotlib",
-  "tqdm",
-  "scikit-learn",
-  "sentence-transformers",  
-  "hdbscan",                 
-  "umap-learn"
-]
-
-[tool.poetry]
 packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Core utilities
+python-dotenv = "^1.0.0"
+requests = "^2.32.3"
+tqdm = "^4.66.5"
+numpy = "^1.26.0"
+pandas = "^2.2.0"
+
+# Data formats + Parquet
+pyarrow = "^18.0.0"
+fastparquet = "^2024.5.0"        # Optional Parquet engine, faster for writes
+
+# Machine learning + embeddings
+scikit-learn = "^1.5.0"
+sentence-transformers = "^3.0.1"
+hdbscan = "^0.8.38"
+umap-learn = "^0.5.6"
+
+# Visualization
+plotly = "^5.24.1"
+matplotlib = "^3.9.0"
+
+# Jupyter + notebook support (important for VS Code)
+notebook = "^7.2.2"
+jupyter = "^1.1.1"
+jupyterlab = "^4.2.5"
+ipykernel = "^6.29.5"
+optimum = "^2.0.0"
 
 [tool.poetry.scripts]
 show-config = "src.config:show_config"
