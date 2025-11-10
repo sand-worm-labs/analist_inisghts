@@ -54,9 +54,6 @@ def compute_hash(value: str) -> str:
     return hashlib.sha1(value.encode("utf-8")).hexdigest()
 
 
-# -----------------------------------------------------------------------------
-# Duplicate Finder
-# -----------------------------------------------------------------------------
 class QueryDuplicateFinder:
     """Detect exact duplicates within the dataset."""
 
@@ -146,10 +143,6 @@ class QueryDuplicateFinder:
         duplicates_df.to_parquet(out_file, compression="zstd")
         print(f"[INFO] ✅ Saved duplicate details to {out_file}")
 
-
-# -----------------------------------------------------------------------------
-# Main
-# -----------------------------------------------------------------------------
 def main():
     """Main entry: find duplicates in raw query dataset."""
     import argparse
