@@ -1,498 +1,116 @@
 cluster_id,size,top_tags,sample_names,avg_name_length
--1,29476,"['defi', 'nft', 'dex', 'volume', 'nfts']","['example: uniswap usd volume 🦄', 'bloom attestations', 'dharma debtorders']",27.624711629800515
-0,84,[],"['fork of (#398) dai bought on uniswap last 24 hours', 'fork of (#398) dai bought on uniswap last 24 hours', 'fork of (#398) dai bought on uniswap last 24 hours']",52.583333333333336
-1,78,"['binance', 'randyboss', 'btc']","['43', 'btc on ethereum', 'btc on ethereum']",10.217948717948717
-2,54,[],"['15', '16', '13']",2.074074074074074
-3,109,[],"['all good', 'all good', 'all good']",8.0
-4,258,[],"['badger-polygon-slpwbtcibbtc-swap-stake', 'badger total stake_days', 'fork of (#15898) badger total stake_days']",39.798449612403104
-5,2068,[],"['new query', 'new query', 'new query']",9.044970986460347
-6,58,[],"['94', '94', '40']",2.1724137931034484
-7,52,[],"['fork of (#4388) daily dex volume', 'fork of (#4388) daily dex volume', 'fork of (#4388) daily dex volume']",32.94230769230769
-8,62,[],"['58', '58', '58']",23.661290322580644
-9,128,[],"['fork of (#9999) new query', 'fork of (#10434) new query', 'fork of (#10707) new query']",29.0
-10,106,[],"['unnamed query', 'unnamed query', 'unnamed query']",13.00943396226415
-11,57,[],"['1', '1', '1']",1.1403508771929824
-12,69,[],"['97', '31', 'current difficulty']",2.710144927536232
-13,58,['prod'],"['fork of (#4319) dex by volume 🏦', 'fork of (#4319) dex by volume 🏦', 'fork of (#4319) dex by volume 🏦']",31.810344827586206
-14,110,[],"['opensea daily volume (ethereum)', 'opensea dayvolume (ethereum)', 'opensea daily volume (ethereum)']",32.41818181818182
-15,117,"['nft', 'bayc', 'cryptopunk']","['21', '19', 'nft biggest floor movers - last 24hrs pp']",7.931623931623932
-16,68,[],"['neo tokyo identities', 'neo tokyo', 'neo tokyo identities']",20.470588235294116
-17,63,"['defi', 'makerdao', 'lending']","['example: dai daily transfer volume', 'fork of (#2) example: dai daily transfer volume', 'fork of (#2) example: dai daily transfer volume']",45.98412698412698
-18,80,[],"['doodles', 'doodles', 'doodles']",8.45
-19,383,[],"['test', 'test', 'test']",4.467362924281984
-20,86,[],"['fork of (#4323) weekly dex volume', 'fork of (#4323) weekly dex volume', 'fork of (#4323) weekly dex volume']",31.627906976744185
-21,52,[],"['farm - dex liquidity share', 'dex liquidity share weth-link', 'old dex liquidity share on eth and link']",36.42307692307692
-22,50,[],"['monaco planet', 'monaco planet total usd vol', 'monaco planet holder amount']",19.98
-23,197,"['defi', 'uniswap', 'dex', '0x', 'kyber']","['tornado tx2', 'tornado tx', 'tornado deposits']",35.776649746192895
-24,64,['penguin'],"['4', '91', '91']",3.65625
-25,51,[],"['80', '79', '82']",2.0
-26,138,[],"['60', '47', '44']",2.0
-27,193,"['artblocks', 'genieswap', 'nfts', 'top collections', 'nft']","['genieswap revenue', 'total genieswap users', 'genieswap weekly active users']",28.93782383419689
-28,103,[],"['39', '37', '42']",2.0097087378640777
-29,81,[],"['28', '29', '34']",2.246913580246914
-30,70,[],"['56', '56', '56']",2.0
-31,83,"['defi', 'user', 'chuck']","['total defi users over time', 'total defi users over time', 'total defi users over time']",25.759036144578314
-32,130,[],"['63', '67', '63']",2.246153846153846
-33,59,[],"['fork of (#4321) number of traders last 7 days🏟', 'fork of (#4321) number of traders last 7 days🏟', 'fork of (#4321) number of traders last 7 days🏟']",56.220338983050844
-34,56,[],"['bancor v2.1 protected lp culm. size, revenue, apr estimation', 'nft project comparison widget', 'nft project comparison widget']",44.05357142857143
-35,79,"['uniswap', 'defi', 'eth', 'makerdao', 'tokenlon']","['fork of (#3) example: uniswap usd volume 🦄', 'fork of (#3) example: uniswap usd volume 🦄', 'fork of (#3) example: uniswap usd volume 🦄']",43.29113924050633
-36,84,[],"['81', '83', '81']",2.0
-37,83,[],"['69', '77', '69']",10.963855421686747
-38,96,[],"['92', '90', '100']",9.96875
-39,110,[],"['with <3', '3', '3']",20.272727272727273
-40,75,[],"['gini coefficient for a token', 'fork of (#11211) gini coefficient for a token', 'fork of (#11211) gini coefficient for a token']",31.96
-41,59,[],"['create view - superfluid_token_map (xdai)', 'create view - superfluid active streams (xdai)', 'create view - superfluid_token_map (polygon)']",38.59322033898305
-42,71,"['compound finance', 'compound', 'comp', 'deposited', 'loans']","['fork of (#4234) dex 24 hours volume', 'fork of (#4234) dex 24 hours volume', 'fork of (#4234) dex 24 hours volume']",42.04225352112676
-43,114,[],"['custom nft floor tracker', 'custom nft floor tracker', 'custom nft floor tracker']",22.45614035087719
-44,64,[],"['fork of (#4118) monthly dex volume - usd', 'bayc floor tracker', 'dpi_wallet_profile_analysis_4_1']",41.21875
-45,182,"['penguin', 'indexcoop', 'melon']","['98', '98', '98']",25.642857142857142
-46,131,[],"['fork of (#7423) contracts deployed over the last day', 'fork of (#7423) contracts deployed over the last day', 'fork of (#329) contract deployments per month']",14.236641221374045
-47,60,[],"['huxley comics - floor price', 'huxley saga - comics', 'huxley saga - genesis']",31.65
-48,50,['prod'],"['fork of (#4962) btc on ethereum', 'fork of (#4962) btc on ethereum', 'fork of (#4649) btc on ethereum']",31.86
-49,59,[],"['playground', '0x v3 playground', 'playground']",14.576271186440678
-50,266,"['sushiswap', 'airdrop', 'gas dao', 'gas', 'ens']","['total number of dai senders', 'linkdrop claims', 'linkdrop example']",28.842105263157894
-51,57,[],"['rug radio sales', 'rug radio x fidenza', 'rug radio x adidas']",21.350877192982455
-52,71,"['somnium space', 'aave', 'arc', 'permissions', 'whitelist']","['average value contributed by retained users vs churned users on initial week - batch 1', 'average value contributed by retained users vs churned users on initial week - batch 3', 'average value contributed by retained users vs churned users on initial week - batch 4']",41.394366197183096
-53,58,['sandbox'],"['transactions size', 'transactions size', 'transactions size']",36.41379310344828
-54,101,"['lazylions', 'lazy lions', 'bayc']","['lazy lions floor', 'lions 25, 100 day', 'lazy lions hourly floor']",24.455445544554454
-55,57,['.032'],"['<address> sending 0.0004', '<address> miner', '<address>']",11.31578947368421
-56,66,['.032'],"['c.r.e.a.m. locked by address 📋', 'search address #2', 'astro frens - <address>']",11.818181818181818
-57,58,[],"['aga i diversification', 'aga i diversification test', 'aga i diversification']",36.241379310344826
-58,87,"['22', '2', '123']","['123', '122112', '111']",38.827586206896555
-59,56,"['covid19', 'rumblekongleague', 'rumble kong league', 'nft', 'rkl']","['rumble kong league: top sale of the day', 'rumble kong league', 'floor eth - rumble kong league']",33.5
-60,169,['defi'],"['legacy v dynamic over 48hrs', '2', 'vesper - vuni holders over time - v2']",24.159763313609467
-61,51,"['nawa', 'behodler', 'eye']","['spot token holders', 'spot token holders', 'spot token holders']",24.0
-62,59,['stakedao'],"['passive frax strategy tvl', 'passive frax strategy - stakedao - unique holders over time', 'passive frax strategy - revenue over time']",44.779661016949156
-63,61,['bmi'],"['bmi_reinsurancepool_size', 'bmi_coveragepool_liquidity', 'bmi_coveragepool_policiesbought']",27.934426229508198
-64,134,"['addy', 'adamant', 'supply', 'market cap', 'meta']","['dvf total market cap', 'dvf market cap', 'axs market cap']",19.111940298507463
-65,58,"['btrfly', 'redacted', '$btrfly', 'butterfly', 'redacted cartel']","['microcaps query 1', 'marketcap', 'marketcap (in prod)']",23.56896551724138
-66,52,[],"['1inch exported volumes on farm', '1inch exported volumes on farm token', 'farm - 1inch exported volumes']",49.03846153846154
-67,279,"['lyra', 'td', 'options', 'synthetix', 'derivatives']","['lyra_unique_traders', 'lyra_monthly_metrics', 'netdelta']",24.65232974910394
-68,145,"['opyn', 'dai', 'makerdao', 'defi', 'opyn v2']","['total number of dai receivers', 'gas station network - number of receivers', 'copy of (#463) total number of sai receivers']",35.855172413793106
-69,87,"['lostpoets', 'nft', 'pak', 'nfts', 'lost poets']","['lost poets - floor', 'poets pages distribution from mint', 'lost poets holders']",27.183908045977013
-70,76,"['labels', 'top-30', 'template', 'example', 'dune']","['labels-type', 'labels-type-count-byj', 'targetlabels']",18.539473684210527
-71,58,"['ai42', 'ai43', 'dust', 'example']","['dune label types', 'dune workshop - wbtc queries', 'quarterly_dune']",24.0
-72,167,"['ohm', 'olympusdao', 'olympus', 'sohm', 'v6']","['olympus balance percentiles per day', 'olympus wallet population', 'olympusbonds']",25.87425149700599
-73,212,"['view', 'gem', 'prices', 'defi', 'dex']","['dune_user_generated.keeperdao_lp_tvl', 'dune_user_generated.k_token_value', 'dune_user_generated.medianizer']",41.25
-74,73,[],"['dune_user_generated.olympus_pro_partners', 'dune_user_generated.olympus_liquidity', '【0xbi】dune_user_generated.pro_0xbi_whale_erc20_balance_daily']",54.15068493150685
-75,182,"['trove', 'liquity', 'lusd', 'xdollar', 'xusd']","['list of troves', 'lido_percent_of_eth3_historical', 'tmp']",24.005494505494507
-76,135,"['defi', 'todo']","['perpetual活跃地址', 'dydx活跃地址数', '账户地址变动监控（1、7、14、30、90天）']",18.17037037037037
-77,76,[],"['approval/swap pairs', 'number of poa swaps - [ poa-stake merge ]', 'total poa swapped - [ poa-stake merge ]']",50.6578947368421
-78,70,[],"['originated 💸', '后续给了谁', '借贷']",5.4
-79,424,"['gas', 'gas price', 'bnx', 'market', 'titanium']","['tbtc系统清算过程', '铸币的完整生命周期', '铸币的完整生命周期']",15.98820754716981
-80,73,['juicebox'],"['1st juicebox dash!', ""unique addresses' contributions to juicebox"", 'clean up parameters in juicebox terminal v1 pay events']",27.863013698630137
-81,100,"['dex', 'volume', 'defi', 'clipper', 'amm']","['clipper', '1inch 7 day volume (trades < $10k)', 'clipper 30 day volume (trades < $10k)']",32.98
-82,75,"['stablecoins', 'defi', 'stablecoin', 'volume', 'transfers']","['stablecoin volume', 'copy of (#84) stablecoin volume', 'daily stablecoin transfer volume - 9 months']",38.986666666666665
-83,121,"['defi', 'prices', 'par', 'ageur', 'eurt']","['stablecoin marketcaps', 'copy of (#83) stablecoin marketcaps', '30-day stablecoin burns']",26.66115702479339
-84,270,"['full send', 'fishy fam', 'nft', 'azuki', 'rarible']","['$bpt whales over time', '$bpt sharks over time', '$bpt swordfish over time']",23.066666666666666
-85,65,"['nft', 'hm', 'loot', 'realms', 'genesis']","['nft holder table', 'nft holder table - abstract loot', 'nft holder table - realms (for adventurers)']",24.43076923076923
-86,63,"['defi5', 'cc10', 'orcl5', 'degen', 'error']","['nft holder snapshot', 'nft holder snapshot test', 'bdigg-snapshot-all']",20.03174603174603
-87,93,"['opensea', 'asyncart', 'knownorigin', 'superrare', 'rarible']","['total opensea users over time', 'opensea weekly active traders', 'opensea daily active traders']",35.623655913978496
-88,102,"['dex', 'users', 'defi', 'trading']","['[deprecated method] number of traders last 7 days🏟', 'copy of (#579) number of traders last 7 days', 'copy of (#579) number of traders last 7 days']",33.490196078431374
-89,75,[],"['yield_calculations_recalc_improved', 'all_in_yields_calc_complex', 'yield_calculations_2']",26.866666666666667
-90,58,"['opensea', 'looksrare', 'address', 'count', 'nft']","['looksrare vs opensea hourly volume', 'looksrare vs opensea daily volume', 'looksrare vs opensea hourly volume']",34.86206896551724
-91,63,"['looksrare', 'nft']","['robrarehelmets', 'temporare', 'looksraresale']",24.841269841269842
-92,170,"['looksrare', 'nft', 'looks', 'nfts', 'wash trading']","['looksrare-interact volume', 'patcc - hourly nft floor volume and transactions by project', '【0xbi】looksrare transfor volume']",34.35294117647059
-93,311,"['animetas', 'bayc', 'nft', 'opensea', 'boredapeyachtclub']","['opensea transaction past hour', 'metakey on opensea daily volume and transactions', 'lasc: floor price (opensea hourly) (eth)']",49.067524115755624
-94,483,"['gnosis safe', 'safe', 'cmm', 'gnosis protocol', 'dunev2']","['safe thresholds', 'gnosis safe txs over time', 'safe creations - grouped by day']",48.958592132505174
-95,52,"['ens opensea', 'opensea volume ens', 'volume', 'ens', 'opensea']","['opensea eth volume', 'opensea_volume', 'opensea volume test query']",25.596153846153847
-96,367,"['decentraland', 'sandbox', 'land', 'sand', 'the sandbox']","['sandbox1', 'the sandbox assets minted over time', 'sandbox']",33.217983651226156
-97,179,"['uniswap', 'pixls']","['pp - current distribution', 'partypenguin - current distribution', 'distribution of current delegators']",27.089385474860336
-98,109,['numerai'],"['distribution # blits', 'attack period distribution', 'anchor amount submited distribution']",19.834862385321102
-99,67,['badgerdao'],"['badgerdao_slpwbtcdigg_composition_per_epoch', 'badger income statement', 'badgerdao_yvwbtc_usd_feed_hourly']",32.507462686567166
-100,137,"['sushi price', 'badgerdao', 'native-tokens', 'boost-data', 'uniswap']","['badgerdao-addresses', 'badgerdao - is', 'badger-digg-ecosystem-participants']",28.67883211678832
-101,108,"['nexus mutual', 'defi', 'insurance', 'solace_fi']","['nexus gov rewards', 'nexus proposal log', 'nexus total proposals']",30.037037037037038
-102,135,"['dogepound', 'nfts', 'nft', 'erc721', 'neko']","['cryptographics.app floor tracker', 'cryptoarte floor tracker', 'cryptoarte floor tracker']",24.674074074074074
-103,108,"['eulerbeats', 'neolastics', 'enigma', 'futura', 'wip']","['最近5个eth转账', 'fp - prints sold to individuals - phase 3', '$audio burn check']",25.35185185185185
-104,61,[],"['create view - llama_uniswapv3_liquidity_program_pools', 'create view - llama_uniswapv3_liquidity_program_daily_stats_1yr_v2', 'create view - llama_uniswapv3_liquidity_program_hourly_stats_24h']",44.50819672131148
-105,53,['bears deluxe'],"['bees deluxe: current floor', 'bees deluxe: holders distribution', 'bees deluxe - daily floor']",23.037735849056602
-106,66,"['taxes', 'balance', 'tokens', 'codingsh', 'usdt']","['number of addresses that locked whitelisted tokens', 'whitelist', 'fork of (#5859) usdc - banned addresses']",28.363636363636363
-107,121,"['ens opensea', 'opensea volume ens', 'volume', 'ens', 'opensea']","['opensea usd volume', '[wip] ens opensea usd volume', 'opensea meme price txn volume']",31.198347107438018
-108,102,"['opensea', 'year', 'volume', 'last 2 years volume', 'kamagang']","['opensea daily volume', 'opensea daily volume', 'opensea daily volume']",28.872549019607842
-109,56,"['""crypto besties""', 'nft', 'mirror']","['coven - total sales', 'coven - volume (all-time)', 'coven - daily new holders']",27.75
-110,86,"['defi', 'comp']","['avg. token price last 14 days', 'crypto_punks_avg_price', 'avg. base fee']",21.53488372093023
-111,54,[],"['qidao evt_borrow_token playing around', 'qi total in lp', 'circulating qi']",22.5
-112,398,"['defi', 'qidao', 'mai finance', 'hifi', 'weth']","['vaults created', 'number of vault creators', 'vaults created per day']",29.097989949748744
-113,79,['exec'],"['r: 2021-08-18-00-00-00', 'r: 2021-08-18-00-00-00', 'accouting (may-oct)']",21.455696202531644
-114,166,"['mstable', 'defi', 'usd', 'musd', 'mta']","['mta unique addresses', 'current mta $ price', 'total mta users']",28.93975903614458
-115,174,"['wbtc', 'liquity', 'lusd', 'alpaca', 'rai']","['dai mint and burn per day', 'copy of (#856) erc20 dai mint and burn per day', 'wbtc [wbtc weekly mint/burn]']",28.948275862068964
-116,67,"['risk harbor', 'barnbridge', 'smartyield', 'profit', 'defi']","['barnbridge/$bond token allocations', 'tvl in barnbridge', 'barnbridge deposits/withdrawals']",31.791044776119403
-117,222,"['bancor', 'defi', 'dex', 'volume', 'fees']","['bancor volume last 7 days', 'bancor usd volumes', 'copy of (#664) bancor volume']",37.1981981981982
-118,137,"['bancor', 'defi', 'dex', 'uniswap', 'sushiswap']","['bancor non-bnt trades', '(bancor) investment backtester test query', '(uniswap) investment backtester test query']",32.70802919708029
-119,85,"['makerdao', 'dai', 'cdp', 'defi']","['unique addresses that minted sai from cdp', 'copy of (#2) example: users that minted dai from a cdp', 'cdps migrated with debt-paid stability fee']",31.858823529411765
-120,52,"['dex', 'defi', 'volume']","['daily dex volume 365', 'daily dex volume', 'daily dex volume']",18.942307692307693
-121,65,"['volume', 'dex', 'defi']","['[deprecated method] total dex volume last 24 hours', 'dex 7 days volume', 'fork of (#4424) monthly dex volume grouped by year']",31.46153846153846
-122,139,"['defi', 'rigoblock', 'assetmanagement', 'ai42', 'loop']","['loopring block types', 'loopring trade block sizes', 'loopring transactions processed per day']",37.32374100719424
-123,585,"['ens', 'ethereum name service', 'erc721', 'revenue', 'reuf rujevic']","['number of ens names created', 'number of ens domains registered', 'number of ens domains & subdomains registered (weekly)']",26.61025641025641
-124,70,"['dex', 'volume', 'defi']","['fork of (#8243) 30 days dex volume', 'fork of (#11167) fork of (#8243) 30 days dex volume', 'fork of (#7486) 12 months dex volume']",40.17142857142857
-125,129,"['nft', 'erc721', 'nft collection', 'parametered', 'nfts']","['rarible - minted nfts', 'fork of (#10634) rarible - minted nfts', 'fork of (#10634) rarible - minted nfts']",24.697674418604652
-126,60,"['dino', 'dex', 'polygon', 'dinoswap', 'pool1']","['dinoswap fossil farmers', 'dinoswap pool1 tvl', 'dino deposits']",25.5
-127,95,"['nfts', 'nft', 'erc721', 'byburntoast', 'burntoast']","['punkscape minters', 'punkscape other projects held by owners', 'punkscape unique holders']",23.873684210526317
-128,88,"['dex', 'volume', 'defi', '1inch']","['monthly dex volume', 'copy of (#847) monthly dex volume', 'monthly dex volume by project']",32.68181818181818
-129,52,"['nft', 'mcp']","['foundry - referral report', 'nftx vault token basic', 'nftx vault token psychedelic']",29.596153846153847
-130,69,"['poap', 'nft', 'erc721', 'xdai', 'xdollar']","['monthly poaps minted [mainnet]', 'poap holders leaderboard [mainnet]', 'total poaps minted on mainnet']",29.0
-131,51,"['nfts', 'nft', 'erc721', 'galaxy-eggs']","['rare eggs historical floor price (in $eth)', 'top rare eggs sales', 'new rare eggs daily holders']",24.745098039215687
-132,206,"['opensea', 'most successful', 'top_traders', 'cityroots', 'most succesful']","['opensea top 100 sales', 'most recent opensea sales 2d', 'largest ca opense sales']",28.99514563106796
-133,198,"['opensea', 'most successful', 'counter', 'cryptopunksvsopensea', 'top100 opensea']","['opensea dau', 'opensea weekly active users', 'unnamed query']",20.7020202020202
-134,71,[],"['element wbtc-nov26 trading volume', 'element wbtc-nov26 user breakdown', 'element usdc-jan28 user breakdown']",32.25352112676056
-135,375,"['set protocol', 'dpi', 'defi']","['defi pulse index liquidity', 'dpi creation top addresses', 'dpi redemption top addresses']",26.776
-136,165,['bloot'],"['hourly floor tracker', 'fluf world daily floor tracker', 'bayc: hourly floor tracker']",29.593939393939394
-137,94,['zzz'],"['wangcheng', 'counter zonked', 'z']",7.617021276595745
-138,55,"['chainlink', 'yearn', 'bancor', 'defi']","['fork of (#8998) dark forest unique dex trades', 'fork of (#4494) dex trading volume', 'fork of (#4494) dex trading volume']",41.472727272727276
-139,232,[],"['fvck_crystal daily floor tracker', 'animetas daily floor tracker', 'osiris cosmic kids daily floor tracker']",29.405172413793103
-140,200,"['floor', 'cityroots']","['space poggers floor tracker', 'art blocks curated floor tracker', 'the vogu collective: floor tracker']",24.63
-141,54,['test'],"['test2', 'test2', 'testing2']",5.574074074074074
-142,206,['polygon'],"['lp_add_eth2x-fli', 'eth2x-fli_trade_frequency', 'address_exposure_uniswap_v2_wip']",31.199029126213592
-143,111,[],"['bed address exposure', 'bed unit supply', 'bed supply breakdown']",20.35135135135135
-144,165,"['opensea', 'nft', 'ethereum', '""the infinite machine collection""', 'nfts']","['nfts on opensea daily volume and transactions', 'weekly nft creation events on rari', 'opensea_daily_nfts_sold']",31.933333333333334
-145,159,"['indexcoop', 'mvi', 'dpi', 'index coop', 'polygon']","['index coop fees burned', 'index coop fees burned', 'index coop mint volume']",32.893081761006286
-146,97,"['indexed', 'defi']","['index farming', '# index holders', 'index holders']",22.515463917525775
-147,99,"['zksync', 'l2', 'gas', 'zkrollup', 'layer2']","['zksync - # of wallets created last 30 days', 'dydx: l2 perpetual smart contract actions (zkr)', 'loopring smart contract actions (zkr)']",32.282828282828284
-148,56,[],"['bed mint volume', 'bed mint & redeem volume', 'total dpi mint volume']",24.964285714285715
-149,794,"['mintssongs', 'chi', 'hashrunes', 'gawds', 'mintsongs']","['wip - nmr token minted', 'frtproxy mints', 'minters that registered']",22.037783375314863
-150,234,"['esd', 'emptyset', 'defi', 'dsd', 'stablecoin']","['owl collected dfusion', 'total liquity redemptions', 'esd supply']",29.132478632478634
-151,53,['esd'],"['esd bonded', 'distinct accounts bonded in dao', 'distinct accounts bonded as lp']",28.169811320754718
-152,248,"['livepeer', 'neolastics', 'staking', 'eth', 'gas']","['livepeer bondingmanager ""in"" txs., by day', 'livepeer bondingmanager ""in"" txs., by day', '👋 livepeer unbonding activity']",25.637096774193548
-153,83,"['1inch', 'marketing']","['dex aggregators volume', 'dex aggregator market share', 'total dex/aggregator share of volume']",33.04819277108434
-154,51,"['gro', 'defi', 'incentives', 'liquidity mining', '#gro']","['penalty vs bonus', 'vesting contracts', 'gro locked in vesting contract']",24.352941176470587
-155,61,[],"['cards sales count', 'top cards sales', 'classified sums of hourly cards purchases (past week)']",30.081967213114755
-156,53,['ohm'],"['ohm apy all time', 'apy over time at', 'apac']",16.09433962264151
-157,234,"['optimism', 'thales', 'hop protocol', 'options', 'l2']","['optimism total transactions per day', 'optimism tx processed per day', 'margin trading mummy finance stats']",31.794871794871796
-158,60,"['defi', 'dex', 'unit', 'exchange', 'users']","['dex active users 24h', 'dex users total (24h)', 'dexes (- uniswap) new/old users per week']",29.35
-159,146,"['altcoin', 'dex', 'defi']","['dex.ag analysis', 'wsteth dextrades testing', 'dexes dropdown list']",14.41095890410959
-160,100,"['klima', 'wallet', 'balance', 'bct', 'rfv']","['klima price', 'eth l1 klima holders over time', 'klima holders over time']",21.36
-161,94,['idle_v4'],"['idle token holders', 'idle total profit earned breakdown', 'idle v4 - referral']",26.28723404255319
-162,65,"['loot', 'n project', 'derivatives', 'nft']","['realized market caps for nft projects', 'realized market caps for nft projects', 'nft.trades total volume per project']",26.630769230769232
-163,55,"['olympus', 'olympusdao', 'dai', 'ohm']","['protocol owned liquidity ohm-frax', 'ohm market cap', 'liquidity resilience ohm-stables']",31.509090909090908
-164,247,"['ohm', 'wallet', 'balance', 'olympus', 'supply']","['scratch', 'ohm unstaked/withdrawn daily trend', 'ohm vs eth usd price']",21.898785425101213
-165,54,"['defi', 'keeperdao', 'keeper dao']","['keeperdao treasury by asset', 'keeperdao liquidity', 'keeperdao liquidity daily change']",23.38888888888889
-166,101,"['dex', 'defi', 'volume', 'ichi', '0x']","['radar relay volume (wip)', 'dex by volume 🏦 eric cp', 'dex by volume']",19.06930693069307
-167,89,"['dex', 'volume', 'defi', 'mainframe', 'truefi']","['total pax dex volume 2019', 'total gusd dex volume 2019', 'total tusd dex volume 2019']",16.0
-168,67,"['dex', 'volume', 'mainframe', 'mft', 'erc20']","['daily dex volumes', 'dex daily volume total', 'dex volume daily']",20.47761194029851
-169,237,"['dex', 'volume', 'newo', '0x', 'defi']","['0x taker usd volume', 'dex volume per day trailing 7 days', 'dexs by volume last 7 days v1']",27.962025316455698
-170,130,"['polygon', 'quickswap', 'defi', 'dexes', 'test1']","['lifted spells', 'quickswap weekly swaps', 'quickswap - polygon | daily stats']",30.784615384615385
-171,111,"['nft', 'erc721', 'sipher', 'opensea', 'nft trader']","['nfts wallets', 'ready player cat nft: wallets count over time', 'trader profit by collection']",28.486486486486488
-172,63,"['defi', 'supply', 'donut', 'reddit']","['cryptex - treasury', 'cryptex - treasury (in prod)', 'ygg_treasury_nft_polygon']",32.888888888888886
-173,308,"['redacted', 'butterfly', 'btrfly', '$btrfly', 'treasury research']","['wip-treasury2', 'wip-treasury-balance', 'wip - treasury <address>']",27.386363636363637
-174,92,['frax'],"['wip - nuo experiment', 'wip - experiment with binary data', 'wip - nuo experiment 2']",11.184782608695652
-175,85,"['sushi', 'dex', 'uniswap', 'ruler', 'defi']","['uniswap to sushi tvl ratio for four incentivized pools', 'sushi dai/wsteth pool tvl', 'sushi dai/wsteth pool tvl']",29.941176470588236
-176,74,"['snx', 'synthetix', 'optimism', 'l2', 'defi']","['snx token price on uniswap per day', 'all synthetix synth users', 'all synthetix holders']",23.41891891891892
-177,51,"['sushiswap', 'prod', '0x']","['total sushiswap users over time', 'average new users per day', 'new/old users per month']",29.15686274509804
-178,790,"['sushiswap', 'sushi', 'defi', 'dex', 'volume']","['sushi top shot 1st', 'sushi top shot 1st simple', 'sushiswap detailed volume']",27.850632911392406
-179,80,"['dex', 'volume', 'itgr', 'eth']","['dexes user avg trading volume', 'trade volume on dexes', 'dex trading volume']",26.3125
-180,52,"['dex', 'defi', '#bmi #transactionprice #usdprice #dex.trades', 'trading', 'dex trades']","['week over week volume growth', 'histogram of dex trade size', 'dex trade size daily']",31.71153846153846
-181,77,"['1inch', 'marketing', 'list']","['solution provider_named', 'by project with price', 'recent projects launched']",22.337662337662337
-182,83,[],"['daily sales volume in eth', 'daily sales volume in eth v2', 'daily cfcats sales volume']",24.759036144578314
-183,165,"['paraswap', 'dex', 'volume', 'defi', 'trading']","['paraswap daily volume', 'paraswap monthly volume', 'paraswap total users']",26.6
-184,221,"['bsc', 'defi', 'votemarkets', 'finance.vote', 'dao']","['apollox open interest', 'chainport daily deposits - nbr_tokens', 'chainport - daily nbr of deposits (last 20d)']",23.004524886877828
-185,52,['pancakeswap'],"['cake mint&burn', '[bsc] pancake contracts', 'pancakev1']",24.423076923076923
-186,58,['bsc holders'],"['ice token holders bsc', 'ice holders by group bsc', 'bsc holders']",22.586206896551722
-187,271,"['dex', 'defi', 'labels', 'top-30', 'unit']","['last trades', 'daily dex.ag trades', 'weekly dex.ag trades']",22.752767527675278
-188,83,"['dex', 'defi', 'looks', 'price', 'trade']","['dextools token distribution', 'tokens bought on dexs', 'feb2 dex price']",23.481927710843372
-189,114,"['aave', '1inch', 'marketing']","['growth of dau/wau/mau', 'mau of usdt', 'usdt dau~mau']",20.403508771929825
-190,93,"['gas', 'uniswap', 'erc20']","['fork of (#9736) daily average prices', 'fork of (#4294) median gas price, by day, last 90 days', 'fork of (#10574) fork of (#4294) median gas price, by day, last 90 days']",50.225806451612904
-191,61,['dodo'],"['total dodo users over time', 'dodo top trade pairs (last 7d)', 'dodo 24h volume']",23.688524590163933
-192,178,"['nft.trades', 'nft-trades', 'nft trader', 'resells', 'nft']","['nft trades', 'nft realized marketcap', 'circulating supply of nft collection']",26.303370786516854
-193,51,"['penguin', 'liquity', 'lqty', 'sloika']","['erc-721 leaderboard', 'vouching leaderboard', 'penguin leaderboard']",21.607843137254903
-194,78,"['nft', 'nfts', 'entropes', 'hm', 'mcp']","['total nft transfers per month - [ nft on xdai ]', 'total nft transfers per day - [ nft on xdai ]', 'transfers for all time - [ nft on xdai ]']",29.21794871794872
-195,201,['argent'],"['[argent] number of new wallets created by week', 'number of erasure agreements', 'copy of (#670) number of erasure agreements']",57.53731343283582
-196,51,"['assangedao', 'beetsdao']","['total # of contributions', 'total # of contributions', 'splits number contributors']",27.352941176470587
-197,65,"['wgbtc', 'wagbat', 'juicebox', 'assangedao']","['total contribution distribution -- trimmed outliers', 'miso total raised - wip', 'constitution dao deposits']",32.47692307692308
-198,197,"['liquity', 'lusd', 'lqty', 'stablecoin', 'xdollar']","['who has lqty?', 'frontend lqty earnings', 'lsd holders']",21.690355329949238
-199,61,"['liquity', 'lqty', 'apr', 'average', 'lusd']","['daily staking aprs (30 days)', 'lqty staking apr (7d average)', 'issuance gain from lqty staking (7d)']",28.16393442622951
-200,56,"['nft', 'thedudes', 'thedude', 'dude', 'nfts']","['nft ownership', 'nft unique ownership', 'check nft user owned']",22.035714285714285
-201,159,"['fei', 'tribe', 'angle', 'ageur', 'pcv']","['fei in lp', 'tribe unique addresses', 'historical fei supply']",24.08176100628931
-202,177,"['nft', 'custom', 'nfts', 'top sales', 'any']","['nfts recent sales trends', 'classified nft purchases', 'test nfts sales trends']",21.55367231638418
-203,54,[],"['t.me/defimr / uniswap v3 + optimism: fees, volume, tvl', 'uniswap v3 volume, fees, tvl - ethereum by pool (agg)', 'ulp - uniswap v3 volume, fees, tvl']",51.53703703703704
-204,118,"['uniswap', 'dex', 'fees', 'kawa', 'v3']","['uniswap v1 usd collected fees (180 days)', 'cummulative uniswap v1 usd collected fees (from 15-04-2019) 🧮', 'cummulative uniswap usd collected fees per pool (365 days) 🧮']",35.21186440677966
-205,68,"['any', 'nft', 'defi', 'ndr', 'noderunners']","['latest mft price', 'nft price ma', 'nft max price ma']",22.0
-206,67,[],"['compound abstraction', 'fork of (#1936) compound outstanding debt', 'compound — scrap']",25.895522388059703
-207,73,[],"['amount of pickles burned per day', 'amount of pickles burned per pjar', 'picklestaked chart']",24.82191780821918
-208,70,"['aave', 'flash', 'loan', 'defi', 'keeperdao']","['aave flash loans, weekly stats', 'flash loan fees', 'flash loan volume from pool to keepers (cumul) ⚡']",35.27142857142857
-209,135,"['aave', 'defi', 'keeper dao', 'flashloans']","['aave weekly flashloans volume per asset', 'aave weekly flashloans volume and fees usd', 'aave - cumulative flashloans protocol fee usd']",34.0
-210,50,['nft'],"['auction house sale volume share by nft contract', 'total nft secondary sales volume', 'nft sales volume by day']",30.76
-211,104,"['nft', 'trade', 'marketplace', 'eth', 'solv']","[""monthly usd volume - nft's"", 'nft - trade volume', 'nft.trades platform volume weekly']",29.201923076923077
-212,84,['alphahomora'],"[""ivan's duplication analysis"", 'og released', 'og owned']",21.202380952380953
-213,102,"['nft', 'erc721', 'nfts', 'party degenerates', 'party']","['erc721: nfts', 'nft holders holding other nfts', 'nft holders holding other nfts to date']",22.99019607843137
-214,111,"['nft', 'nfts', 'music nfts', 'rabbithole', 'sound nfts']","['nft', 'very nifty | hunters', 'mft symbol']",10.45045045045045
-215,53,[],"['staking addresses', 'staking share by address', 'don normal depositors']",37.18867924528302
-216,126,"['bears deluxe', 'nft buzzedbearhideout', 'nft', 'alpha', 'buzzedbearhideout']","['happyland gummy bears - secondary trades', 'happyland gummy bears - secondary trade volumes', 'happyland gummy bears - unique buyers']",27.341269841269842
-217,123,"['3pool volume', 'curve 3pool', 'threepool', 'prod']","['curve.fi daily volume', 'curve.fi hourly volume', 'copy of (#1361) curve.fi daily volume']",39.22764227642276
-218,75,"['sql', 'nft', 'nfts', 'nft contract address', 'nft project name']","['nft projects crossover', 'nft_queries', 'nft project name']",21.56
-219,52,"['nft', 'nfts', 'entropes', 'defi']","['counter nftfi.eth', 'testing ether rocks 1', 'nft survey meatahero']",19.557692307692307
-220,427,"['stakewise', 'liquid staking', 'liquidstaking', 'eth2', 'staking']","['numerai - weekly staking users', 'storj token rewards', 'lpt staker retention']",31.695550351288055
-221,237,"['rai', 'reflexer', 'liquity', 'lusd', 'trove']","['collateral used in nuo', 'compound v2 usd value of collateral', 'collateral usd value per day']",31.485232067510548
-222,59,"['mirror', 'editions', 'mirror.xyz', 'entry', 'nft']","['total isai received', 'mirror cumulative contributions by product (eth) - wave', '💸 raised by economic blocks (eth, over time)']",29.508474576271187
-223,96,['idle_v4'],"['idle v3 - dai yield - shares', 'idle v3 - usdc yield - shares', 'idle v3 - usdt yield - shares']",28.375
-224,226,"['aave', 'polygon', 'liquidation', 'borrow']","['borrows closed: total volume, count of liquidators/borrowers/liquidations', 'collateral seized: total volume, count of liquidators/borrowers/liquidations', 'closed/seized asset combos: volume, count of liquidations/liquidators/borrowers']",38.07964601769911
-225,77,['mfers'],"['top100_mai_swaps', 'writersroomjenkins', 'pudgy total uniques']",13.337662337662337
-226,72,[],"['rekt impact', 'ampl_rebase', 'fork of (#6470) historical rebases last 30 days']",17.72222222222222
-227,305,"['eth', 'operation melt faces', 'gas', 'eip1559', 'ethereum']","['owl token burned', 'makerdao mcd daily burn', 'copy of (#1107) makerdao mcd mkr daily burn']",21.64918032786885
-228,55,"['nft', 'opensea', '""azuki""', 'cbs', '""clone x""']","['rtfkt clonex mintvial', 'rtfkt clonex mintvial', 'clonex_test']",20.6
-229,105,"['frax', 'truefx']","['frax holdings old', 'ethereum emission rate per day', 'frax usdc amos']",19.590476190476192
-230,102,[],"['rituals venice - golden token holders', 'rituals venice - golden token holders', 'rituals venice - golden token holders']",28.647058823529413
-231,67,"['b.protocol', 'b protocol', 'token', 'bprotocol', 'cdp']","['pie-chart ibbtc composition', 'top 200 holders pie', 'bitdao: top 200 bit holders pie']",24.64179104477612
-232,68,[],"['makerdao (mcd) [liquidation success rate]', 'makerdao (scd) [liquidation success rate]', 'makerdao (mcd) - liquidation success rate']",41.19117647058823
-233,283,"['trove', 'liquity', 'lusd', 'defi', 'unit']","['wip - compound v2 liquidation summary by week', 'calvin - master liquidations data', 'compound [liquidations]']",35.420494699646646
-234,55,['eth2'],"['liuqid eth staked in eth2 over time', 'eth and keep staked', 'eth staked']",21.818181818181817
-235,541,"['stakedao', 'ilv', 'looksrare', 'defi', 'rewards']","['usd value of numerai token (nmr) staked per week', 'accumulated amount of nmr token destroyed over time', 'wip - nmr amount destroyed']",22.53234750462107
-236,162,"['defi', 'liquity', 'chfry', 'uniswap', 'v3']","['fractional tvl', 'keep tvl', 'tvl lp']",13.376543209876543
-237,78,['notional'],"['keep tvl by asset', 'adamant total tvl usd', 'mean finance - tvl over time']",24.435897435897434
-238,226,"['perp', 'perpetual protocol', 'perp v2', '$perp', 'pnl']","['perp price', 'fork of (#10977) perp token holders', 'perp token holders']",25.190265486725664
-239,431,"['dai', 'makerdao', 'maker', 'sai', 'dai outstanding']","['sai supply', 'dai bought on uniswap last 24 hours', 'dai bought on uniswap per hour']",25.587006960556845
-240,76,[],"['average price', 'cphr average price', 'average price']",19.31578947368421
-241,58,"['truefi', 'tru', 'stktru']","['truefi 2', '# wallets in truefi lending pools', 'truefi usd balance by lender over time']",21.448275862068964
-242,175,"['aave', 'prod', 'arc', 'depositors']","['fork of (#7146) aave - cumulative daily deposits volume per asset', 'aave weekly deposit volume per asset', 'fork of (#9482) fork of (#6971) aave - monthly deposit volume per asset']",31.314285714285713
-243,601,"['eth2', 'defi', 'chfry', 'tx', '201911-bitly']","['compound supply withdrawals', 'deposit frequency', 'withdraw frequency']",29.75540765391015
-244,57,[],"['volume by platform - area chart 100%', 'tel volume', 'telx-qs-generic-liquidity-query']",39.473684210526315
-245,120,"['makerdao', 'comp', 'maker']","['makerdao (scd) - failed liqs', 'supplier comp', 'total comp earned (approx.)']",24.825
-246,208,"['defi', 'yearn', 'yfi', 'dex', 'curve']","['yvault | ycrvbusd | harvested total', 'fork of (#10094) yvault | ycrvbusd | harvested total', 'yvault | ycrvsbtc | harvested total']",30.66346153846154
-247,99,"['ygg', 'founders coin', '$ygg']","['yvecrv holders over time', 'yaxis buckets', 'ytrump']",19.01010101010101
-248,91,[],"['generative masks', 'generative masks quarterly', 'generative masks daily floor']",21.67032967032967
-249,66,[],"['contract deployments per month', 'copy of (#329) contract deployments per month (since oct2017)', 'contract deployments per month']",33.59090909090909
-250,59,"['aave', 'volume', 'defi', 'liquidity', 'deposits']","['capital flows', 'goldfinch repayment volume by address and borrower count', 'fork - aave borrows vs withdrawals by token']",28.966101694915253
-251,1424,"['compound', 'aave', 'defi', 'lending', 'makerdao']","['unique weekly borrowers and lenders on compound', 'example: compound weekly borrowers', 'compound v1 usd borrow volume per token']",32.475421348314605
-252,92,[],"['transaction fail / success distribution', 'failed trades', 'failed transaction counter']",35.58695652173913
-253,89,[],"['1inch.exchange overall referrals', 'paraswap referrers', 'top referral transactions (senders)']",34.41573033707865
-254,53,[],"['alcabones', 'axiecount', 'alotta']",18.962264150943398
-255,61,"['cd', 'axieinfinity']","['top axie birthers (removed genesis & uniswap)', 'total axie count', 'axs shard holders by day']",23.360655737704917
-256,91,"['uniswap', 'dex', 'v3', 'volume', 'defi']","['ulp - uniswap v3 dex market share', 'ulp - uniswap v3 dex market share (stablecoin)', 'ulp - uniswap v3 dex market share (deposit-receipt)']",33.72527472527472
-257,82,['mkr'],"['dschief locked mkr', 'mkr earnings over time (usd) 2', 'mkr price $']",28.951219512195124
-258,103,"['dog', 'piedao', 'erc20', 'price', 'holders']","['doge pound', 'doge pound quarterly', 'classified doge pound purchases']",19.184466019417474
-259,80,['omen'],"['all time degens erc20 bets', 'ytd degens erc20 bets', 'ytd degens erc20 bets']",38.675
-260,84,"['defi', 'prediction markets']","['asset supply', 'kd asset breakdown', 'convert_assets']",22.583333333333332
-261,135,"['botb', 'metafactory', 'robot']","['best bots', 'top bot tx fees', 'robotos average']",22.02962962962963
-262,63,"['nft', 'nfts', 'erc721', 'mrcool', 'any']","['nft floor analysis', 'daily nft floors', 'cannabis club nft toker floor']",19.6984126984127
-263,210,"['dydx', 'defi', 'dex', 'dutchx', 'gnosis']","['distribution of reputation dxdao', 'dxdao reputation score', 'unique overall dxdao participants']",24.833333333333332
-264,142,"['wasabix', 'wasabi']","['getexitfeecooldown', 'matic/hmatic polygon net flow', 'huobi inflows / outflows']",17.669014084507044
-265,57,"['kyber', 'dmm', 'usdc', 'fee', 'amm']","['dmm vs amm volume', 'dmm vs amm liquidity', 'kyber lp fee test']",20.596491228070175
-266,63,['azuki'],"['azuki daily floor', 'sales', 'sales price feed']",21.682539682539684
-267,150,"['synthetix', 'defi', '0x']","['synthethix sample', 'synthetix latest rates', 'synthetix fees']",30.033333333333335
-268,119,"['aave', 'defi', 'licp']","['aave sample', 'copy of (#1228) aave sample', 'aave work']",15.815126050420169
-269,89,"['dao', 'dao haus', 'daos', 'minion', 'dxdao']","['addresses that got reputation', 'dao rev', 'developer dao - top owners']",22.730337078651687
-270,361,"['defi', 'governance', 'uniswap', 'compound', 'ethereum']","['moloch votes by member', 'nexus vote tally per proposal', 'nexus gas spent on voting']",28.41551246537396
-271,99,"['kyber', 'defi', 'kcp', 'dex', 'uniswap']","['kyber weekly usd volume', 'kyber - number of trades last week', 'kyber 2019 usd volume']",30.96969696969697
-272,80,"['defi', 'harvest.finance', 'yearn', 'harvest', 'hopr']","['strategydforceusdc harvests', 'rly-eth (10-90) farmers', 'rly-usdc (10-90) farmers']",26.1
-273,122,[],"['calvin - utility tables', 'selector lookup', 'find by selector']",17.92622950819672
-274,153,[],"['$vent volume ported vs released', 'total $vent ported', '$poolz volume ported vs released']",19.601307189542485
-275,366,"['sov', 'sovryn', 'rsk', 'esov', '$esov']","['axie bridge eth deposits', 'axs bridge deposits', 'bridge: polygon']",27.1448087431694
-276,112,"['alchemix', 'defi', 'alcx']","['alcx claimed rewards', '3crv_ald', 'slp_wbtc/eth_ald']",23.375
-277,81,"['nucypher', 'worklock']","['keep rewards - summary view', 'tbtc rewards - summary view', 'tbtc rewards - extended view ii']",35.45679012345679
-278,68,[],"['fork of (#2988) copy of (#2972) total defi users over time', 'churn participation rate for various defi protocols v1', 'chain participation rate for various defi protocols v2']",33.13235294117647
-279,53,[],"['pixelgans - pixel planets os volume', 'pixelgans royalties address txns', 'pixelgans - origins os volume (since block 13269193)']",31.71698113207547
-280,242,"['yearn', 'defi', 'yfi', 'looksrare', 'looks reward']","['[fairwin] invitecodes not used', 'trades_rewards_script', 'b2b cumulative rewards']",26.892561983471076
-281,87,"['strong', 'strongblock', 'strong.strongblock', 'node', 'stronblock']","['deflationary blocks', 'strong rewards claimed', 'node creation']",29.632183908045977
-282,54,[],"['test parallel contract', 'dvf price and vol trades on uni v3', 'daily gasprice volatility']",16.537037037037038
-283,50,['loot'],"['loot hourly floor', 'floor price - abstract loot', 'average price - abstract loot']",21.42
-284,59,"['data', 'numerai']","['numerai nmr token metrics', 'nxm-metrics', 'gpv2 - metrics for front-end [draft]']",22.576271186440678
-285,80,"['tokenlon', 'mev']","['failed tx costs', ""count of failed tx's"", 'failed txs']",20.625
-286,97,"['cryptoadz', 'assangedao']","['cryptobeast floor', 'ciphercity floor', 'cryptoarte floor']",23.36082474226804
-287,64,"['onchainmonkey', 'mories']","['cryptoarte - hourly floor price', 'cryptoarte force floor & median price', 'cryptopunks floor selling price']",30.546875
-288,591,"['nft', 'cryptopunks', 'cryptoadz', 'punks', 'erc721']","['cryptokitties births', 'flagged fake crowdsale addresses, total eth in grouped by week (2017)', 'cryptokitties - births']",27.094754653130288
-289,68,[],"['[cryptoraiders] number of raids', '[cryptoraiders] rewards paid', '[cryptoraiders] distribution of unique players by number of characters owned']",43.029411764705884
-290,69,"['nfts', 'nft', 'erc721', 'capsule house', 'seerlight']","['capsule house hourly floor', 'capsule house: hourly eth floor and avg price', 'capsule house: total sales']",25.608695652173914
-291,124,"['defi', 'setprotocol', 'perpetual protocol', 'set']","['set protocol sandbox', 'perpetual protocol; trading volume per high, medium and low frequency traders', 'perpetual protocol; trading volume per high, medium and low frequency traders']",39.07258064516129
-292,74,[],"['cumulative unique wallets', 'cumulative unique wallets', 'pp: cumulative unique wallets']",31.16216216216216
-293,93,[],"['total number of conditions', 'erc20_latest_addy_count', 'count']",12.204301075268818
-294,109,['gem'],"['wyvern orders matched sample', 'min order size', 'cancels']",20.256880733944953
-295,81,[],"['dystopunks v2 - holding wallet distribution', 'cobi: holding wallet distribution', 'animetas: holding wallet distribution fixed']",28.51851851851852
-296,66,[],"['orange red green blue', 'kia: fur', 'kia: head']",17.333333333333332
-297,55,[],"['top arb paths', 'counter vasp.eth', 'counter atblank.eth']",14.163636363636364
-298,67,[],"['deadfellaz: distribution per wallet', 'wallet distribution', 'wallet distribution']",26.73134328358209
-299,263,"['nft', 'behodler', 'scx', 'rkl', 'wnd']","['pendlehodlers', 'lasc: hodlers', 'fiona']",19.88593155893536
-300,51,[],"['pudgy penguin sales scatter (log scale)', 'sales scatter (log scale)', 'dope shibas sales scatter (log scale)']",31.019607843137255
-301,66,"['wbtc', 'defi', 'erc-20', 'supply', 'wgbtc']","['wbtc vs. btc price', 'wbtc', 'wbtc supply 2']",22.363636363636363
-302,97,"['hegic', 'options', 'hedge contract', 'hegic_v8888', 'creation']","['dai turnover (eth put hedge contracts) on hegic', 'hegic v8888 call', 'top 5 eth exercised options']",37.96907216494845
-303,52,"['yearn', 'defi', 'testing']","['ren project sample', 'yearn controller setstrategy', 'fork of (#6581) list of yearn contracts']",21.46153846153846
-304,92,"['grillzgang', 'cityroots']","['deadfellaz distribution', 'deadfellaz sales', 'killaz sales scatter']",26.42391304347826
-305,92,"['sushiswap', 'gdlp', 'rvst', 'neolastics']","['pwrd in circulation', '$bpt in circulation', 'mdai circulation over time']",20.32608695652174
-306,142,[],"['fork of (#10038) fork of (#10037) function call starting point', 'fork of (#10037) function call starting point', 'fork of (#10037) function call starting point']",32.190140845070424
-307,61,[],"['rpc: 🐕holders🐕', 'nct total amount', 'prices cnt']",30.360655737704917
-308,53,[],"['fork of (#9772) swerve total supply', 'fork of (#1965) gross supply per address', 'total aum']",20.528301886792452
-309,78,"['btc', 'renbtc', 'huobi', 'ren', 'pbtc']","['hbtc', 'copy of (#1804) imbtc vs wbtc supply', 'ibbtc(total system assets)_fork_molten']",23.525641025641026
-310,61,"['btc', 'tbtc', 'sbtc']","['fork of (#4252) tbtc current supply', 'fork of (#4252) tbtc current supply', 'tbtc holders']",23.098360655737704
-311,67,['nawa'],"['current coolcat holder table', 'current coolcat holder table', 'current animeta holder table']",21.64179104477612
-312,50,[],"['svs', 'svs', '# trx - eggs']",11.64
-313,189,"['unit', 'defi', 'jarvis', 'polygon', 'mandalas']","['fairmint: current supply', 'basketdao supply breakdown', '$minds supply']",18.666666666666668
-314,117,"['liquity', 'lqty']","['orders placed dfusion', 'mta - circulating supply', '$rari circulating supply']",27.99145299145299
-315,127,[],"['eth pnxs simple q', 'nano1d1 eth', 'eth']",11.21259842519685
-316,315,"['convex', 'cvx', 'badger bounty', 'velotoken', 'defi']","['📈 vecrv apy (30d average)', 'convex cvx total/staked over time - marcov', 'locked vs minted crvs']",23.511111111111113
-317,64,['eth'],"['weth trade bidding', 'weth/usdc lr', 'weth bought on uniswap per hour']",19.984375
-318,112,['tellor'],"['average priority fee per block (hourly)', 'eip1559 - tip x base fee (by hour)', 'daily block tip and base fees']",30.267857142857142
-319,174,['tellor'],"['claim type over time', 'claim type per number', 'claim type per volume']",23.879310344827587
-320,65,[],"['unicats all hacks - badapprove', 'unicats all hacks - direct', 'fork of (#11061) unicats all hacks - direct']",14.876923076923077
-321,114,"['wallet', 'imx', 'filter', 'myst']","['asg wallet activity', 'on1: wallets', 'test wallet']",23.149122807017545
-322,60,['wallet'],"['wrk o wallet', 'wrk o wallet 2', 'wallet data']",10.666666666666666
-323,102,"['ideamarket', 'dxdao', 'gnosis', 'dao', 'deprecated']","['lock eth for rep - amount over time', 'mgn holders that locked for reputation', 'number of eth holders that locked']",27.69607843137255
-324,74,"['dex', 'defi', 'dopex', 'dpx', 'options']","['amount locked or burned over time', 'usdvalue locked', 'usd value locked in uniswap']",28.31081081081081
-325,61,[],"['gpv2 - cow of the week', 'cow volume - analysis of first 10 days of aug 21', 'cows_overview - intermediate script in analysis']",28.18032786885246
-326,157,['1inch_and_matcha'],"['paraswap last week volume', 'matcha cumulative volume (usd)', 'fork of (#1554) paraswap last 24h volume']",30.45859872611465
-327,65,"['xdai', 'accounting', 'block time']","['total xdai transactions', 'xdai accounting - for download', 'hoprdistributor for accounting (xdai)']",26.0
-328,99,[],"['qpt', 'qhed', 'q']",5.808080808080808
-329,63,"['gas refund', 'table']","['share of wallets with gas refund', 'list of refund swaps', 'list of refund swaps']",28.142857142857142
-330,120,"['monthly', 'prod']","['1inch distribution per period', '1inch assets per period', '1inch buy-sell assets per week']",24.408333333333335
-331,93,"['vibe', 'defi']","['[ft]- genesis seedlings', 'days since genesis', 'genesisblock: top']",25.741935483870968
-332,1153,"['instadapp', 'aave', 'uniswap', 'polygon', '0x']","[""share of participants that's smart contracts"", ""copy of (#205) share of participants that's smart contracts"", 'copy of (#386) unique participants']",26.64180398959237
-333,52,"['1inch', 'marketing', 'defi', 'dex', 'newcomers']","['1inch dau', '1inch mau', '1inch wau']",14.0
-334,53,[],"['gutter cat gang sales', 'gutter rat sales', 'gutter cat owners']",20.547169811320753
-335,213,"['nft', 'cityroots', '""larva lads""', 'opensea', 'full send']","['metric count wallets approved', 'build count wallets approved', 'total wallets that have held matic']",28.422535211267604
-336,54,['ens'],"['total eth spent on ens by account (top 10)', 'pudgypenguins 30-day lookback daily total spending (eth)', 'verynifty | total eth spent']",22.925925925925927
-337,66,[],"['zrx 0x v3 fees paid', 'zrx 0x v3 fees', '[updated] 0x v2+v2.1+v3 protocol fees 365d (under 0x v3 model)']",39.333333333333336
-338,115,[],"['blitmap: buckets', 'meebits: buckets', 'popsicle']",20.26086956521739
-339,100,"['chainlink', 'chainlink vrf', 'ethereum', 'keepers', 'daily']","['synthetix chainlink', 'chainlink reference data reads', 'chainlink answerupdated events by day']",30.55
-340,100,"['bayc', '""bored ape yacht club""', 'mfers', 'mutant ape yacht club', 'nft floor tracker']","['rolling kennels', 'floor eth - bored apes yacht club', 'bored ape yacht club: hourly floor tracker']",29.06
-341,73,"['nft', 'opensea', '""bored ape yacht club""', 'bayc', 'mayc']","['bored ape yacht club opensea price floor', 'bored ape yacht club opensea sales', 'bored ape yacht club opensea top sales']",36.21917808219178
-342,51,[],"['fork of (#7130) keth price (h/t @itzler) 💲', 'fork of (#5241) historic prices', 'fork of (#11436) supply vs. price']",31.333333333333332
-343,181,"['fashionable apes', 'boredapes', 'bayc', 'ethereans']","['wicked ape bone club sales scatter', 'wicked ape bone club: ownership buckets', 'wicked ape sales scatter']",23.955801104972377
-344,140,[],"['pudgypenguins 30-day total sales', 'party penguin sales scatter', 'party penguins: ownership buckets']",28.985714285714284
-345,93,['polygon'],"['sk_xbc_polygon', 'btccrv_polygon_old', 'substitute purchase polygon']",19.591397849462364
-346,120,"['polygon', 'jpyc', 'lrc', 'loopring', 'aave']","['polygon transactions', 'polygon daily', 'polygon 3-month']",31.275
-347,66,"['opensea', 'looksrare', 'mooncat', 'mooncats', 'seller']","['mooncats current share', 'total mooncats', 'named mooncats']",22.742424242424242
-348,114,[],"['crossover template', 'cla & bayc crossover', 'sfd & bayc crossover']",23.43859649122807
-349,150,[],"['stoner cat floor', 'stoner cats floor', 'rolling coolcats']",17.073333333333334
-350,111,"['test queries', 'noob', 'tag1', 'reservelending', 'unfederalreserve']","['kyber burnfee test query', 'accounting query test', 'test query : users']",12.432432432432432
-351,218,"['education', 'unit', 'defi']","['select 1;', 'select', 'random']",13.79816513761468
-352,76,[],"['bayc: trades', 'bayc', 'mayc: mutations over time']",13.68421052631579
-353,74,"['bayc', 'jenkins the valet']","['bayc ownership (owners, ids only)', 'mayc owners', 'bayc owners']",24.324324324324323
-354,79,"['metroverse', 'trend', 'metro verse']","['gasprice grouped by hour', 'jan22 uni hourly', 'mojimonster_hourlyvolume']",16.911392405063292
-355,398,"['nft', 'hashrunes', 'hc', '0n1', 'creature']","['blitmap secondary price', 'meebits secondary price', 'spookies secondary price']",36.12562814070352
-356,56,['covidpunks'],"['covidpunks historical floor price', 'lonely aliens secondary market (in $eth)', 'daily new covidpunks holders']",31.785714285714285
-357,529,"['erc20', 'transfer', 'token', 'lon', 'polygon']","['generic token transfer', 'token transfers', 'erc 20 transfers']",28.822306238185256
-358,107,[],"['corgi: top 25 individual owners', 'top 25 owners', 'sss top 25 individual owners']",23.61682242990654
-359,149,"['holders', 'unique', 'treeverse', 'kamagang']","['ownership', 'dragon ownership', 'cf: unique owners']",21.48993288590604
-360,76,"['api3', 'uniswap', 'whales', 'token holders', 'token']","['top holders of cashgrabs', 'top 10 token holders', 'token holders. top 100']",27.026315789473685
-361,119,"['mfers', 'bayc', 'rkl', 'nft', 'wallets']","['original punks wallets', 'cool cats - wallets', 'gcg wallets cats > rats']",27.84873949579832
-362,62,[],"['test1', 'test1', 'test1']",5.129032258064516
-363,83,"['curve', 'lol']","['usdt.curve.fi liquidity-providers', 'usdt.curve.fi liquidity-added-by-day', 'compound.curve.fi liquidity-added-by-day']",35.74698795180723
-364,203,['rggc'],"['rarible unique wallets', ""fluf's - wallet distribution"", 'usdc/eth unique active wallet addresses']",26.305418719211822
-365,158,"['mc', 'meritcircle', 'fnc', 'fancy', 'fancy birds']","['blitmap: wallets', 'meebits: wallets', 'lizard - current wallets']",19.132911392405063
-366,199,[],"['steth on curve', 'anchorvault steth current balance', 'referral program: where steths go']",30.09045226130653
-367,104,"['1hive', 'curve', 'framergence', 'pulsquares', 'avid lines']","['curve', 'curve 3pool assets proportions', 'fork of (#6288) curve renbtc/wbtc pool proportions']",22.798076923076923
-368,170,"['curve', 'mim', '3crv', 'stable', 'gdlp']","['usdt.curve.fi total-sold', 'usdt.curve.fi total-bought', 'curve.fi/frax trading volume']",31.905882352941177
-369,58,['loot'],"['skullxaeon sales', 'croc helmet | sales history', 'crazy skullz sales']",27.24137931034483
-370,102,[],"['fork of (#8096) based protocol token transfer', 'fork of (#5452) keep token distribution h/t', 'fork of (#10505) no. of holders per token']",38.950980392156865
-371,221,"['etherscamdb', 'constitutiondao']","['etherscamdb total eth (4,000,000 <> 7,579,270)', 'cumulative mm transactions', 'eth sent in past 10 days']",25.79638009049774
-372,78,"['1inch', 'marketing', 'mev']","['fork of (#9247) monthly aggregator volume', 'monthly aggregator volume', 'metamask trades among aggregators']",29.205128205128204
-373,91,[],"['sad frog district floor tracker', 'sad frogs hourly floor tracker', 'sad frogs daily floor tracker']",21.75824175824176
-374,128,"['price', 'statistics', 'trading', 'moving average', 'altcoin']","['avg trade price by token', 'tokens with prices', 'token pair historical prices']",25.4375
-375,129,"['nft', 'floor', 'opensea', 'nft collection', 'parametered']","[""my wallet's nft floor prices"", 'nft_floor_price_trace', '24px floor price tracker']",29.767441860465116
-376,240,"['prod', 'ethereum', 'decentraland', 'nft', 'futureswap']","['sell fees dutchex', 'account transaction costs', 'ethereum transaction fees 2']",23.325
-377,85,['txs'],"['how much eth have i spent on tx fees', 'how much eth have i spent on tx fees with usd value', ""usd_amount_for_all_ tx's (taxes)""]",22.776470588235295
-378,223,"['gas', 'ethereum']","['median gas price per hour (14 days)', 'median gas prices, by hour, last 72 hours', 'median gas price, by day, last 365 days']",34.73094170403587
-379,168,"['spc', 'sdc', 'space punks club', 'unminted', 'spacepunks']","['united punks union', 'punk: current distribution', 'floor eth - lonely aliens']",20.36904761904762
-380,164,['mfers'],"['mcd outstanding', 'ko creators', 'cccc stats']",13.713414634146341
-381,133,"['gas', 'eth', 'polygon']","['avg gas limit for recent 50 blocks', 'ethereum blocks filled avg per hour (14 days)', 'avg_fee_paid_per_gas_legacy_vs_dynamic']",27.796992481203006
-382,293,"['gas', 'ethereum', 'berezka', 'scaling', 'gas limit']","['gas used by random account', 'ethereum gas used per month', 'ethereum gas used and gas limit per day']",23.996587030716725
-383,94,"['dex', 'defi', 'gnosis', 'dutchx', 'gnosis protocol']","['dutchx discount - dai auctioned for weth', 'dutchx usd volume of weth / mkr', 'dutchx price discount - mkr auctioned for weth']",35.829787234042556
-384,96,[],"['d', 'yyy', 'ps']",3.6458333333333335
-385,201,"['artblocks', 'nft', 'paint', 'murall', 'art']","['art block: transitions', 'art blocks: curated sets', 'art block curated sales']",29.676616915422887
-386,105,['erc20'],"['ethereum db update status', 'livepeer traces', 'traces to & from']",21.133333333333333
-387,110,"['ethereum', 'block']","['max block number for addresses', 'internal tx from block height', '1559']",23.10909090909091
-388,399,"['superrare', 'paint', 'murall', 'mintssongs']","['fractional # curators', 'fractional collectors', 'superrare daily volume']",32.97744360902256
-389,65,[],"['erc-20 event history', 'events', 'buggy event parsing example']",24.338461538461537
-390,106,"['ethereum', 'yearn', 'yfi']","['ethereum recent gas prices', 'variation_gas_price', 'ethereum gas price granularity']",21.443396226415093
-391,90,[],"['gas fees', 'gas fees over time', 'gas cost check']",23.122222222222224
-392,59,[],"['pp: profit & investment chart', 'earn', 'profit margin by hour']",19.915254237288135
-393,306,"['zesty market', 'altcoin', 'spend', 'decentraland', 'buyer spend']","['buyorders', 'pan purchases', 'pan sell']",24.637254901960784
-394,146,"['chzwzrds', 'dar', 'yfi', 'yearn']","['daily chzwzrds duels', 'stats per week', 'sum value by days (24h)']",14.616438356164384
-395,156,"['ethereum', 'omen']","['most popular ethlend contracts', 'stuck eth in empty contracts', 'mcd surplus contract']",22.737179487179485
-396,444,"['ens', 'optimism', 'affinity', 'l2', 'op']","['bloom - unique addresses attested', 'total unique addresses that have generated names on ens', 'unique addresses generating ens domains per week']",30.41216216216216
-397,64,['bayc'],"['bayc sales data', 'bayc sales data', 'bayc percentiles']",24.90625
-398,163,['littles'],"['animetas hourly floor (usd)', 'derpy birbs hourly floor (usd)', 'old_partypenguins_floor_hourly']",22.607361963190183
-399,65,[],"['floor eth - parameterized', 'tdbc hourly floor price', 'cards historical floor price (in $eth)']",25.892307692307693
-400,123,"['1inch', 'marketing', 'storefront', 'parametered', 'volume by week']","['monthly sales volume - primary & secondary - old', 'os market volume by month', 'qe4ever rarible erc 1155 sales volume']",25.682926829268293
-401,75,['royal'],"['weekly txs', 'current week txs', 'byac per hour txn count']",18.72
-402,151,"['txs', 'livepeer', 'ethereum', 'eth2', 'tx']","['count of tx for recent 50 blocks', 'num multisig txs over time', '⛏️ count livepeer merkleminer txs.']",17.980132450331126
-403,176,"['defi', 'eth2dai', 'cream', 'eth2', 'eth']","['defisummit - eth price on eth2dai vs. centralized exchanges', 'eth price', 'average price per day (search by symbol)']",22.710227272727273
-404,63,['coolcats'],"['classified kennel purchases', 'classified coolcat purchases', 'classified cfcats purchases']",26.428571428571427
-405,137,"['lucky maneki', 'maneki gang', 'mfers', 'isoroom', 'holder']","['partypenguins_floor_daily', 'daily interactive floor', 'nightkids_floor_daily']",19.116788321167885
-406,430,['curio'],"['house edge collected', 'spooky floor', 'multi contract current floor']",17.1
-407,128,"['nft', 'fnd', 'cultured']","['number of gen holders that auctioned for rep', 'copy of (#895) ens auction playground wip', 'ens auction playground wip']",27.5390625
-408,65,[],"['auction house daily sale volume (usd)', 'auction house daily bid volume (usd)', 'auction house weekly sale volume (usd)']",31.50769230769231
-409,212,"['ethereans', 'sandbox', 'trans', 'addy', 'adamant']","['[fairwin] count of methods called', '[fairwin] get transactions that called a specific method', '[fairwin] get beinvitedcode parameter from invest() function calls']",24.816037735849058
-410,58,"['sandbox', 'decentraland', 'change the limit to have all of them or last 10 or 100', 'defi']","['5 most recent eth transactions', 'last transactions', 'most recent transactions']",29.67241379310345
-411,79,"['aave', 'lusd', 'liquity']","['all time degens transaction count (by coin)', 'no of transactions per block', 'count of transactions in anchorvault']",27.303797468354432
-412,50,[],"['adj_liq_series \\x000000aaee6a496aaf7b7452518781786313400f', 'sedart pot', 'habanero tic tac']",16.88
-413,60,"['mainframe', 'defi', '$mft']","['1inch transactions per week', 'average transactions per day', '0x and 1inch lop daily']",28.683333333333334
-414,87,"['request', 'tellor']","['wyvern exchange v2.2 transaction count (daily)', 'saturn network transaction count (daily)', 'transactions per day']",30.839080459770116
-415,117,"['nft', 'fungi']","['floor price and volume - 4001 project', 'floor price over time', 'floor price and volume - metahero mintpass']",38.38461538461539
-416,242,"['defi', 'usdt', 'usdp', 'tetu', 'fundkeeper']","['usdc', 'eth/usdc ld', 'usdt frozen']",19.1900826446281
-417,91,[],"['usd price sample', 'binance usd market', 'usd value of positions']",16.395604395604394
-418,84,[],"['test_for_synthetix_tianq', 'test 1', 'test 1']",9.488095238095237
-419,132,"['storefront', 'asdsa']","['funnel visualisation test', 'test test', 'optional parameter']",12.257575757575758
-420,64,['ideamarket'],"['ignore', '__ archive __', 'old - delete']",9.59375
-421,204,"['storefront', 'parametered', 'floor price']","['fractional - implied valuation vs floor', 'floor_price_above_1e', 'unnamed query']",19.20098039215686
-422,92,"['0n1', 'heart', 'fishy fam']","['floor price (approx)', 'approximate floor price', 'floorprice-daily']",25.48913043478261
-423,70,['prices'],"['price by date', 'current price', 'bugged prices query']",17.82857142857143
-424,197,"['defi', 'prices', 'emptysetdollars']","['timerange for prices', '[new] price-range', 'prices']",11.913705583756345
-425,97,"['cap', 'finance', 'v4', 'arbitrum']","['0x usd volume over time per token', '0x volume share per taker token', 'erc20 transaction volume (denominated in erc20) directly between smart contracts']",30.577319587628867
-426,52,"['amp', 'template', 'balance', 'erc20', 'token']","['token balances of an address', 'copy of (#1225) token balances of an address', 'eth address tokens balances']",30.98076923076923
-427,177,"['honeyswap', 'occam', 'occ', 'fnc', 'fancy']","['$fwb holders over time', 'current 75+ $fwb token holders', '# of 50+ $fwb holders over time']",22.01129943502825
-428,63,"['ndx', 'unique holders', 'erc20', 'unique addresses', 'holders']","['number of token holders query', 'number of magnolia token holders', 'net million token holders by day']",32.07936507936508
-429,53,[],"['airswap usd volume', 'airswap volume per taker token', 'airswap volume/token - teo']",32.698113207547166
-430,124,"['uniswap', 'uniswap v2 dai-weth liquidity', 'yam', 'degen.finance', 'defi']","['uniswap dai/eth liquidity', 'uniswap mkr/eth liquidity', 'wip - uniswap liquidity providers gains/losses']",32.83064516129032
-431,124,['piedao'],"['1.a.market', '1.a.liquidity', '1.c.market']",22.032258064516128
-432,81,[],"['fork of (#8476) nec on-chain volume', 'fork of (#10680) uniswap daily users and volume', 'fork of (#10831) uniswap daily tx and volume 💹']",42.95061728395062
-433,55,[],"['fork of (#7966) uniswap usd volume', 'fork of (#10043) uni trading volume over time by pair', 'fork of (#10265) uni trading daily volume']",43.527272727272724
-434,134,[],"['pt test 5', 'practicing', 'hmmm... something is wrong']",8.85820895522388
-435,56,[],"['eth balance test over time 1', 'eth balance list test 2', 'fork of (#4170) total pooltogether users over time']",32.625
-436,107,"['ant', 'aragon', 'token', 'balance']","['mgn token balances', 'ant balances', 'get token transaction from blockheight']",27.878504672897197
-437,67,['rvst'],"['token balance chart (dmg)', 'token balance dmg', 'token balance uni-v2 p1 mdai-link']",45.43283582089552
-438,58,[],"['uni_iscontract', 'uni', 'nim reilbas']",7.568965517241379
-439,207,['ens'],"['x5b620186a05a131560135760016020526000565b600080601f600039601f565b6000f3', 'fulcrum 2', 'v1 criteria']",7.734299516908212
-440,72,"['uniswap', 'uni pairs ranked']","['fork of (#9938) 02_uniswap_v2_pairs.sql', 'fork of (#8033) uniswap pairs', 'new-v2-pair']",25.375
-441,195,"['uniswap', 'v1', 'uniswap_v3']","['uniswap learn', 'uniswap', 'uniswap']",18.112820512820512
-442,84,[],"['dope shibas hourly floor', '1155 dope shibas top sales daily', 'dope shibas']",22.75
-443,69,"['ethereum', 'metamask', 'swap']","['metamask addresses that used metamask swap', '[polygon] mycrypto swap - addresses that used swapped', 'total metamask swaps by day']",35.88405797101449
-444,213,"['uniswap', 'uniswapv3', 'swap', 'polygon', 'ethereum']","['1inch total swaps', 'totle total # of swaps', 'totle 24h # of swaps']",24.431924882629108
-445,102,[],"['dforce', 'mev growth', 'foto']",10.931372549019608
-446,76,[],"['for t&c', 'a_r_t', 'ta']",5.171052631578948
-447,65,[],"['top holders of gno', 'copy of (#1223) top holders of gno', 'top holders']",18.092307692307692
-448,85,"['rggc', 'dao', 'dao haus']","['top 25 slp holders', 'top 20 holders', 'top 30 holders']",22.8
-449,62,['lazylions'],"['sss-sd sales', 'moondogs odyssey: daily top sale tracker', 'ready player cat nft: daily top sale tracker']",24.483870967741936
-450,81,[],"['1inch 24h volume', 'totle 24h volume', '24 hr volume by contract on os']",22.395061728395063
-451,87,"['eth', 'fishy fam']","['daily eth volume', 'eth tx volume: past 12 months', 'monster blocks hourly volume']",26.17241379310345
-452,62,"['0x', 'json']","['0x - fillorder', '0x api fills test', '0x api tx']",32.20967741935484
-453,199,"['eulerbeats', 'rai', '0x', 'reflexer', 'defi']","['0x daily volumes', 'volume (30 days)', 'nfd daily volume']",20.829145728643216
-454,58,"['cex', 'volume', '1inch', 'marketing']","['multisender volume per month', 'monthly mm volume (last 12 months)', 'last year volume']",23.32758620689655
-455,113,"['uniswap', '1inch', 'ppblz', 'kawa', 'volume']","['uniswap daily volume - dai', 'uniswap daily volume - mkr', 'uniswap daily volumes from 1inch']",29.398230088495577
-456,91,['uniswap usd volume dai eth pair'],"['1inch volume contribution to uniswap', 'uniswap wbtc-eth volume 2h', 'snow-eth uniswap 1h volume']",27.582417582417584
-457,102,['mainframe'],"['top lp addresses', 'mm lp', 'locked addy/weth lp']",16.323529411764707
-458,122,"['uniswap', 'dex']","['uniswap v3 lp scope (stablecoin)', 'uniswap v3 lp scope (mid-tail)', 'uniswap v3 lp scope (drt)']",27.131147540983605
-459,189,"['jarvis', 'polygon', 'test']","['usd volume last week', 'usd volume over time v4', '0x usd volume 2019']",30.063492063492063
-460,86,"['newo', 'bancor', 'new order']","['reputation earned per token', 'total tokens counter', 'analysis_random_token_circulation']",27.24418604651163
-461,140,"['token', 'holders', 'storefront', 'parametered', 'tokens distribution']","['tokens, tokens, tokens', 'tokens, tokens, tokens', 'fulcrum tokens']",17.821428571428573
-462,523,"['defi', 'degens', 'prod']","['best 5 markets to supply to last 7 days', 'wip best 5 markets to supply to last 7 days v2', 'best 5 markets to supply to last 7 days_miguel_v2']",27.850860420650097
-463,79,[],"['trades', 'open', 'trades into same direction']",12.430379746835444
-464,170,"['uniswap', 'weth', 'usdc', 'eth', 'notional']","['uniswap usd volume over time', 'uniswap usd volume over time v3', 'uniswap usd volume over time_miguel_v2']",33.62352941176471
-465,165,[],"['lonely aliens : hourly sales data', 'stoner cats : hourly sales data', 'stoner cats : hourly sales data']",32.21212121212121
-466,175,"['uniswap', 'price', 'token', 'mainnet', 'uniswap v3']","['lpt price on uniswap vs. cexs', 'average uniswap trade cost', 'fork of (#9949) top 15 $hegic buyers on uniswap']",33.29714285714286
-467,354,"['uniswap', 'defi', 'must', 'swap', 'v3']","['uniswap dai/eth trades', 'uniswap mkr/eth trades', '(wip) uniswap - number of traders last week']",31.059322033898304
-468,53,"['scatter', 'sales']","['chainfaces sales scatter', 'slumborghini sales scatter', 'fls: sales scatter']",22.169811320754718
-469,100,['rggc'],"['vogu scattered sales', 'corgi: sales data', 'corgi: sales']",19.37
-470,57,"['ideamarket', 'unidex', 'optimism', 'fantom', 'margin']","['uni trading daily volume - test', 'cphr daily volume traded', 'daily trading volume']",28.19298245614035
-471,181,[],"['evt-49b trading quantity', 'ddex(legacy) trade volume', 'total trading volume $']",25.11049723756906
-472,111,[],"['volume (all-time) - fix', 'cfcats volume', 'kfbtc volume']",11.567567567567568
-473,84,"['balancer', 'hopr', 'defi', 'lbp', 'chart']","['balancer lbp stats - ilv', 'token usd prices from balancer swaps', 'balancer lm report']",25.38095238095238
-474,58,['fishy fam'],"['totle total volume', '2.b', 'total volume']",19.137931034482758
-475,102,"['symphony', 'polygon']","['totle 7d volume', 'view - total eth vol', 'volume in eth']",22.794117647058822
-476,70,['stable_utility'],"['eth balances', '[fairwin] eth balance grouped by year month', 'copy of (#536) [fairwin] eth balance grouped by year month']",24.685714285714287
-477,99,"['erc20', 'keep', 'vogu']","['unique holders table', 'unique holders', 'wncg distinct holders']",23.1010101010101
-478,55,[],"['eth block art: new holders growth trend', 'blockart: new holders growth trend', 'unique holder count']",22.545454545454547
-479,66,"['balancer', 'mft']","['balancer liquidity mining data on polygon', 'balancer liquidity provided per day', 'balancer liquidity (usd)']",38.25757575757576
-480,50,['poolsuite'],"['derpy birbs: more sales stats', 'tdbc sales', 'tdbc sales stats']",19.5
-481,79,[],"['holders over time vs first-time holders', 'ust holders over time', 'bel holders over time']",22.050632911392405
-482,116,[],"['seller average earning distribution. top 100', 'derpy birbs : top 10 sales', 'top 10 sellers']",19.448275862068964
-483,107,['rggc'],"['max price', 'highest sale', 'all time max price']",18.869158878504674
-484,79,[],"['mdj sales', 'sales', 'sales']",10.0
-485,54,"['nft', 'knights of degen', 'rowhomes', 'fishy fam']","['latest sales - pigments', 'historical sales by range', 'latest sales - rinascita']",24.14814814814815
-486,156,[],"['ren holders', '$kif holders', 'foto: holders']",12.756410256410257
-487,63,[],"['twc/twc: pair holders', 'totalholders', 'total holders']",16.634920634920636
-488,138,"['ct balance', 'people', 'altcoin']","['internal tx balance sample', 'fairmint balance', 'ct conditions']",20.681159420289855
-489,77,['balancer'],"['fork of (#2355) balancer: unique daily active lps', 'wip lp balances', 'phnx lp balances']",37.532467532467535
-490,88,"['uniswap', 'dex', 'across', 'lp', 'uma']","['wip - uniswap liquidity pool size by token', 'copy of (#1166) uniswap -- total pool liquidity', 'total uniswap liquidity pools']",35.29545454545455
-491,210,"['balancer', 'xdollar', 'xdo', 'hifi']","['xdo top balance (polygon)', 'balancer trades on polygon', 'balancer volume (usd), daily']",33.51428571428571
-492,66,"['spacepunksclub', 'rocket fuel pool']","['pooltogether [winnings, deposits]', 'pool together 2 [top depositors]', 'pooltogether [winnings/deposits]']",30.393939393939394
-493,112,"['uniswap', 'saint fame']","['unisocks uniswap pool', '$aint fame uniswap pool volume', 'copy of (#1901) unisocks uniswap pool']",29.892857142857142
-494,84,"['balancer', 'unit', 'defi']","['balancer pool selected on polygon', 'balancer pools analysis on polygon', 'perpetual balancer pool holders']",29.19047619047619
-495,168,"['poolsuite', 'pool', 'pooltogether', 'chfry', 'solace']","['pooltogether boughtticket events', 'copy of (#380) pooltogether boughtticket events', 'wip number of addresses that accounted for 90%']",22.821428571428573
+-1,913,"['defi', 'space poggers', 'dex', 'codingsh', 'numerai']","['example: dai daily transfer volume', 'compound weekly suppliers', 'ethereum contract-to-contract calls over time (internal txs)']",27.699890470974807
+0,25,"['idle_v4', 'hegic', 'hedge contract']","['dai turnover (eth put hedge contracts) on hegic', 'b2b cumulative rewards', 'idle token holders']",28.0
+1,21,"['nft', 'london']","[""proof of beauty's $london gift average (1000 sales ma) secondary price"", ""proof of beauty's $london gift: hourly floor tracker"", ""proof of beauty's $london gift sales scatter""]",52.142857142857146
+2,102,[],"['clipper', 'adasd', '97']",2.196078431372549
+3,310,[],"['copy of (#66) new query', 'new query', 'new query']",10.148387096774194
+4,23,['defi'],"['[snowswap] historic ydai/yusdc/yusdt/ytusd pool deposits and withdrawals', '[snowswap] ydai/yusdc/yusdt/ytusd pool value', '[snowswap] ydai/yusdc/yusdt/ytusd pool unique addresses']",53.82608695652174
+5,29,"['nft collection', 'parametered', 'cryptopunksvsopensea', 'opensea', 'top100 opensea']","['unnamed query', 'unnamed query', 'unnamed query']",13.0
+6,26,['balancer'],"['balancer liquidity provided per day', 'liquidity provided per week', 'delta liquidity per day']",20.807692307692307
+7,45,"['bloom', 'identity']","['bloom attestations', 'new query', 'new query']",14.933333333333334
+8,17,"['mstable', 'defi']","['mta unique addresses', 'mta sold', 'current mta $ price']",23.352941176470587
+9,30,['chainlink'],"['pendlehodlers', 'chainlink reference data reads', 'ygov prop45 voting power timeseries']",23.6
+10,16,[],"['badgerdao_slpwbtcdigg_composition_per_epoch', 'wip-treasury2', 'wip-treasury-balance']",31.25
+11,15,[],"['usdt frozen', 'opensea fees burned', 'dydx fees burned']",19.733333333333334
+12,26,[],"['fractional pool pricing', 'amount of pickles burned per day', 'amount of pickles burned per pjar']",25.384615384615383
+13,40,"['qidao', 'mai finance', 'camaave', 'camwmatic', 'makerdao']","['vaults created', 'number of vault creators', 'vaults created per day']",28.7
+14,30,[],"['polygon transactions', 'polygon.logs', 'polygon.contracts checker']",25.133333333333333
+15,15,['opyn'],"['opyn cusdc uniswap liquidity', 'opyn cdai uniswap liquidity', 'copy of (#1827) opyn cdai uniswap liquidity']",39.266666666666666
+16,26,['opyn'],"['opyn new vaults per day', 'opyn collateral liquidations', 'opyn total collateral']",33.34615384615385
+17,119,"['gnosis safe', 'safe', 'dunev2', 'argent']","['num multisig txs over time', 'safe thresholds', 'gnosis safe txs over time']",50.45378151260504
+18,71,"['prod', 'liquity', 'lqty', 'testing']","['microcaps query 1', 'copy of (#83) stablecoin marketcaps', 'badger income statement']",26.47887323943662
+19,40,"['gas', 'ethereum', 'eth', 'gwei', 'hour']","['avg gas limit for recent 50 blocks', 'ethereum recent gas prices', 'ethereum blocks filled avg per hour (14 days)']",45.825
+20,37,[],"['basketdao supply breakdown', 'supply tbtc', 'tbtc current supply']",20.54054054054054
+21,28,['tbtc'],"['new query', 'uniswap learn', 'tbtc accumulative amount']",15.535714285714286
+22,19,['nft'],"['ready player cat nft average (1000 sales ma) secondary price', 'ready player cat nft sales scatter', 'ready player cat nft minimum weth (bots) sales per day']",42.21052631578947
+23,20,[],"['curve.fi total unique user - polygon', 'curve.fi/frax trading volume', 'curve.fi/busdv2 trading volume']",31.1
+24,49,[],"['curve', 'curve.fi daily volume', 'curve.fi hourly volume']",30.979591836734695
+25,42,"['uniswap', 'aragon', 'dao', 'defi', 'governance']","['moloch member ragequits', 'moloch votes by member', 'uma']",27.952380952380953
+26,39,"['etherscamdb', 'hex.win', 'cryptoscamdb', '201911-bitly']","['etherscamdb frequency of eth sent to flagged addresses', 'etherscamdb total eth (4,000,000 <> 7,579,270)', 'etherscamdb top address receivers']",49.282051282051285
+27,15,[],"['c-esd', 'purchased vs. redeemed', 'esd wallet balances']",22.6
+28,29,[],"['fork of (#7130) keth price (h/t @itzler) 💲', 'twap oracle price', 'esd uniswap price']",23.75862068965517
+29,16,['nft'],"['fluf - daily floor', 'fluf: holders', 'fluf: current floor']",28.1875
+30,71,"['201911-bitly', 'gitcoin']","['common inputs', 'common outputs', 'deposit frequency']",28.225352112676056
+31,40,[],"['crv farming - banteg', 'os gmv', 'fork of (#7123) keepers active']",33.825
+32,23,[],"['contract deployments per month', 'copy of (#329) contract deployments per month (since oct2017)', 'new contracts by day']",31.869565217391305
+33,36,[],"['paraswap referrers', 'total hodl contributions', '# party bids created']",27.25
+34,17,"['livepeer', 'staking']","['livepeer bondingmanager ""in"" txs., by day', 'livepeer bondingmanager ""in"" txs., by day', '⛏️ count livepeer merkleminer txs.']",33.1764705882353
+35,16,[],"['fork of (#4962) btc on ethereum', 'fork of (#4962) btc on ethereum', 'fork of (#3462) 买入龙虎榜']",31.625
+36,16,"['setprotocol', 'defi', 'gnosis protocol', 'cmm']","['set protocol sandbox', 'gpv2 - metrics for front-end [draft]', 'gpv2 - user based metrics for front-end [draft]']",31.5625
+37,65,"['dex', 'defi', 'dutchx', 'gnosis']","['dutchx discount - dai auctioned for weth', 'dutchx usd volume of weth / mkr', 'dutchx price discount - mkr auctioned for weth']",38.292307692307695
+38,48,"['defi', 'yearn', 'yfi', 'dex', 'curve']","['v1 staking index', 'v1 criteria', '__ archive __']",26.083333333333332
+39,123,['hex.win'],"['storj token rewards', 'unique stakers', 'twc/twc: pair holders']",19.959349593495936
+40,40,"['dinoswap', 'pool1']","['legacy v dynamic over 48hrs', 'dinoswap fossil farmers', 'dinoswap pool1 tvl']",23.65
+41,15,[],"['percentage diamonds hands', '$bpt price & holders', '$bpt new holders by day']",27.8
+42,24,[],"['testing prices', 'all time degens erc20 bets', 'ytd degens erc20 bets']",31.458333333333332
+43,36,"['cnsl', 'snx', 'calvin']","['copy of (#1223) top holders of gno', 'copy of (#1132) bancor non-bnt trades', 'copy of (#463) total number of sai receivers']",24.833333333333332
+44,21,[],"['average moondogs secondary price', 'moondogs sales scatter', 'moondogs odyssey: ownership buckets (log scale)']",35.57142857142857
+45,20,"['rkl', 'nft']","['best bots', 'mdj sales', 'sss-sd sales']",26.75
+46,80,"['nft.trades', 'nft', 'rarible', 'superrare', 'asyncart']","[""monthly usd volume - nft's"", 'unique holders for top 100 relevant nft projects', 'nft sales tracker']",24.8875
+47,20,"['dex', 'users', 'trading']","['wyvern exchange v2.2 usd volume (weekly)', 'wyvern exchange v2.2 transaction count (daily)', 'wyvern exchange v2.2 unique user count (daily)']",42.05
+48,30,"['ens', 'opyn']","['number of ens domains registered', 'number of ens domains & subdomains registered (weekly)', 'usd spent on ens in the primary market (to date)']",41.5
+49,19,"['ens', 'erc721']","['total .eth names ever registered since yesterday', 'baseregistrarimplementation_evt_nameregistered', 'total ens names created (including expired)']",35.1578947368421
+50,33,"['cryptopunks', 'nft', 'liquity', 'lusd', 'trove']","['list of troves', 'lido_percent_of_eth3_historical', 'cryptopunks - top 10 most frequently transacted 🏵️']",26.181818181818183
+51,44,"['animetas', 'opensea', 'last 2 years volume']","['opensea transaction past hour', 'opensea daily volume', 'opensea monthly revenue']",33.97727272727273
+52,16,"['0x', 'json']","['new query', 'max block number for addresses', '0x - fillorder']",13.375
+53,23,['chzwzrds'],"['generic token transfer', 'reputation earned per token', 'batchattestations']",16.434782608695652
+54,30,"['wbtc', 'defi']","['wbtc [wbtc weekly mint/burn]', 'wbtc [weekly transfer volume]', 'wbtc [weekly unique users]']",27.2
+55,19,[],"['pudgies hourly (20% percentile sales)', 'pudgy penguin: hourly sales data', 'party penguin: hourly sales data']",32.526315789473685
+56,20,['nft'],"['blitmap secondary price', 'meebits secondary price', 'spookies secondary price']",30.85
+57,50,"['pudgy penguins', 'nft', 'median']","['workshop', 'hourly floor tracker', 'party penguins: hourly floor tracker']",29.38
+58,43,['nft'],"['blitmap: wallets', 'blitmap: buckets', 'meebits: wallets']",27.627906976744185
+59,17,[],"['rumble kong league: top sale of the day', 'rumble kong league', 'junkyard dogs']",24.11764705882353
+60,24,[],"['spooky floor', 'crypto cannabis club floor', 'cryptobeast floor']",21.0
+61,15,[],"['fork of (#3) example: uniswap usd volume 🦄', 'fork of (#3) example: uniswap usd volume 🦄', 'fork of (#3) example: uniswap usd volume 🦄']",43.53333333333333
+62,48,['monthly'],"['cumulative splits created by day (old)', 'cumulative secondary sales volume by day - old', 'daily secondary sales volume - growth rates - old']",24.4375
+63,19,['defi'],"['badgerdao-addresses', 'total defi users over time', 'count(erc721) per unique wallet address']",40.68421052631579
+64,62,['compound'],"['1inch total users', '1inch new/old users per period', 'total compound users over time']",27.403225806451612
+65,16,"['xdollar', 'xdo']","['xdo top balance (polygon)', 'balancer trades on polygon', 'balancer v2 pool swap fees on polygon']",28.9375
+66,18,[],"['gas wasted on out-of-gas', 'pudgypenguins 30-day lookback daily total spending (eth)', 'uni trading volume over time']",28.77777777777778
+67,15,"['dai', 'makerdao', 'stablecoin', 'retention']","['dai sending daily retention', 'dai sending weekly retention', 'unique senders of dai']",43.266666666666666
+68,34,"['dai', 'makerdao', 'defi', 'sai', 'maker']","['dai_liquidity', 'dai_running_liquidity', 'dai_running_liquidity_miguel_v2']",20.38235294117647
+69,45,"['dai', 'maker', 'market cap', 'dai outstanding', 'dai bridged']","['sai supply', 'dai bought on uniswap last 24 hours', 'dai bought on uniswap per hour']",43.55555555555556
+70,27,['axieinfinity'],"['x5b620186a05a131560135760016020526000565b600080601f600039601f565b6000f3', 'evt-49b trading quantity', 'total axie count']",20.037037037037038
+71,28,[],"['owl token burned', 'template: getting token symbol', 'unique solution providers']",31.5
+72,186,"['erc20', 'data', 'numerai', 'staking', 'ai']","['bloom - unique addresses attested', 'draft - compare slippage', 'most popular ethlend contracts']",26.06451612903226
+73,30,"['uniswap', 'kyber', 'defi']","['uniswap mkr/eth trades', '(wip) uniswap - number of traders last week', 'uniswap - number of trades last week']",34.0
+74,20,[],"['eth buying on uniswap', 'eth bought uniswap', 'pan purchases']",30.05
+75,51,"['dex', 'volume', 'defi']","['copy of (#1113) dex volume 2019 by project', 'fork of (#4319) dex by volume 🏦', 'fork of (#4319) dex by volume 🏦']",36.705882352941174
+76,23,"['addy', 'lock', 'withdraw', 'adamant']","['loopring block types', 'loopring trade block sizes', 'loopring transactions processed per day']",28.82608695652174
+77,17,[],"['how much eth have i spent on tx fees', 'top bot tx fees', 'avg_fee_paid_per_gas_legacy_vs_dynamic']",24.647058823529413
+78,18,"['defi', 'prices', 'dxdao', 'gnosis', 'dao']","['timerange for prices', 'prices', 'stablecoin marketcaps']",37.22222222222222
+79,20,"['defi', 'eth2dai', 'exchange']","['defisummit - eth price on eth2dai vs. centralized exchanges', 'eth price', 'kraken wallets incoming eth 🧮']",27.1
+80,20,[],"['a8015df1f65e1f53d491dc1ed35013031ad25034 gasprice=0 transactions for the past year', 'list od top 100 ethereum transactions', 'ethereum transactions']",27.95
+81,22,"['paraswap', 'dex', 'volume', 'defi', 'trading']","['paraswap daily volume', 'paraswap monthly volume', 'paraswap total users']",21.863636363636363
+82,17,[],"['copy of (#3) check this out 3 - uniswap usd volume 🦄', 'copy of (#3) example: uniswap usd volume 🦄', 'copy of (#3) example: uniswap usd volume 🦄']",40.88235294117647
+83,26,"['0x', 'defi', 'dex']","['0x taker usd volume', 'copy of (#435) weekly dex usd volume', 'weekly dex usd volume (mats :)']",31.53846153846154
+84,79,"['dex', 'volume', 'defi', '0x', 'uniswap']","['dex volume per day trailing 7 days', 'dexs by volume last 7 days v1', 'v2 wip - dexs by volume last 7 days']",27.544303797468356
+85,20,[],"['large hack', 'aave v2 getuserreservedata', 'compound daily interest table']",23.7
+86,28,[],"['fork of (#7146) aave - cumulative daily deposits volume per asset', 'aave weekly deposit volume per asset', 'fork of (#9482) fork of (#6971) aave - monthly deposit volume per asset']",43.07142857142857
+87,33,[],"['uma token running sum', 'uma token count', 'fork of (#9931) cumulative uni token claimed']",34.09090909090909
+88,15,[],"['average priority fee per block (hourly)', 'eip1559 - tip x base fee (by hour)', 'daily block tip and base fees']",32.4
+89,64,"['uniswap', 'livepeer', 'fees', 'dex', 'uniswap-v3']","['uniswap dai/eth liquidity', 'uniswap mkr/eth liquidity', 'wip - uniswap liquidity pool size by token']",34.234375
+90,15,[],"['mcd outstanding', 'makerdao (mcd) [unique borrowers]', 'makerdao (scd) [unique borrowers]']",27.866666666666667
+91,27,['balancer'],"['fork of (#8053) mesa trades (last 60 days)', 'fork of (#2355) balancer: unique daily active lps', 'fork of (#10043) uni trading volume over time by pair']",51.629629629629626
+92,49,"['makerdao', 'maker tvl']","['collateral used in nuo', 'collateral usd value per day', 'maker collateral']",44.204081632653065
+93,84,"['compound', 'compound liquidation', 'defi', 'perp']","['calvin - master liquidations data', 'calvin - utility tables', 'borrows closed: total volume, count of liquidators/borrowers/liquidations']",41.38095238095238
+94,32,"['dydx', 'defi']","['dydx liquidations (raw)', 'wip - dydx liquidations', 'dydx liquidations by day']",25.1875
+95,19,[],"['zrx 0x v3 fees paid', 'zrx 0x v3 fees', '0x v2+v2.1+v3 taker fees']",32.31578947368421
+96,17,[],"['compound originations per day', 'fork of (#1938) compound unique borrowers per day', 'fork of (#1938) compound unique borrowers per day']",46.64705882352941
+97,18,[],"['test1', 'test_for_synthetix_tianq', 'mykey_test']",11.777777777777779
+98,27,"['uniswap', 'defi', 'dex', 'trading', '1inch']","['example: uniswap usd volume 🦄', 'uniswap daily volume - dai', 'uniswap daily volume - mkr']",32.074074074074076
+99,25,['mkr'],"['copy of (#587) mkr balances', 'copy of (#587) mkr balances', 'mkr earnings over time (usd) 2']",32.6
+100,18,[],"['copy of (#1496) compound borrow per week [wip]', 'compound mint per week [wip]', 'compound liquidate per week [wip]']",27.444444444444443
+101,22,[],"['1inch total volume', '1inch total swaps', '1inch 24h volume']",22.90909090909091
+102,42,['volume'],"['0x weekly volume (usd equiv.) - wip', '1inch usd volume per period', '1inch distribution per period']",28.047619047619047
+103,35,[],"['pooltogether [winnings, deposits]', 'pool together [distinct users]', 'pool together 2 [top depositors]']",30.857142857142858
+104,34,"['compound', 'lending', 'defi', 'get started', 'dao']","['unique weekly borrowers and lenders on compound', 'example: compound weekly borrowers', 'compound v1 usd borrow volume per token']",38.470588235294116
+105,18,[],"['lenders vs borrowers in most recent 30 days', 'compound: lenders vs borrowers 30 days', 'compound daily lenders vs borrowers']",36.111111111111114
+106,21,[],"['compound net supply per day', 'compound net supply per asset per week', 'compound utilization rate per asset per week']",27.80952380952381
+107,26,"['dharma', 'defi', 'aave']","['dharma debtorders', 'total outstanding debt compound v1', 'compound outstanding debt']",27.615384615384617
+108,23,[],"['new query', 'new query', 'ml - dai']",9.956521739130435
+109,16,[],"['pt 3 - deposits/day', 'pt 2', 'pt - withdrawals/day']",23.25
+110,17,[],"['fulcrum eth net borrows', '[updated] fulcrum usdc net borrows', 'fulcrum eth utilization']",41.88235294117647
+111,28,"['bancor', 'defi', 'dex']","['0x - number of traders last week', '0x - number of trades last week', 'kyber - number of trades last week']",27.035714285714285
+112,17,[],"['copy of (#234) uniswap total historical usd volume', 'copy of (#292) copy of (#234) uniswap total historical usd volume', 'copy of (#234) uniswap total historical usd volume']",43.411764705882355
+113,42,"['kyber', 'dex', 'defi', 'idex']","['dharma volume', 'uniswap usd volume over time v3', 'usd volume over time v4']",29.428571428571427
