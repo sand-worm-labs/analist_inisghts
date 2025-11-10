@@ -10,48 +10,13 @@ Supports two modes:
 
 from pathlib import Path
 import pandas as pd
-import hashlib
 import re
 from typing import List, Dict
-from src.utils import get_query_objects, clean_sql
+from src.utils import get_query_objects, clean_sql, normalize_sql, normalize_text, compute_hash
 
 DATA_DIR = Path("data")
 OUTPUT_DIR = Path("duplicates")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-
-# -----------------------------------------------------------------------------
-# Utility functions
-# -----------------------------------------------------------------------------
-def normalize_sql(sql: str) -> str:
-    """Remove SQL comments, normalize whitespace and casing."""
-    if not sql:
-        return ""
-    sql = clean_sql(sql)  # shared utility (handles base cleaning)
-
-    # Remove single-line and block comments
-    sql = re.sub(r'--.*?(\r?\n|$)', ' ', sql)
-    sql = re.sub(r'#.*?(\r?\n|$)', ' ', sql)
-    sql = re.sub(r'/\*.*?\*/', ' ', sql, flags=re.DOTALL)
-
-    # Normalize whitespace and lowercase
-    sql = sql.lower()
-    sql = re.sub(r'\s+', ' ', sql)
-    return sql.strip()
-
-
-def normalize_text(text: str) -> str:
-    """Normalize general text (semantic fields)."""
-    if not text:
-        return ""
-    text = text.lower().strip()
-    text = re.sub(r'\s+', ' ', text)
-    return text
-
-
-def compute_hash(value: str) -> str:
-    """Compute stable SHA1 hash for fast comparison."""
-    return hashlib.sha1(value.encode("utf-8")).hexdigest()
 
 
 class QueryDuplicateFinder:
