@@ -102,48 +102,71 @@ def group_consecutive_ids(ids: List[int]) -> List[Tuple[int, int]]:
     ranges.append((start, end))
     return ranges
 
-def get_query_objects(data_dir: Path, limit: int = None) :
+
+def get_query_objects(data_dir: Path, limit: int = None):
     """
     Load query objects from parquet files with normalized text fields.
-    
+
     Args:
         data_dir: Directory containing parquet files
         limit: Maximum number of queries to load (None for all)
-        
+
     Returns:
         List of query dictionaries with normalized text
     """
     queries = []
-    
     print(f"[INFO] Loading queries from {data_dir}...")
-    
+
     # Use sorted to ensure consistent ordering
     for parquet_file in sorted(data_dir.glob("*.parquet")):
         if limit and len(queries) >= limit:
             break
-            
+
         try:
             table = pq.read_table(parquet_file).to_pydict()
-            
+
             ids = table.get("query_id", [])
             names = table.get("name", [])
+            owners = table.get("owner", [])
+            query_sqls = table.get("query_sql", [])
             descriptions = table.get("description", [])
             tags_list = table.get("tags", [])
 
-            for qid, name, desc, tags in zip(ids, names, descriptions, tags_list):
+            for i in range(len(ids)):
                 if limit and len(queries) >= limit:
                     break
-                
-                # Use normalize_text from utils for consistency
+
+                qid = ids[i]
+                name = names[i] if i < len(names) else ""
+                desc = descriptions[i] if i < len(descriptions) else ""
+                owner = owners[i] if i < len(owners) else ""
+                sql = query_sqls[i] if i < len(query_sqls) else ""
+                tags = tags_list[i] if i < len(tags_list) else []
+
                 queries.append({
                     "query_id": qid,
                     "name": normalize_text(name) if name else "",
                     "description": normalize_text(desc) if desc else "",
-                    "tags": [t.lower().strip() for t in tags] if tags else []
+                    "tags": [t.lower().strip() for t in tags] if tags else [],
+                    "owner": owner,
+                    "query_sql": sql
                 })
-                
+
         except Exception as e:
             print(f"[WARN] Failed to read {parquet_file}: {e}")
-    
+
     print(f"[INFO] Loaded {len(queries)} queries")
     return queries
+    
+def clean_sql(query_sql: str) -> str:
+    """
+    Remove SQL comments from a query string.
+    Handles both -- single-line comments and /* */ multi-line comments.
+    """
+    # Remove multi-line comments /* ... */
+    no_block_comments = re.sub(r'/\*.*?\*/', '', query_sql, flags=re.DOTALL)
+    # Remove single-line comments -- ... (till end of line)
+    no_line_comments = re.sub(r'--.*?$', '', no_block_comments, flags=re.MULTILINE)
+    # Optional: strip extra whitespace
+    cleaned_sql = no_line_comments.strip()
+    return cleaned_sql
