@@ -13,7 +13,7 @@ from typing import List
 
 from src.utils import normalize_text, get_saved_ids, get_query_objects
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("analysis")
 OUTPUT_DIR = DATA_DIR / "tags_analysis"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

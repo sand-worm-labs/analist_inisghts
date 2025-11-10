@@ -10,7 +10,7 @@ from typing import List, Dict
 # Import shared utilities
 from src.utils import get_saved_ids, find_missing_ids
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("analysis")
 OUTPUT_DIR = DATA_DIR / "gap_analysis"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
