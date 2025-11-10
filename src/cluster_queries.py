@@ -24,7 +24,7 @@ from sklearn.metrics import (
 from sklearn.metrics.pairwise import euclidean_distances
 
 # Import shared utilities
-from src.utils import get_query_objects
+from src.utils import get_query_objects, clean_sql
 
 DATA_DIR = Path("data")
 OUTPUT_DIR_SEMANTIC = Path("clusters") / "semantic"
@@ -77,7 +77,7 @@ class QueryClusterer:
         self.clusterer = None
         self.metrics = None
         
-    def prepare_text(self, query_obj: Dict) -> str:
+    def prepare_text(self, query_obj) -> str:
         """
         Prepare text for embedding based on mode.
         
@@ -88,10 +88,9 @@ class QueryClusterer:
             Text string to embed
         """
         if self.mode == 'sql':
-            # SQL mode: Use query_sql only
             sql = query_obj.get('query_sql', '')
-            # Truncate to avoid token limits (most models handle ~512 tokens = ~2000 chars)
-            return sql[:2000]
+            sql = clean_sql(sql)  
+            return sql
         
         else:  # semantic mode
             # Semantic mode: Use name + description + tags
@@ -103,11 +102,15 @@ class QueryClusterer:
             if query_obj.get('description'):
                 parts.append(query_obj['description'])
             
+            if query_obj.get('owner'):
+                parts.append(query_obj['owner'])
+            
             # Tags are important for semantic similarity
             tags = query_obj.get('tags', [])
             if tags:
                 parts.append(' '.join(tags))
             
+            # print(parts)  # Commented out - too verbose
             return ' '.join(parts)
     
     def create_embeddings(self, query_objects: List[Dict], batch_size: int = 32) -> np.ndarray:
@@ -122,8 +125,9 @@ class QueryClusterer:
             Numpy array of embeddings
         """
         print(f"[INFO] Preparing text for {len(query_objects)} queries (mode={self.mode})...")
+
         texts = [self.prepare_text(q) for q in query_objects]
-        
+        # print(f"[INFO] Prepared text for {texts} queries")
         # Check for empty texts
         empty_count = sum(1 for t in texts if not t.strip())
         if empty_count > 0:
@@ -190,7 +194,8 @@ class QueryClusterer:
             min_samples=self.min_samples,
             metric='euclidean',
             cluster_selection_method='eom',
-            prediction_data=True
+            prediction_data=True,
+            cluster_selection_epsilon=0.05
         )
         
         self.cluster_labels = self.clusterer.fit_predict(embeddings_to_use)
@@ -534,7 +539,7 @@ def main():
     
     # Load queries
     print("[INFO] Loading queries...")
-    query_objects = get_query_objects(DATA_DIR, limit=None)
+    query_objects = get_query_objects(DATA_DIR, limit=1000)
     
     if not query_objects:
         print("[ERROR] No queries found!")
@@ -542,20 +547,19 @@ def main():
     
     print(f"[INFO] Loaded {len(query_objects):,} queries")
     
-    # Initialize clusterer
     clusterer = QueryClusterer(
         model_name=model_name,
-        min_cluster_size=50,
-        min_samples=10,
+        min_cluster_size=15,   # medium clusters allowed
+        min_samples=3,        # less strict density
         mode=args.mode
     )
-    
+
     # Create embeddings
-    clusterer.create_embeddings(query_objects, batch_size=32 if args.mode == 'semantic' else 16)
-    
-    # Reduce dimensions
+    clusterer.create_embeddings(query_objects, batch_size=32 if args.mode=='semantic' else 16)
+
+    # Reduce dimensions with more components
     clusterer.reduce_dimensions(n_components=5, n_neighbors=15)
-    
+
     # Cluster
     cluster_labels = clusterer.cluster()
     
@@ -568,6 +572,7 @@ def main():
         output_subdir = OUTPUT_DIR_SEMANTIC
     
     save_clusters(query_objects, cluster_labels, output_subdir, args.mode)
+
     clusterer.save_model(output_subdir / 'clusterer_model.pkl')
     
     print(f"\n✅ Clustering complete! Results saved to {output_subdir}")
