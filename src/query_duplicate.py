@@ -16,6 +16,7 @@ from src.utils import get_query_objects, clean_sql, normalize_sql, normalize_tex
 
 DATA_DIR = Path("data")
 OUTPUT_DIR = Path("duplicates")
+DUPLICATE_REMOVED_DIR = Path("duplicates_removed")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -107,6 +108,11 @@ class QueryDuplicateFinder:
         out_file = output_dir / f"duplicates_{self.mode}.parquet"
         duplicates_df.to_parquet(out_file, compression="zstd")
         print(f"[INFO] ✅ Saved duplicate details to {out_file}")
+    
+    def replace_parquet_file_afeter_removeing_duplicates(self, file_path: Path):
+        # if file_path.exists():
+        #     file_path.unlink()
+        # new_file_path.rename(file_path)
 
 def main():
     """Main entry: find duplicates in raw query dataset."""

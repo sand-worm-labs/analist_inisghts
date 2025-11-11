@@ -1,5 +1,5 @@
 """
-Query clustering using HDBSCAN and sentence embeddings.
+Query clustering using HDBSCAN and sentence embeddings with multi-threading.
 Supports TWO modes: semantic (text) and sql (query patterns).
 """
 from pathlib import Path
@@ -8,6 +8,9 @@ import pandas as pd
 import pickle
 import json
 from typing import List, Dict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import multiprocessing
+from tqdm import tqdm
 
 from sentence_transformers import SentenceTransformer
 import hdbscan
@@ -35,7 +38,7 @@ OUTPUT_DIR_SQL.mkdir(parents=True, exist_ok=True)
 
 class QueryClusterer:
     """
-    Cluster queries using embeddings and HDBSCAN.
+    Cluster queries using embeddings and HDBSCAN with multi-threading support.
     
     Supports two modes:
     - 'semantic': Clusters by name + description + tags (WHAT it's about)
@@ -47,25 +50,31 @@ class QueryClusterer:
         model_name: str = 'all-MiniLM-L6-v2',
         min_cluster_size: int = 1000,
         min_samples: int = 90,
-        mode: str = 'semantic'  # 'semantic' or 'sql'
+        mode: str = 'semantic',
+        max_workers: int = 20
     ):
         """
         Initialize the clusterer.
         
         Args:
             model_name: Sentence transformer model to use
-                - 'all-MiniLM-L6-v2' for semantic (fast, general text)
-                - 's2593817/sft-sql-embedding' for SQL (specialized)
             min_cluster_size: Minimum size for HDBSCAN clusters
             min_samples: Minimum samples for HDBSCAN
             mode: 'semantic' (text fields) or 'sql' (query_sql only)
+            max_workers: Number of worker threads (default: CPU count)
         """
         self.mode = mode.lower()
         
         if self.mode not in ['semantic', 'sql']:
             raise ValueError(f"mode must be 'semantic' or 'sql', got: {mode}")
         
+        # Set workers
+        if max_workers is None:
+            max_workers = min(multiprocessing.cpu_count(), 20)
+        self.max_workers = 20
+        
         print(f"[INFO] Mode: {self.mode.upper()}")
+        print(f"[INFO] Workers: {self.max_workers}")
         print(f"[INFO] Loading model: {model_name}")
         
         self.model = SentenceTransformer(model_name)
@@ -93,7 +102,6 @@ class QueryClusterer:
             return sql
         
         else:  # semantic mode
-            # Semantic mode: Use name + description + tags
             parts = []
             
             if query_obj.get('name'):
@@ -105,45 +113,91 @@ class QueryClusterer:
             if query_obj.get('owner'):
                 parts.append(query_obj['owner'])
             
-            # Tags are important for semantic similarity
             tags = query_obj.get('tags', [])
             if tags:
                 parts.append(' '.join(tags))
             
-            # print(parts)  # Commented out - too verbose
             return ' '.join(parts)
     
-    def create_embeddings(self, query_objects: List[Dict], batch_size: int = 32) -> np.ndarray:
+    def prepare_texts_batch(self, query_objects: List[Dict], start_idx: int, end_idx: int) -> List[str]:
+        """Prepare texts for a batch of queries (for parallel processing)."""
+        return [self.prepare_text(q) for q in query_objects[start_idx:end_idx]]
+    
+    def create_embeddings(
+        self, 
+        query_objects: List[Dict], 
+        batch_size: int = 32,
+        use_parallel: bool = True
+    ) -> np.ndarray:
         """
-        Create embeddings for all queries.
+        Create embeddings for all queries with optional parallel text preparation.
         
         Args:
             query_objects: List of query dictionaries
             batch_size: Batch size for encoding
+            use_parallel: Whether to use parallel processing for text preparation
             
         Returns:
             Numpy array of embeddings
         """
-        print(f"[INFO] Preparing text for {len(query_objects)} queries (mode={self.mode})...")
-
-        texts = [self.prepare_text(q) for q in query_objects]
-        # print(f"[INFO] Prepared text for {texts} queries")
+        print(f"[INFO] Preparing text for {len(query_objects):,} queries (mode={self.mode})...")
+        
+        # Parallel text preparation
+        if use_parallel and len(query_objects) > 10000:
+            texts = self._prepare_texts_parallel(query_objects)
+        else:
+            texts = [self.prepare_text(q) for q in tqdm(query_objects, desc="Preparing text")]
+        
         # Check for empty texts
         empty_count = sum(1 for t in texts if not t.strip())
         if empty_count > 0:
             print(f"[WARN] {empty_count} queries have empty text in {self.mode} mode")
         
         print(f"[INFO] Generating embeddings (batch_size={batch_size})...")
+        
+        # Sentence transformers already uses multi-processing internally
+        # We can increase batch size for better throughput
         embeddings = self.model.encode(
             texts,
             batch_size=batch_size,
             show_progress_bar=True,
-            convert_to_numpy=True
+            convert_to_numpy=True,
+            normalize_embeddings=False  # Keep raw embeddings
         )
         
         self.embeddings = embeddings
         print(f"[INFO] Created embeddings with shape: {embeddings.shape}")
         return embeddings
+    
+    def _prepare_texts_parallel(self, query_objects: List[Dict]) -> List[str]:
+        """Prepare texts in parallel using ThreadPoolExecutor."""
+        print(f"[INFO] Using {self.max_workers} workers for parallel text preparation...")
+        
+        # Split into chunks
+        chunk_size = max(100, len(query_objects) // (self.max_workers * 4))
+        chunks = []
+        for i in range(0, len(query_objects), chunk_size):
+            chunks.append((i, min(i + chunk_size, len(query_objects))))
+        
+        texts = [''] * len(query_objects)
+        
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            futures = {
+                executor.submit(self.prepare_texts_batch, query_objects, start, end): (start, end)
+                for start, end in chunks
+            }
+            
+            with tqdm(total=len(chunks), desc="Text preparation") as pbar:
+                for future in as_completed(futures):
+                    start, end = futures[future]
+                    try:
+                        batch_texts = future.result()
+                        texts[start:end] = batch_texts
+                    except Exception as e:
+                        print(f"\n[ERROR] Failed to process chunk {start}-{end}: {e}")
+                    pbar.update(1)
+        
+        return texts
     
     def reduce_dimensions(self, n_components: int = 5, n_neighbors: int = 15):
         """
@@ -161,7 +215,8 @@ class QueryClusterer:
             n_neighbors=n_neighbors,
             min_dist=0.0,
             metric='cosine',
-            random_state=42
+            random_state=42,
+            n_jobs=self.max_workers  # Use multi-threading in UMAP
         )
         
         self.umap_embeddings = reducer.fit_transform(self.embeddings)
@@ -195,7 +250,8 @@ class QueryClusterer:
             metric='euclidean',
             cluster_selection_method='eom',
             prediction_data=True,
-            cluster_selection_epsilon=0.05
+            cluster_selection_epsilon=0.05,
+            core_dist_n_jobs=self.max_workers  # Use multi-threading in HDBSCAN
         )
         
         self.cluster_labels = self.clusterer.fit_predict(embeddings_to_use)
@@ -215,13 +271,7 @@ class QueryClusterer:
         return self.cluster_labels
     
     def _calculate_metrics(self, embeddings: np.ndarray):
-        """
-        Calculate clustering quality metrics including homogeneity.
-        
-        Args:
-            embeddings: The embeddings used for clustering
-        """
-        # Only calculate for non-noise points
+        """Calculate clustering quality metrics including homogeneity."""
         mask = self.cluster_labels != -1
         
         if mask.sum() < 2:
@@ -230,8 +280,6 @@ class QueryClusterer:
         
         labels_filtered = self.cluster_labels[mask]
         embeddings_filtered = embeddings[mask]
-        
-        # Only calculate if we have more than 1 cluster
         n_clusters = len(set(labels_filtered))
         
         if n_clusters < 2:
@@ -259,19 +307,10 @@ class QueryClusterer:
             completeness = completeness_score(pseudo_labels, labels_filtered)
             v_measure = v_measure_score(pseudo_labels, labels_filtered)
             
-            # Cluster tightness
-            cluster_tightness = {}
-            for cluster_id in set(labels_filtered):
-                cluster_mask = labels_filtered == cluster_id
-                cluster_points = embeddings_filtered[cluster_mask]
-                
-                if len(cluster_points) > 1:
-                    distances = euclidean_distances(cluster_points, cluster_points)
-                    avg_distance = distances.sum() / (len(cluster_points) * (len(cluster_points) - 1))
-                    cluster_tightness[int(cluster_id)] = float(avg_distance)
-                else:
-                    cluster_tightness[int(cluster_id)] = 0.0
-            
+            # Cluster tightness (parallelized)
+            cluster_tightness = self._calculate_cluster_tightness_parallel(
+                embeddings_filtered, labels_filtered
+            )
             avg_tightness = np.mean(list(cluster_tightness.values()))
             
             # Print results
@@ -334,6 +373,42 @@ class QueryClusterer:
             import traceback
             traceback.print_exc()
             self.metrics = None
+    
+    def _calculate_single_cluster_tightness(self, cluster_id: int, embeddings: np.ndarray, labels: np.ndarray) -> tuple:
+        """Calculate tightness for a single cluster."""
+        cluster_mask = labels == cluster_id
+        cluster_points = embeddings[cluster_mask]
+        
+        if len(cluster_points) > 1:
+            distances = euclidean_distances(cluster_points, cluster_points)
+            avg_distance = distances.sum() / (len(cluster_points) * (len(cluster_points) - 1))
+            return (int(cluster_id), float(avg_distance))
+        else:
+            return (int(cluster_id), 0.0)
+    
+    def _calculate_cluster_tightness_parallel(self, embeddings: np.ndarray, labels: np.ndarray) -> Dict[int, float]:
+        """Calculate cluster tightness in parallel."""
+        unique_clusters = set(labels)
+        cluster_tightness = {}
+        
+        # Only parallelize if we have many clusters
+        if len(unique_clusters) > 10:
+            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                futures = {
+                    executor.submit(self._calculate_single_cluster_tightness, cid, embeddings, labels): cid
+                    for cid in unique_clusters
+                }
+                
+                for future in as_completed(futures):
+                    cid, tightness = future.result()
+                    cluster_tightness[cid] = tightness
+        else:
+            # Sequential for small number of clusters
+            for cluster_id in unique_clusters:
+                cid, tightness = self._calculate_single_cluster_tightness(cluster_id, embeddings, labels)
+                cluster_tightness[cid] = tightness
+        
+        return cluster_tightness
     
     def save_model(self, filepath: Path):
         """Save clusterer state including metrics."""
@@ -517,11 +592,17 @@ def main():
     """Main execution: cluster queries."""
     import argparse
     
-    parser = argparse.ArgumentParser(description='Cluster Dune queries')
+    parser = argparse.ArgumentParser(description='Cluster Dune queries with multi-threading')
     parser.add_argument('--mode', choices=['semantic', 'sql'], default='semantic',
                         help='Clustering mode: semantic (text) or sql (patterns)')
     parser.add_argument('--model', type=str, default=None,
                         help='Model name (auto-selected based on mode if not provided)')
+    parser.add_argument('--workers', type=int, default=None,
+                        help='Number of worker threads (default: auto)')
+    parser.add_argument('--limit', type=int, default=None,
+                        help='Limit number of queries to process')
+    parser.add_argument('--no-parallel', action='store_false', dest='use_parallel',
+                        help='Disable parallel text preparation')
     args = parser.parse_args()
     
     # Auto-select model based on mode
@@ -534,12 +615,12 @@ def main():
         model_name = args.model
     
     print("\n" + "=" * 80)
-    print(f"DUNE QUERY CLUSTERING - {args.mode.upper()} MODE")
+    print(f"DUNE QUERY CLUSTERING - {args.mode.upper()} MODE (MULTI-THREADED)")
     print("=" * 80 + "\n")
     
     # Load queries
     print("[INFO] Loading queries...")
-    query_objects = get_query_objects(DATA_DIR, limit=1000)
+    query_objects = get_query_objects(DATA_DIR, limit=args.limit)
     
     if not query_objects:
         print("[ERROR] No queries found!")
@@ -549,18 +630,23 @@ def main():
     
     clusterer = QueryClusterer(
         model_name=model_name,
-        min_cluster_size=15,   # medium clusters allowed
-        min_samples=3,        # less strict density
-        mode=args.mode
+        min_cluster_size=15,
+        min_samples=3,
+        mode=args.mode,
+        max_workers=args.workers
     )
 
-    # Create embeddings
-    clusterer.create_embeddings(query_objects, batch_size=32 if args.mode=='semantic' else 16)
+    # Create embeddings with parallel text preparation
+    clusterer.create_embeddings(
+        query_objects, 
+        batch_size=64 if args.mode=='semantic' else 32,
+        use_parallel=args.use_parallel
+    )
 
-    # Reduce dimensions with more components
+    # Reduce dimensions (uses UMAP's n_jobs parameter)
     clusterer.reduce_dimensions(n_components=5, n_neighbors=15)
 
-    # Cluster
+    # Cluster (uses HDBSCAN's core_dist_n_jobs parameter)
     cluster_labels = clusterer.cluster()
     
     # Print summary
@@ -572,7 +658,6 @@ def main():
         output_subdir = OUTPUT_DIR_SEMANTIC
     
     save_clusters(query_objects, cluster_labels, output_subdir, args.mode)
-
     clusterer.save_model(output_subdir / 'clusterer_model.pkl')
     
     print(f"\n✅ Clustering complete! Results saved to {output_subdir}")
