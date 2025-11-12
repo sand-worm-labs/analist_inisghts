@@ -639,7 +639,7 @@ def main():
     # Create embeddings with parallel text preparation
     clusterer.create_embeddings(
         query_objects, 
-        batch_size=64 if args.mode=='semantic' else 32,
+        batch_size=64 if args.mode=='semantic' else 256,
         use_parallel=args.use_parallel
     )
 
