@@ -2,3 +2,5 @@ venv/
 __pycache__/
 .env
 logs/
+**/individual_clusters/
+**/clusterer_model*.pkl

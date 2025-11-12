@@ -1,27 +1,139 @@
 cluster_id,size,top_tags,sample_names,avg_name_length
--1,65,"['etherscamdb', 'livepeer', 'cryptoscamdb', 'bloom', 'identity']","['bloom attestations', 'etherscamdb frequency of eth sent to flagged addresses', 'etherscamdb total eth (4,000,000 <> 7,579,270)']",35.43076923076923
-0,39,"['dharma', 'defi', '0x', 'json']","['dharma debtorders', 'copy of (#65) idealcoin balances', 'copy of (#66) new query']",16.641025641025642
-1,19,[],"['total supply of mgn token', 'number of erasure agreements', '1inch total volume']",29.105263157894736
-2,47,"['pooltogether', 'gnosis safe', 'binance', 'dex', 'cryptokitties']","['new query', 'unique magnolia token holders', 'number of trades']",20.93617021276596
-3,18,"['201911-bitly', 'gnosis', 'dex', 'dxdao', 'dutchx']","['reputation earned per token', 'locked eth and tokens usd equivalent', 'copy of (#227) dxdao usd locked']",33.72222222222222
-4,37,['compound'],"['wip - compound v2 liquidation summary by week', 'wip - compound v2 liquidations', 'dutchx: daily usd volume per token (whitelisted)']",36.810810810810814
-5,19,"['defi', 'dex', 'gnosis', 'dutchx']","['dutchx usd volume of weth / mkr', 'dutchx price discount - mkr auctioned for weth', 'dutchx usd volume of weth auctioned for dai']",43.526315789473685
-6,18,"['gnosis', 'dex', 'defi']","['dutchx discount - dai auctioned for weth', 'dutchx discount - weth auctioned for dai', 'draft - compare slippage']",43.27777777777778
-7,41,"['ens', 'defi', 'dex', 'aggregator']","['unique weekly borrowers and lenders on compound', 'max block number for addresses', 'distribution of reputation dxdao']",35.41463414634146
-8,23,['ens'],"['dutchx order over time', 'unique overall dxdao participants', ""share of participants that's smart contracts""]",26.17391304347826
-9,21,"['binance', 'dex', 'defi']","['ethereum db update status', 'last trades', 'airswap volume/token - teo']",30.857142857142858
-10,73,"['gnosis safe', 'ens', 'dutchx', 'defi', 'dex']","['list of auctions cleared', 'ethereum recent gas prices', 'generic token transfer']",27.26027397260274
-11,22,[],"['compound supply deposits', 'compound supply withdrawals', 'dutch x auctions started']",26.727272727272727
-12,69,"['defi', 'ens', 'compound', 'get started', 'lending']","['total amount of dai borrowed on compound', 'dai auctioned in dutchx', 'how many >5eth sell order on dutchx']",28.333333333333332
-13,19,"['pooltogether', 'storj', 'erc20', 'chzwzrds']","['most popular event logs', 'unique participants', 'accounts with more than 500 sending txs of storj']",25.473684210526315
-14,92,"['uniswap', 'defi', 'dai', 'dex', 'makerdao']","['number of borrowers that accounted for 90% of volume', 'dutchx discount per auction - dai auctioned for weth', 'usd volume per auction of dai auctioned for weth']",34.57608695652174
-15,67,"['defi', 'lending', 'dai', 'dex', 'compound']","['compound v1 usd borrow volume per token', 'dharma volume', 'ethereum contract-to-contract calls over time (internal txs)']",29.791044776119403
-16,19,"['defi', 'dydx', 'kyber', 'dex', 'safe']","['total outstanding debt compound v1', 'wip - nuo experiment', 'wip - experiment with binary data']",25.210526315789473
-17,31,"['defi', 'uniswap', 'dex', 'bloom', 'identity']","['bloom - unique addresses attested', 'example: compound weekly borrowers', 'example: uniswap usd volume 🦄']",27.580645161290324
-18,27,"['defi', 'prices', 'binance', 'dex', 'volume']","['timerange for prices', 'prices', '[new] price-range']",19.185185185185187
-19,19,['makerdao'],"['wip - nuo experiment 2', '1inch distribution per period', 'dex aggregators volume']",26.42105263157895
-20,97,"['defi', 'ens', 'dai', 'makerdao', 'stablecoin']","['numerai nmr token metrics', 'dxdao reputation score', 'copy of (#203) dxdao reputation score']",31.608247422680414
-21,41,"['defi', 'lending', 'gas', 'hex.win', 'makerdao']","['example: dai daily transfer volume', 'addresses that got reputation', 'wip - nmr token minted']",30.073170731707318
-22,21,"['makerdao', 'dai', 'cdp', 'defi', 'livepeer']","['dutchx discount - gen auctioned for weth', 'dutchx discount - weth auctioned for gen', 'dutchx volume - weth auctioned for gen']",28.238095238095237
-23,33,"['defi', 'uniswap', 'dex', 'volume', '0x']","['uniswap dai/eth trades', 'uniswap mkr/eth trades', 'number of participants per method']",27.151515151515152
-24,23,"['dex', 'users', 'trading', 'compound', 'defi']","['copy of (#435) weekly uniswap, kyber, 0x and dutchx usd volume', 'daily dai supply/borrowing - compoundv1', 'net new dai supply (minting/redeeming) by day - compoundv2']",37.95652173913044
+-1,668,"['defi', 'qidao', 'mai finance', 'dai', 'uniswap']","['example: uniswap usd volume 🦄', 'unique compound v1 borrowers over time', 'sai supply']",28.402694610778443
+0,40,"['pudgy penguins', 'nft', 'median']","['hourly floor tracker', 'party penguins: hourly floor tracker', 'pudgies hourly (20% percentile sales)']",31.925
+1,21,"['defi', 'uniswap', 'dex', 'volume', 'idex']","['uniswap dai/eth trades', 'uniswap mkr/eth trades', '[deprecated method] total dex usd volume 2019']",31.285714285714285
+2,28,"['etherscamdb', 'cryptoscamdb', 'rarible']","['etherscamdb frequency of eth sent to flagged addresses', 'etherscamdb total eth (4,000,000 <> 7,579,270)', 'etherscamdb top address receivers']",34.57142857142857
+3,62,[],"['fulcrum tokens', 'adasd', '39']",3.806451612903226
+4,54,"['nft', 'cryptopunks']","['airswap volume/token - teo', 'prices', 'safe creations - grouped by day']",27.01851851851852
+5,48,"['livepeer', 'cryptopunks', 'nft', 'staking', 'dai']","['👋 livepeer unbonding activity', '🤝 livepeer bonding activity', 'copy of (#563) 🤝 livepeer bonding activity']",30.270833333333332
+6,42,['space poggers'],"['party penguins: ownership buckets', 'lasc: hodlers', 'pudgy penguins : top 25 individual owners']",30.69047619047619
+7,20,[],"['copy of (#65) idealcoin balances', 'copy of (#66) new query', 'new query']",12.45
+8,39,"['binance', 'dex', 'pooltogether', 'cryptokitties', 'gnosis safe']","['number of trades', 'new query', 'wip number of addresses that accounted for 90%']",19.94871794871795
+9,31,[],"['mm tracking', 'fork of (#4252) tbtc current supply', 'tbtc current supply']",21.0
+10,26,['ens'],"['avg gas limit for recent 50 blocks', 'count of tx for recent 50 blocks', 'new query']",20.76923076923077
+11,69,"['liquity', 'lusd', 'trove', 'hegic', 'gnosis protocol']","['wip best 5 markets to supply to last 7 days v2', 'calvin - utility tables', 'maker collateral']",34.53623188405797
+12,22,['ens'],"['amount of mgn held by registered addresses', 'frtproxy mints', 'total unique addresses that have generated names on ens']",20.727272727272727
+13,17,"['defi', 'compound', 'get started', 'lending']","['total amount of dai borrowed on compound', 'copy of (#50) total dai borrowed on compound', '43']",14.529411764705882
+14,24,[],"['sai migrated to dai', 'traces to & from', 'total eth staked']",17.125
+15,23,[],"['calvin - master liquidations data', 'calvin - worksheet', 'borrows closed: total volume, count of liquidators/borrowers/liquidations']",43.56521739130435
+16,49,"['dharma', 'defi', '0x', 'json']","['dharma debtorders', 'new query', '0x - fillorder']",13.63265306122449
+17,56,"['mstable', 'dai', 'mkr']","['new query', 'ethereum db update status', 'dydx playground']",18.732142857142858
+18,36,"['dex', 'volume', 'prod']","['dai bought on uniswap last 24 hours', '1inch 24h volume', '1inch 7d volume']",30.86111111111111
+19,20,"['mstable', 'defi']","['new query', 'ethereum difficulty', 'fork of (#398) dai bought on uniswap last 24 hours']",31.85
+20,119,"['gnosis safe', 'cryptopunks', 'nft', 'defi', 'dex']","['list of auctions cleared', 'generic token transfer', 'last trades']",21.168067226890756
+21,15,[],"['listed (tradable) tokens', 'cumulative gross redeem [exc. interest, wip]', 'cumulative keep grants withdrawn']",24.2
+22,16,[],"['dutchx auctions both sides clearing > 6h', 'nft ownership', 'top 20 holders']",27.125
+23,20,[],"['total supply of mgn token', 'dai minted', 'dai->sai total']",16.5
+24,18,['compound liquidation'],"['1inch total volume', '1inch total users', '1inch total swaps']",17.5
+25,29,[],"['owl and fees (search by day)', 'vogu daily floor price', 'spooky floor']",22.310344827586206
+26,18,"['gnosis', 'dex', 'defi']","['dutchx discount - dai auctioned for weth', 'dutchx discount - weth auctioned for dai', 'draft - compare slippage']",43.27777777777778
+27,23,"['defi', 'dex', 'gnosis', 'dutchx']","['dutchx usd volume of weth / mkr', 'dutchx price discount - mkr auctioned for weth', 'dutchx usd volume of weth auctioned for dai']",41.43478260869565
+28,27,[],"['dydx liquidations master data', 'dydx - top liquidators over time', 'dydx - monthly active liquidators']",35.03703703703704
+29,25,['wbtc'],"['compound supply deposits', 'compound supply withdrawals', 'dutch x auctions started']",21.28
+30,26,"['defi', 'ohm', 'supply', 'dex', 'volume']","['new query', 'new query', 'internal tx from block height']",21.807692307692307
+31,31,['gas'],"['custom nft floor tracker', 'pudgy penguin floor tracker', 'osiris cosmic kids']",19.838709677419356
+32,28,[],"['vesper - approximated tvl vuni', 'vesper - approximated tvl vusdt', 'keep token staked']",21.535714285714285
+33,20,['exchange'],"['playground', 'kraken wallets incoming eth 🧮', 'erc20 bnb holders']",23.9
+34,18,[],"['dai in fulcrum', 'copy of (#884) dai in fulcrum', '37']",5.888888888888889
+35,21,"['defi', 'prices', '#nft.trades', 'nft collection', 'parametered']","['stablecoin volume', 'stablecoin marketcaps', 'avg trade price by token']",20.714285714285715
+36,42,"['ens', 'yearn', 'yfi']","['number of lenders that accounted for 90% of supply volume', 'copy of (#234) uniswap total historical usd volume', 'copy of (#292) copy of (#234) uniswap total historical usd volume']",28.214285714285715
+37,16,[],"['compound liq calls', 'fork of (#2999) total 1inch users over time', 'paraswap uniswap traders']",31.8125
+38,20,"['defi', 'dex', 'trading', 'paraswap', 'volume']","['numerai nmr token metrics', 'locked eth and tokens usd equivalent over time', 'week over week volume growth']",27.4
+39,16,[],"['rarible mints by month', 'rarible mints', 'lot size btc deposits']",26.0
+40,16,['ethereum'],"['all argent contracts sorted by number of eth stored', 'balancer liquidity mining data on polygon', 'ethereum - transaction costs']",46.3125
+41,33,[],"['batchattestations', 'new query', 'linkdrop claims']",14.090909090909092
+42,21,['space poggers'],"['opensea transaction past hour', 'opeasea transaction past day', 'cryptobeast floor']",22.952380952380953
+43,15,[],"['fluf world daily floor tracker', 'fvck_crystal daily floor tracker', 'animetas daily floor tracker']",27.466666666666665
+44,15,"['paraswap', 'dex', 'volume', 'trading', 'defi']","['dai outstanding', '[wip] dai draws', 'copy of (#855) dai outstanding']",25.066666666666666
+45,44,"['cryptopunks', 'nft', 'ens', 'erc20']","['new query', 'top 10 domains with the most subdomains', 'sketch for eth sent to smart contracts']",25.022727272727273
+46,61,"['ens', 'opyn', 'rkl', 'nft', 'space poggers']","['new query', 'dai balance and usd value for an account', 'fairmint: updatable settings']",33.0655737704918
+47,39,"['dex', 'volume', 'defi', 'makerdao', 'lending']","['example: dai daily transfer volume', 'new query', 'eth bought uniswap']",29.564102564102566
+48,33,"['defi', 'eth2dai', 'livepeer', 'uniswap', 'governance']","['usd volume per auction of dai auctioned for weth', 'uniswap usd volume over time', 'current usd value of supplied liquidity']",33.90909090909091
+49,16,[],"['new query', 'loopring total transactions processed', 'new query']",12.375
+50,44,"['pooltogether', 'dai', 'makerdao', 'bancor', 'safe']","['unique magnolia token holders', 'total value of tickets bought', 'copy of (#386) unique participants']",28.636363636363637
+51,26,"['nft collection', 'parametered', 'space poggers', 'pixls', 'nft counters']","['blitmap: buckets', 'meebits: buckets', 'pp - current distribution']",22.96153846153846
+52,33,['gnosis safe'],"['1inch usd volume per period', 'multisender volume per month', 'new query']",30.03030303030303
+53,17,[],"['1inch new/old users per period', '1inch transactions per week', 'paraswap new vs old users']",35.23529411764706
+54,60,"['nft', 'rarible', 'superrare', 'asyncart', 'knownorigin']","['fairmint: event history', '1inch assets per period', '1inch buy-sell assets per week']",27.25
+55,15,"['nft collection', 'parametered', 'opensea', 'top500 all time', 'cryptopunksvsopensea']","['pt - winnings', 'total number of transactions made with gnosis multisigs', 'total number of transactions made with monolith contracts']",19.266666666666666
+56,31,['space poggers'],"['guerrsa1', 'rosh-test', 'lasc: floor price (opensea hourly) (eth)']",32.064516129032256
+57,19,"['201911-bitly', 'hex.win', 'kyber', 'uniswap', 'defi']","['common inputs', 'common outputs', 'new query']",39.05263157894737
+58,49,"['201911-bitly', 'snx', 'ohm', 'supply', 'rebase']","['total eth into flagged addresses', 'deposit frequency', 'withdraw frequency']",33.89795918367347
+59,26,['dutchx'],"['dai auctioned in dutchx', 'how many >5eth sell order on dutchx', 'new query']",25.115384615384617
+60,29,"['ens', 'nft.trades']","['uniswap - number of trades last week', 'ens known domains vs subdomains', '1inch gastoken saved total']",30.620689655172413
+61,18,['ens'],"['ens domain distribution by # of characters', 'accounting query test', 'vogu scattered sales']",27.88888888888889
+62,36,"['addy', 'lock', 'withdraw', 'adamant', 'balancer']","['max block number for addresses', '0x usd volume over time per token', '0x first trade per user']",21.833333333333332
+63,29,"['0x', 'defi', 'dex', 'ens']","['0x taker usd volume', 'minters that registered', 'a8015df1f65e1f53d491dc1ed35013031ad25034 locked icon transfer() attempts']",25.93103448275862
+64,15,[],"['microcaps query 1', 'classified nft purchases', 'top holders movements - v2 work in progress']",25.733333333333334
+65,25,"['defi', 'dex', 'uniswap']","['uniswap daily usd volume', 'opensea dau', 'opensea weekly active users']",34.8
+66,22,[],"['dutchx liquidity contribution usd - anxo', '0x v2.1, v3 trades per week', 'poap — new wallets per day (7d rolling)']",25.818181818181817
+67,15,"['liquity', 'lqty', 'space poggers']","['distribution # blits', 'eth2x-fli_trade_frequency', 'frontend lqty earnings']",25.933333333333334
+68,16,[],"['kyber - number of traders last week', '[fairwin] get beinvitedcode parameter from invest() function calls', '[fairwin] all input on invest() calls']",29.0625
+69,38,[],"['buyorders', 'weekly unique compound v2 borrowers (not ready)', 'outstanding dai']",14.657894736842104
+70,19,['hex.win'],"['wyvern exchange v2.2 transaction count (daily)', 'exchange hot/cold wallet outward activity (upbit3 5e032243d507c743b061ef021e2ec7fcc6d3ab89)', 'exchange hot/cold wallet outward activity (upbit2 ba826fec90cefdf6706858e5fbafcb27a290fbe0)']",40.8421052631579
+71,19,['chzwzrds'],"['most popular event logs', 'num multisig txs over time', 'number of aragon daos created']",26.473684210526315
+72,23,"['uniswap', 'dai', 'dai outstanding']","['fairmint: current supply', 'uniswap usd trading volumes for yesterday', 'airswap volumes']",26.347826086956523
+73,21,['animetas'],"['total erc20 tokens stored in all gnosis multisigs', 'opensea meme price txn volume', 'ether tulips usd + trx volume by day']",38.19047619047619
+74,22,"['dai', 'dai bridged', 'bridged dai', 'layer-2']","['wip - nuo experiment', 'erc-20 event history', 'whitelist']",24.954545454545453
+75,29,"['safe', 'gnosis safe']","['locks by account', 'wip - nuo experiment 2', 'fairmint: investor historical value']",39.6551724137931
+76,35,[],"['unique weekly borrowers and lenders on compound', 'pooltogether [winnings, deposits]', 'pooltogether [winnings/deposits]']",40.6
+77,21,"['ethereum', 'mstable', 'defi']","['ethereum contract-to-contract calls over time (internal txs)', 'most popular ethlend contracts', '1inch overall top traders']",26.857142857142858
+78,29,"['defi', 'dex', 'idex']","['oasis dex usd volume per week', 'idex usd volume per week', 'copy of (#241) uniswap weekly usd trading volume']",30.655172413793103
+79,17,"['opyn', 'defi', 'dex', 'yearn', 'yfi']","['0x 2.1 all trades', '0x traders', 'new query']",28.058823529411764
+80,30,[],"['dutchx order over time', 'unique overall dxdao participants', ""share of participants that's smart contracts""]",26.2
+81,37,[],"['pp: profit & investment chart', 'pudgy penguin: hourly sales data', 'nft: buyers']",31.864864864864863
+82,25,"['safe', 'dunev2']","['usdvalue locked', '(wip) uniswap - number of traders last week', '0x - number of trades last week']",27.44
+83,33,[],"['new query', 'most popular contracts by event logs', 'a8015df1f65e1f53d491dc1ed35013031ad25034 gasprice=0 transactions for the past year']",20.09090909090909
+84,20,"['makerdao', 'dai', 'cdp', 'defi']","['unique addresses that minted sai from cdp', 'unique senders of dai', '[fairwin] eth balance grouped by year month']",34.9
+85,39,"['livepeer', 'ens', 'numerai', 'dex', 'defi']","['dutchx discount - gen auctioned for weth', 'dutchx discount - weth auctioned for gen', 'dutchx volume - weth auctioned for gen']",27.05128205128205
+86,22,['makerdao'],"['1inch distribution per period', 'dex aggregators volume', '1inch.exchange 1h volume']",29.681818181818183
+87,40,"['dai', 'stablecoin', 'retention', 'makerdao', 'ens']","['dai sending weekly retention', 'copy of (#455) dai sending weekly retention', 'copy of (#455) dai sending weekly retention']",34.775
+88,30,['defi'],"['total bnb burned and swapped to mainnet', 'saturn network transaction count (daily)', 'saturn network unique user count (daily)']",26.3
+89,18,"['bloom', 'identity']","['bloom attestations', 'biggest buyers in gno-weth auctions', 'synthetix claimfees() frequency calls by week']",44.888888888888886
+90,24,"['livepeer', 'compound']","['gnosis safe txs over time', '📺 jobs claimed on livepeer', '📡 jobs broadcast on livepeer']",26.916666666666668
+91,16,['gas'],"['mkr price/earnings ratio 2', 'copy of (#1412) mkr price/burn ratio - updated', 'copy of (#1435) mkr price/earnings ratio']",24.4375
+92,25,"['dex', 'gnosis', 'dxdao', 'dutchx', 'defi']","['reputation earned per token', 'locked eth and tokens usd equivalent', 'copy of (#227) dxdao usd locked']",34.76
+93,40,"['compound', 'idle_v4', 'defi', 'perp', 'prod']","['wip - compound v2 liquidation summary by week', 'wip - compound v2 liquidations', 'compound v2 usd value of collateral']",32.075
+94,27,[],"['copy of (#1510) ytd degens erc20 bets', 'all-time degens erc20 bet volume', 'copy of (#1510) ytd degens erc20 bets']",29.59259259259259
+95,40,"['ens', 'defi', 'dex', 'aggregator', '1inch']","['0x volume share per taker token', 'copy of (#530) airswap weekly usd volume', 'airswap weekly usd volume']",38.875
+96,21,['space poggers'],"['distribution of reputation dxdao', 'cdp saver -- mcd calls', 'all time holders']",26.761904761904763
+97,22,"['defi', 'uniswap', 'dex', 'volume', 'dextf']","['uniswap total usd trading volume 24 hours', 'dai bought on uniswap per hour', 'monthly dex volume by project']",36.5
+98,74,"['nft.trades', '1inch', 'marketing', 'newcomers', 'uniswap']","['compound v2 [wip]', 'dexe holders', 'mkr price/earnings ratio']",34.027027027027025
+99,48,"['dex', 'uniswap', 'volume', 'prices', 'idex']","['dutchx discount per auction - dai auctioned for weth', 'ethereum operations gas usage per month', 'volume of eth exchanged for dip (etherisc) per year on idex']",38.604166666666664
+100,24,[],"['eth address tokens balances', 'price by date', 'average price per day (search by symbol)']",27.458333333333332
+101,40,"['nft', 'dydx', 'defi', 'hex.win', 'safe']","['new query', 'wip - dxdao reputation token', 'dydx indexes']",34.025
+102,36,['prod'],"['1inch dau', '1inch mau', '1inch wau']",25.944444444444443
+103,25,"['defi', 'volume', 'dex']","['copy of (#435) weekly uniswap, kyber, 0x and dutchx usd volume', 'dex volume per day trailing 7 days', 'dexs by volume last 7 days v1']",36.96
+104,16,[],"['new query', 'kyber 2019 usd volume', 'new query']",17.4375
+105,18,"['bloom', 'identity', 'wbtc', 'gitcoin']","['bloom - unique addresses attested', 'compound weekly suppliers', 'new query']",26.61111111111111
+106,24,"['gas', 'ethereum', 'monthly']","['median gas price per hour (14 days)', 'all argent contracts sorted by number of transactions', 'median gas prices, by hour, last 72 hours']",44.666666666666664
+107,52,"['defi', 'gnosis safe', 'stablecoins', 'dao', 'dex']","['example: compound weekly borrowers', 'asset price in bnb', 'linkdrop example']",27.884615384615383
+108,28,"['uniswap', 'dex', 'governance']","['nxm-token-supply', 'total keep staked', 'top $uni delegates']",22.464285714285715
+109,153,"['opyn', 'ens', 'xdollar', 'xdo', 'aave']","['dxdao reputation score', 'copy of (#203) dxdao reputation score', 'wip - uniswap liquidity pool size by token']",32.01307189542484
+110,44,"['defi', 'compound', 'lending', 'bancor', 'dex']","['compound v1 usd borrow volume per token', 'dharma volume', 'usd borrowed on compound last week']",31.65909090909091
+111,27,"['wallet', 'instadapp', 'defi']","['kyber burn assignment wip', 'new instadapp wallets and growth rate', '1inch 24h top traders']",34.407407407407405
+112,15,[],"['iearn.finance deposits-per-day', 'iearn.finance total-deposits-by-day', 'iearn.finance.v2 deposits-per-day']",28.333333333333332
+113,33,"['defi', 'prices', 'numerai', 'binance dex']","['timerange for prices', 'prices', '[new] price-range']",18.696969696969695
+114,26,"['numerai', 'balancer']","['copy of (#221) number of trades', 'vaults created per day', '# of parties created, by week']",26.807692307692307
+115,17,"['dex', 'defi', 'uniswap', 'kyber', '0x']","['daily dex volumes', 'daily dex volumes', '[wip] total dex usd volume 2019']",30.235294117647058
+116,56,"['$minds', 'erc20']","['amount locked or burned over time', 'wyvern exchange v2.2 unique user count (daily)', 'new dai borrows by day - compound v2']",31.928571428571427
+117,33,"['defi', 'numerai', 'tokens', 'data', 'supply']","['wip - nmr token minted', 'new query', 'number of mgn holders that registered']",28.303030303030305
+118,45,"['defi', 'supply', 'donut', 'reddit', 'dinoswap']","['donut 🍩 total supply', 'synthetix contracts low holdings', 'total bnb holdings']",26.044444444444444
+119,32,"['codingsh', 'compound', 'lending', 'ant', 'aragon']","['compound v1 borrowing activity (dai)', 'ant balances', 'top holders of gno']",27.625
+120,20,"['dex', 'defi', '0x', 'volume', 'kyber']","['radar relay volume (wip)', 'weekly dex usd volume (mats :)', 'copy of (#435) weekly dex usd volume']",30.95
+121,25,"['uniswap', 'ens']","['uniswap dai/eth liquidity', 'uniswap mkr/eth liquidity', 'new query']",28.96
+122,70,"['dai', 'mstable', 'dxdao', 'gnosis', 'dao']","['addresses that got reputation', 'mgn holders that locked for reputation', 'mkr balances']",34.74285714285714
+123,29,['space poggers'],"['1inch.exchange 7d top traders', '[wip] dex by volume 2019', '1inch.exchange overall referrals']",34.89655172413793
+124,20,['defi'],"['zrx p/e (v2, v2.1, v3 under 0x v3 model) [wip]', '0x v2+v2.1+v3 protocol fees (under 0x v3 model)', '(uniswap) investment backtester test query']",30.4
+125,21,"['ens', 'erc721']","['new query', 'solution submitter', 'cumulative gross mint']",25.047619047619047
+126,35,[],"['total outstanding debt compound v1', 'wip - experiment with binary data', 'totle weekly usd trading volume']",23.257142857142856
+127,32,"['dydx', 'dai', 'makerdao', 'stablecoin', 'retention']","['dai sending daily retention', 'copy of (#452) dai sending daily retention', 'lpt staker retention']",38.4375
+128,18,"['defi', 'makerdao', 'dai', 'dsr']","['daily dai supply/borrowing - compoundv1', 'net new dai supply (minting/redeeming) by day - compoundv2', 'daily dai loan repayment - compound v2']",37.72222222222222
+129,62,"['reuf rujevic', 'mstable', 'defi', 'space poggers']","['makerdao (scd) - failed liqs', 'last 30 days dex.blue volume', '0x v2+v2.1+v3 trades per day 365d']",30.532258064516128
+130,50,"['1inch', 'marketing', 'mstable']","['new query', 'by project with price', 'mai finance vaults deposits']",27.18
+131,35,"['dex', 'volume', 'defi', 'ens', 'nft']","['number of borrowers that accounted for 90% of volume', '0x usd volume last week (wip)', 'usd spent on ens in the primary market (to date)']",32.77142857142857
+132,27,[],"['moloch votes by member', 'kyber burnfee test query', 'compound net supply per day']",33.22222222222222
+133,19,"['aragon', 'dao', 'opyn', 'tbtc', 'numerai']","['0x v2.1 new user activity', 'aragon vote outcomes', 'opyn otoken uniswap liquidity/activity']",25.94736842105263
+134,65,"['tokens', 'balance', 'usd_value', 'makerdao', 'maker tvl']","['eth deposit and withdraw ratios (upbit3 5e032243d507c743b061ef021e2ec7fcc6d3ab89)', 'collateral usd value per day', 'best bots']",28.50769230769231
+135,32,"['dxdao', 'gnosis', 'dao', 'defi', 'dai']","['number of token holders query', 'mgn token balances', 'lock eth for rep - amount over time']",28.34375
+136,31,"['cnsl', 'mstable', 'mainframe']","['top senders to an account', 'token balances of an address', 'copy of (#1225) token balances of an address']",25.0
