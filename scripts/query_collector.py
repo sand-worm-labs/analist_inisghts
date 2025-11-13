@@ -8,4 +8,4 @@ if __name__ == "__main__":
         delay=0.1,
         retry_config={"max_retries": 100, "backoff_factor": 2.0, "retry_on_statuses": (429, 500, 502, 503, 504)}
     )
-    collector.collect_queries(start_id=62001, end_id=200000, batch_size=2_000)
+    collector.collect_queries(start_id=1000000, end_id=3000000, batch_size=2_000)

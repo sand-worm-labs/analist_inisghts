@@ -9,7 +9,7 @@ import time
 from itertools import cycle
 from src.collect import fetch_dune_query, save_parquet
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("dataset")
 
 
 def normalize_text(query):

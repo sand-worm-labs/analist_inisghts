@@ -3,11 +3,11 @@ import pyarrow.parquet as pq
 from pathlib import Path
 from src.utils import find_missing_ids, get_saved_ids
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("dataset")
 
 
 def main():
-    start_id, end_id = 1, 400_000
+    start_id, end_id = 1, 1300000
     total_ids = end_id - start_id + 1
 
     saved_ids = get_saved_ids(DATA_DIR)

@@ -29,7 +29,7 @@ from sklearn.metrics.pairwise import euclidean_distances
 # Import shared utilities
 from src.utils import get_query_objects, clean_sql
 
-DATA_DIR = Path("data")
+DATA_DIR = Path("dataset")
 OUTPUT_DIR_SEMANTIC = Path("clusters") / "semantic"
 OUTPUT_DIR_SQL = Path("clusters") / "sql"
 OUTPUT_DIR_SEMANTIC.mkdir(parents=True, exist_ok=True)
