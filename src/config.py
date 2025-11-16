@@ -17,7 +17,7 @@ class Config:
     def __init__(self):
         # Load environment variables
         self.DUNE_API_KEYS = [key.strip() for key in os.getenv("DUNE_API_KEYS", "").split(",") if key.strip()]
-        self.DATA_PATH = os.getenv("DATA_PATH", "./data")
+        self.DATA_PATH = os.getenv("DATA_PATH", "./dataset")
         self.LOGS_PATH = os.getenv("LOGS_PATH", "./logs")
         self.PROGRAM_CURSOR = os.getenv("PROGRAM_CURSOR", "./cursor")
         self.DEBUG = os.getenv("DEBUG", "False").lower() == "true"

@@ -4,3 +4,4 @@ __pycache__/
 logs/
 **/individual_clusters/
 **/clusterer_model*.pkl
+duplicates/
