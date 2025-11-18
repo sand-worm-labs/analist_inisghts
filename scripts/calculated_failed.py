@@ -7,7 +7,7 @@ DATA_DIR = Path("dataset")
 
 
 def main():
-    start_id, end_id = 1, 1300000
+    start_id, end_id = 1, 5_670_000
     total_ids = end_id - start_id + 1
 
     saved_ids = get_saved_ids(DATA_DIR)
