@@ -1,10 +1,12 @@
 services:
   cluster:
-    build: .
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile
     volumes:
-      - ./dataset:/app/dataset
-      - ./clusters:/app/clusters
-      - ./src:/app/src
+      - ../dataset:/app/dataset
+      - ../clusters:/app/clusters
+      - ../src:/app/src
       - hf-cache:/root/.cache/huggingface
     deploy:
       resources:
@@ -16,7 +18,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - HF_HOME=/root/.cache/huggingface
-    command: poetry run python src/cluster_queries.py --mode sql
+    command: poetry run python ../src/cluster_queries.py --mode sql
 
 volumes:
   hf-cache:
