@@ -17,7 +17,7 @@ numpy = "^1.26.0"
 pandas = "^2.2.0"
 
 # Data formats + Parquet
-pyarrow = "^18.0.0"
+pyarrow = ">=21.0.0"
 fastparquet = "^2024.5.0"        # Optional Parquet engine, faster for writes
 
 # Machine learning + embeddings
@@ -36,6 +36,8 @@ jupyter = "^1.1.1"
 jupyterlab = "^4.2.5"
 ipykernel = "^6.29.5"
 optimum = "^2.0.0"
+datasets = "^4.4.1"
+einops = "^0.8.1"
 
 [tool.poetry.scripts]
 show-config = "src.config:show_config"

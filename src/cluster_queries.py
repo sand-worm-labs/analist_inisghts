@@ -47,7 +47,7 @@ class QueryClusterer:
     
     def __init__(
         self,
-        model_name: str = 'all-MiniLM-L6-v2',
+        model_name: str = 'nvidia/NV-Embed-v2',
         min_cluster_size: int = 1000,
         min_samples: int = 90,
         mode: str = 'semantic',
@@ -77,7 +77,7 @@ class QueryClusterer:
         print(f"[INFO] Workers: {self.max_workers}")
         print(f"[INFO] Loading model: {model_name}")
         
-        self.model = SentenceTransformer(model_name)
+        self.model = SentenceTransformer(model_name,trust_remote_code=True)
         self.min_cluster_size = min_cluster_size
         self.min_samples = min_samples
         self.embeddings = None
@@ -610,7 +610,7 @@ def main():
         if args.mode == 'sql':
             model_name = 's2593817/sft-sql-embedding'
         else:
-            model_name = 'all-MiniLM-L6-v2'
+            model_name = 'nvidia/NV-Embed-v2'
     else:
         model_name = args.model
     
