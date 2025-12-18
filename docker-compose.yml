@@ -1,0 +1,22 @@
+services:
+  cluster:
+    build: .
+    volumes:
+      - ./dataset:/app/dataset
+      - ./clusters:/app/clusters
+      - ./src:/app/src
+      - hf-cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - PYTHONUNBUFFERED=1
+      - HF_HOME=/root/.cache/huggingface
+    command: poetry run python src/cluster_queries.py --mode sql
+
+volumes:
+  hf-cache:
