@@ -19,7 +19,7 @@ import logging
 from tqdm import tqdm
 
 from src.config import Config 
-from src.utils import ensure_dirs
+from utils.normalize import ensure_dirs
 
 
 class BufferHandler(logging.Handler):

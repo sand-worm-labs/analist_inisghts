@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 import logging
-from src.utils import ensure_dirs, setup_logger
+from utils.normalize import ensure_dirs, setup_logger
 
 load_dotenv()
 
