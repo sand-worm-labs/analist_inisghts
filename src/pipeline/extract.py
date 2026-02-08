@@ -232,6 +232,5 @@ Examples:
         batch_size=args.batch_size,
     )
 
-
 if __name__ == "__main__":
     main()
